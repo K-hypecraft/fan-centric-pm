@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김지연 | Weverse 오프라인 & 팬이벤트 기획/운영</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Righteous&family=Anton&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --weverse-purple: #7B68EE;
+            --bts-gold: #C9B037;
+            --bts-black: #1A1A1A;
+            --bts-army: #A37BDA;
+            --nj-mint: #00D9C0;
+            --nj-white: #FFFFFF;
+            --nj-pink: #FFB6D9;
+            --svt-rose: #E83A82;
+            --svt-dark: #1A1A2E;
+            --lsf-blue: #4A90E2;
+            --lsf-dark: #1A2332;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background: #0A0A0A;
+            color: #FFFFFF;
+            overflow-x: hidden;
+        }
+
+        /* ========== NAVIGATION ========== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(123, 104, 238, 0.3);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--weverse-purple);
+            text-shadow: 0 0 20px rgba(123, 104, 238, 0.6);
+        }
+
+        .btn-download {
+            background: var(--weverse-purple);
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-download:hover {
+            box-shadow: 0 0 30px rgba(123, 104, 238, 0.8);
+            transform: translateY(-2px);
+        }
+
+        /* ========== HERO - 위버스 입구 ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0A0A0A 0%, #1A1A2E 100%);
+            position: relative;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(123, 104, 238, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(0, 217, 192, 0.2) 0%, transparent 50%);
+            animation: glow 6s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-neon {
+            font-size: 4.5rem;
+            font-weight: 900;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            animation: neon-pulse 2s ease-in-out infinite;
+        }
+
+        .hero-neon .name {
+            color: var(--weverse-purple);
+            text-shadow: 
+                0 0 10px rgba(123, 104, 238, 0.8),
+                0 0 20px rgba(123, 104, 238, 0.6),
+                0 0 40px rgba(123, 104, 238, 0.4);
+        }
+
+        @keyframes neon-pulse {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 4rem;
+            font-weight: 300;
+        }
+
+        .zone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .zone-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .zone-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .zone-card.bts {
+            border-color: var(--bts-gold);
+            background: linear-gradient(135deg, rgba(201, 176, 55, 0.1), rgba(163, 123, 218, 0.1));
+        }
+
+        .zone-card.bts:hover {
+            box-shadow: 0 10px 40px rgba(201, 176, 55, 0.4);
+        }
+
+        .zone-card.newjeans {
+            border-color: var(--nj-mint);
+            background: linear-gradient(135deg, rgba(0, 217, 192, 0.1), rgba(255, 182, 217, 0.1));
+        }
+
+        .zone-card.newjeans:hover {
+            box-shadow: 0 10px 40px rgba(0, 217, 192, 0.4);
+        }
+
+        .zone-card.seventeen {
+            border-color: var(--svt-rose);
+            background: linear-gradient(135deg, rgba(232, 58, 130, 0.1), rgba(26, 26, 46, 0.1));
+        }
+
+        .zone-card.seventeen:hover {
+            box-shadow: 0 10px 40px rgba(232, 58, 130, 0.4);
+        }
+
+        .zone-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .zone-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .zone-metric {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin: 1rem 0;
+        }
+
+        /* ========== SECTION BASE ========== */
+        .section {
+            min-height: 100vh;
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========== BTS ZONE - 방탄복 ========== */
+        .bts-zone {
+            background: linear-gradient(135deg, var(--bts-black) 0%, #2A2A2A 100%);
+            position: relative;
+        }
+
+        .bts-zone::before {
+            content: '🛡️';
+            position: absolute;
+            font-size: 20rem;
+            opacity: 0.03;
+            top: 10%;
+            right: 5%;
+            animation: shield-float 6s ease-in-out infinite;
+        }
+
+        @keyframes shield-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .bts-zone .section-tag {
+            background: linear-gradient(135deg, var(--bts-gold), var(--bts-army));
+            color: white;
+            box-shadow: 0 0 30px rgba(201, 176, 55, 0.5);
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        .bts-zone .section-title {
+            color: var(--bts-gold);
+            text-shadow: 
+                0 0 20px rgba(201, 176, 55, 0.6),
+                3px 3px 0 rgba(163, 123, 218, 0.3);
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* 방탄복 카드 */
+        .shield-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .shield-card {
+            background: rgba(201, 176, 55, 0.1);
+            border: 3px solid var(--bts-gold);
+            border-radius: 15px;
+            padding: 2.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .shield-card::before {
+            content: '🛡️';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 3rem;
+            filter: drop-shadow(0 0 10px rgba(201, 176, 55, 0.6));
+        }
+
+        .shield-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 40px rgba(201, 176, 55, 0.4);
+        }
+
+        .card-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--bts-gold);
+            margin-bottom: 1rem;
+        }
+
+        .card-desc {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.8;
+        }
+
+        .card-metric {
+            display: inline-block;
+            background: var(--bts-gold);
+            color: var(--bts-black);
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-top: 1rem;
+        }
+
+        /* ARMY 봉 */
+        .army-power {
+            background: linear-gradient(135deg, rgba(163, 123, 218, 0.2), rgba(201, 176, 55, 0.2));
+            border: 2px solid var(--bts-army);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .army-power-title {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--bts-army);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .army-power-title::before,
+        .army-power-title::after {
+            content: '💜';
+            font-size: 2.5rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* ========== NEWJEANS ZONE - 버니 카페 ========== */
+        .newjeans-zone {
+            background: linear-gradient(135deg, var(--nj-white) 0%, #F0F8FF 100%);
+            color: #0A0A0A;
+        }
+
+        .newjeans-zone::before {
+            content: '🐰';
+            position: absolute;
+            font-size: 18rem;
+            opacity: 0.05;
+            top: 15%;
+            left: -5%;
+            animation: bunny-hop 3s ease-in-out infinite;
+        }
+
+        @keyframes bunny-hop {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-40px); }
+        }
+
+        .newjeans-zone .section-tag {
+            background: linear-gradient(135deg, var(--nj-mint), var(--nj-pink));
+            color: white;
+            font-family: 'Righteous', sans-serif;
+            transform: rotate(-2deg);
+        }
+
+        .newjeans-zone .section-title {
+            font-family: 'Righteous', sans-serif;
+            background: linear-gradient(135deg, var(--nj-mint), var(--nj-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* 레트로 TV 카드 */
+        .retro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .retro-card {
+            background: white;
+            border: 4px solid var(--nj-mint);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 
+                8px 8px 0 rgba(0, 217, 192, 0.3),
+                -8px -8px 0 rgba(255, 182, 217, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .retro-card:hover {
+            transform: rotate(2deg) scale(1.05);
+            box-shadow: 
+                12px 12px 0 rgba(0, 217, 192, 0.5),
+                -12px -12px 0 rgba(255, 182, 217, 0.5);
+        }
+
+        .retro-card::before {
+            content: '🐰';
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            font-size: 2.5rem;
+        }
+
+        .newjeans-zone .card-title {
+            color: var(--nj-mint);
+            font-family: 'Righteous', sans-serif;
+        }
+
+        .newjeans-zone .card-desc {
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        .newjeans-zone .card-metric {
+            background: linear-gradient(135deg, var(--nj-mint), var(--nj-pink));
+            color: white;
+        }
+
+        /* ========== SEVENTEEN ZONE - 다이아몬드 축제 ========== */
+        .seventeen-zone {
+            background: linear-gradient(135deg, var(--svt-dark) 0%, #0F0F1E 100%);
+            position: relative;
+        }
+
+        .seventeen-zone::before {
+            content: '💎';
+            position: absolute;
+            font-size: 20rem;
+            opacity: 0.05;
+            top: 10%;
+            right: 10%;
+            animation: diamond-spin 20s linear infinite;
+        }
+
+        @keyframes diamond-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .seventeen-zone .section-tag {
+            background: linear-gradient(90deg, 
+                #FF6B6B, #FFA500, #FFD700, #00D084, #4A90E2, 
+                #9D4EDD, #FF6B9D, #FF8C42, #FFD93D, #95E1D3,
+                #F38181, #AA96DA, #FCBAD3
+            );
+            color: white;
+            font-family: 'Righteous', sans-serif;
+            animation: rainbow-slide 5s linear infinite;
+            background-size: 300% 100%;
+        }
+
+        @keyframes rainbow-slide {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        .seventeen-zone .section-title {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--svt-rose);
+            text-shadow: 0 0 30px rgba(232, 58, 130, 0.8);
+        }
+
+        /* 다이아몬드 카드 */
+        .diamond-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .diamond-card {
+            background: rgba(232, 58, 130, 0.1);
+            border: 3px solid var(--svt-rose);
+            border-radius: 15px;
+            padding: 2.5rem;
+            position: relative;
+            clip-path: polygon(10% 0%, 90% 0%, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0% 90%, 0% 10%);
+            transition: all 0.3s ease;
+        }
+
+        .diamond-card:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 0 50px rgba(232, 58, 130, 0.6);
+        }
+
+        .diamond-card::before {
+            content: '💎';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 3rem;
+            animation: gem-sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes gem-sparkle {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.5); }
+        }
+
+        .seventeen-zone .card-title {
+            color: var(--svt-rose);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .seventeen-zone .card-metric {
+            background: var(--svt-rose);
+            color: white;
+        }
+
+        /* 13 모티브 */
+        .thirteen-power {
+            text-align: center;
+            margin: 3rem 0;
+            padding: 3rem;
+            background: rgba(232, 58, 130, 0.15);
+            border-radius: 20px;
+            border: 2px dashed var(--svt-rose);
+        }
+
+        .thirteen-number {
+            font-size: 8rem;
+            font-weight: 900;
+            font-family: 'Montserrat', sans-serif;
+            color: var(--svt-rose);
+            text-shadow: 0 0 40px rgba(232, 58, 130, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        /* ========== LE SSERAFIM ZONE - 날개 없는 천사 ========== */
+        .lsf-zone {
+            background: linear-gradient(135deg, var(--lsf-dark) 0%, #0A1520 100%);
+            position: relative;
+        }
+
+        .lsf-zone::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(74, 144, 226, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(74, 144, 226, 0.1) 0%, transparent 50%);
+            animation: hologram-glow 5s ease-in-out infinite;
+        }
+
+        @keyframes hologram-glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .lsf-zone .section-tag {
+            background: linear-gradient(135deg, var(--lsf-blue), #6A5ACD);
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            box-shadow: 0 0 30px rgba(74, 144, 226, 0.6);
+        }
+
+        .lsf-zone .section-title {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--lsf-blue);
+            text-shadow: 0 0 30px rgba(74, 144, 226, 0.8);
+        }
+
+        /* 홀로그램 카드 */
+        .holo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .holo-card {
+            background: rgba(74, 144, 226, 0.1);
+            border: 2px solid var(--lsf-blue);
+            border-radius: 15px;
+            padding: 2.5rem;
+            position: relative;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .holo-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 50px rgba(74, 144, 226, 0.5);
+        }
+
+        .holo-card::before {
+            content: '🔥';
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            font-size: 2.5rem;
+            animation: fire-flicker 1.5s ease-in-out infinite;
+        }
+
+        @keyframes fire-flicker {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .lsf-zone .card-title {
+            color: var(--lsf-blue);
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .lsf-zone .card-metric {
+            background: var(--lsf-blue);
+            color: white;
+        }
+
+        /* Weverse 연결 박스 */
+        .weverse-link {
+            background: linear-gradient(135deg, var(--weverse-purple), #9D4EDD);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin: 3rem 0;
+            box-shadow: 0 15px 50px rgba(123, 104, 238, 0.4);
+        }
+
+        .weverse-link-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .weverse-link-title::before {
+            content: '→';
+            font-size: 2rem;
+        }
+
+        .weverse-link-desc {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .hero-neon {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .zone-grid,
+            .shield-grid,
+            .retro-grid,
+            .diamond-grid,
+            .holo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .thirteen-number {
+                font-size: 5rem;
+            }
+        }
+
+        /* ========== ANIMATIONS ========== */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-brand">WEVERSE PORTFOLIO</div>
+            <button class="btn-download" onclick="downloadPDF()">📄 PDF 다운로드</button>
+        </div>
+    </nav>
+
+    <!-- HERO - 위버스 입구 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-neon">
+                <span class="name">김지연</span>
+            </h1>
+            <p class="hero-subtitle">팬심 → 데이터 → 매출<br/>위버스 O2O의 마지막 퍼즐</p>
+            
+            <div class="zone-grid">
+                <div class="zone-card bts">
+                    <div class="zone-icon">🛡️</div>
+                    <div class="zone-title">BTS ZONE</div>
+                    <div class="zone-metric">510K</div>
+                    <div>방탄복 시스템</div>
+                </div>
+                
+                <div class="zone-card newjeans">
+                    <div class="zone-icon">🐰</div>
+                    <div class="zone-title">NewJeans ZONE</div>
+                    <div class="zone-metric">3회 완판</div>
+                    <div>버니즈 카페</div>
+                </div>
+                
+                <div class="zone-card seventeen">
+                    <div class="zone-icon">💎</div>
+                    <div class="zone-title">SEVENTEEN ZONE</div>
+                    <div class="zone-metric">D-13</div>
+                    <div>다이아몬드 축제</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BTS ZONE - 수원문화재단 -->
+    <section class="section bts-zone">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-tag">🛡️ We Are Bulletproof</div>
+                <h2 class="section-title">51만 명을 방어하다</h2>
+                <p class="section-subtitle">수원문화재단 - ARMY급 조직력으로 위기 극복</p>
+            </div>
+
+            <div class="shield-grid">
+                <div class="shield-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="card-title">🛡️ SYSTEM DEFENSE</div>
+                    <div class="card-desc">
+                        <strong>ERR_402 공격 감지</strong><br/>
+                        결제 시스템 다운 → ChatGPT로 1분 내 원인 규명 → 
+                        우회 결제 시스템 즉시 가동. BTS의 방탄복처럼 시스템을 방어했습니다.
+                    </div>
+                    <div class="card-metric">복구 시간: 1분</div>
+                </div>
+
+                <div class="shield-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="card-title">🌍 GLOBAL SCALE</div>
+                    <div class="card-desc">
+                        <strong>51만 명 = BTS 스타디움급</strong><br/>
+                        위버스콘 수준의 대규모 팬 접점 관리 경험. 
+                        글로벌 스케일 이벤트 운영 능력 검증.
+                    </div>
+                    <div class="card-metric">사고 발생: 0건</div>
+                </div>
+
+                <div class="shield-card fade-in" style="animation-delay: 0.3s;">
+                    <div class="card-title">🕊️ WINGS</div>
+                    <div class="card-desc">
+                        <strong>위기를 날개로</strong><br/>
+                        예산 60% 삭감 → AI로 홍보 영상 제작 → 5.5만 조회수.
+                        역경을 성장의 계기로 만드는 BTS 정신.
+                    </div>
+                    <div class="card-metric">조회수: 55,000</div>
+                </div>
+            </div>
+
+            <div class="army-power">
+                <div class="army-power-title">ARMY 조직력</div>
+                <p style="font-size: 1.2rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 2rem;">
+                    "5년 만에 샤우팅 안 했다" - 팀장의 찬사<br/>
+                    ARMY처럼 완벽한 조직력으로 대규모 이벤트 무사고 운영
+                </p>
+                <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: 900; color: var(--bts-army);">💜 1시간</div>
+                        <div>긴급 복구</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: 900; color: var(--bts-army);">💜 0건</div>
+                        <div>민원 발생</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: 900; color: var(--bts-army);">💜 120%</div>
+                        <div>예산 효율</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weverse-link">
+                <div class="weverse-link-title">→ Weverse Con 적용 시나리오</div>
+                <div class="weverse-link-desc">
+                    • <strong>대규모 오프라인 이벤트:</strong> 위버스콘 같은 수만 명 규모 팬 이벤트 운영 경험<br/>
+                    • <strong>시스템 방어:</strong> 결제/발권 장애 1분 복구 → 글로벌 프로모션 리스크 관리<br/>
+                    • <strong>ARMY급 조직력:</strong> 팀워크로 위기를 성장 계기로 전환
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEWJEANS ZONE - 모랑공방 -->
+    <section class="section newjeans-zone">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-tag">🐰 How Sweet Data!</div>
+                <h2 class="section-title">Morang Bunny Cafe</h2>
+                <p class="section-subtitle">모랑공방 - NewJeans 알고리즘처럼 데이터로 완판</p>
+            </div>
+
+            <div class="retro-grid">
+                <div class="retro-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="card-title">📊 Attention</div>
+                    <div class="card-desc">
+                        <strong>RT → 데이터 분석</strong><br/>
+                        NewJeans의 알고리즘 전략처럼 RT 패턴을 48시간 추적.
+                        팬 페르소나 도출 후 선주문 모델 실행.
+                    </div>
+                    <div class="card-metric">분석 시간: 48H</div>
+                </div>
+
+                <div class="retro-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="card-title">🎬 OMG!</div>
+                    <div class="card-desc">
+                        <strong>3회 연속 완판</strong><br/>
+                        "OMG!" 하는 성과. 100% 선주문으로 재고 폐기 비용 0원.
+                        마케팅 비용 없이 컴백 타이밍 맞춰 유기적 확산.
+                    </div>
+                    <div class="card-metric">재고: 0%</div>
+                </div>
+
+                <div class="retro-card fade-in" style="animation-delay: 0.3s;">
+                    <div class="card-title">💕 Ditto</div>
+                    <div class="card-desc">
+                        <strong>재구매율 67%</strong><br/>
+                        "Ditto(똑같이)" 또 산다. 1차 구매자가 2차도 구매.
+                        팬과의 거리를 좁힌 NewJeans처럼 팬 충성도 확보.
+                    </div>
+                    <div class="card-metric">재구매: 67%</div>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, var(--nj-mint), var(--nj-pink)); padding: 3rem; border-radius: 20px; text-align: center; margin: 3rem 0;">
+                <h3 style="font-size: 2rem; font-weight: 900; color: white; margin-bottom: 2rem; font-family: 'Righteous', sans-serif;">
+                    🍪 Cookie 같은 달콤한 성과!
+                </h3>
+                <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; color: white;">
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: 900;">6,000만 원</div>
+                        <div style="font-size: 1.1rem;">총 매출</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: 900;">0%</div>
+                        <div style="font-size: 1.1rem;">재고 폐기</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2.5rem; font-weight: 900;">ROI 300%</div>
+                        <div style="font-size: 1.1rem;">투자 대비 수익</div>
+                    </div>
+                </div>
+                <p style="font-size: 1.2rem; margin-top: 2rem; font-family: 'Righteous', sans-serif;">
+                    "How Sweet! 이 데이터!" 🐰
+                </p>
+            </div>
+
+            <div class="weverse-link">
+                <div class="weverse-link-title">→ Weverse Shop 적용 시나리오</div>
+                <div class="weverse-link-desc">
+                    • <strong>알고리즘 전략:</strong> RT 분석으로 팬 페르소나 도출 → 위버스샵 MD 최적화<br/>
+                    • <strong>선주문 모델:</strong> 컴백 타이밍 한정판 → 수요 확보 후 제작 → 재고 0<br/>
+                    • <strong>바이럴 마케팅:</strong> NewJeans처럼 SNS 유기적 확산 전략
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEVENTEEN ZONE - 꼬질랜드 -->
+    <section class="section seventeen-zone">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-tag">💎 Self-Producing Crisis</div>
+                <h2 class="section-title">KKOJIL DIAMOND FEST</h2>
+                <p class="section-subtitle">꼬질랜드 - 13일 만에 만든 기적 (13 SEVENTEEN)</p>
+            </div>
+
+            <div class="thirteen-power">
+                <div class="thirteen-number">13</div>
+                <p style="font-size: 1.5rem; color: var(--svt-rose); font-weight: 700; margin-bottom: 1rem;">
+                    13일 = 13멤버 SEVENTEEN의 힘!
+                </p>
+                <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.8);">
+                    주최자 잠적 → 13일 만에 Self-Producing<br/>
+                    SEVENTEEN의 자체 제작 DNA처럼 직접 기획·실행
+                </p>
+            </div>
+
+            <div class="diamond-grid">
+                <div class="diamond-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="card-title">🎯 HIP HOP UNIT</div>
+                    <div class="card-desc">
+                        <strong>전략 기획 (컨셉 전환)</strong><br/>
+                        '도박 밈' → '진짜 카지노 축제'로 브랜딩 전환.
+                        SEVENTEEN 힙합 유닛처럼 강력한 전략 수립.
+                    </div>
+                    <div class="card-metric">실행: D-13</div>
+                </div>
+
+                <div class="diamond-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="card-title">🎤 VOCAL UNIT</div>
+                    <div class="card-desc">
+                        <strong>소통 관리 (팬 CS)</strong><br/>
+                        불안한 팬들과 실시간 소통. 투명하게 진행 상황 공유.
+                        보컬 유닛처럼 팬 감정을 케어.
+                    </div>
+                    <div class="card-metric">만족도: 92%</div>
+                </div>
+
+                <div class="diamond-card fade-in" style="animation-delay: 0.3s;">
+                    <div class="card-title">💃 PERFORMANCE UNIT</div>
+                    <div class="card-desc">
+                        <strong>실행력 (현장 운영)</strong><br/>
+                        장소·스태프·콘텐츠 13일 만에 완성.
+                        퍼포먼스 유닛처럼 완벽한 실행.
+                    </div>
+                    <div class="card-metric">환불: 0건</div>
+                </div>
+            </div>
+
+            <div style="background: rgba(232, 58, 130, 0.2); padding: 3rem; border-radius: 20px; border: 3px solid var(--svt-rose); text-align: center; margin: 3rem 0;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">🙌</div>
+                <h3 style="font-size: 2.5rem; font-weight: 900; color: var(--svt-rose); margin-bottom: 2rem; font-family: 'Montserrat', sans-serif;">
+                    VERY NICE! 만세! 🎊
+                </h3>
+                <p style="font-size: 1.3rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 2rem;">
+                    "역대급 덕질 이벤트" 1,200건 찬사<br/>
+                    트위터 트렌드 1위 달성
+                </p>
+                <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 900; color: var(--svt-rose);">CLAP!</div>
+                        <div>0건 환불</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 900; color: var(--svt-rose);">BOOM!</div>
+                        <div>200% 방문</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 900; color: var(--svt-rose);">HIT!</div>
+                        <div>1위 트렌드</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="weverse-link">
+                <div class="weverse-link-title">→ Weverse 긴급 프로모션 대응</div>
+                <div class="weverse-link-desc">
+                    • <strong>Self-Producing:</strong> 주최자 없이 직접 기획 → SEVENTEEN 자체 제작 DNA<br/>
+                    • <strong>13일 기적:</strong> 2주 내 오프라인 프로모션 완성 → 긴급 실행력<br/>
+                    • <strong>3유닛 협업:</strong> 전략·소통·실행 동시 진행 → 팀워크
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LE SSERAFIM ZONE - 위버스 제안 -->
+    <section class="section lsf-zone">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-tag">🔥 FEARLESS PROPOSAL</div>
+                <h2 class="section-title">UNFORGIVEN VISION</h2>
+                <p class="section-subtitle">위버스 제안 - 날개 없는 천사처럼 기존 틀을 깨다</p>
+            </div>
+
+            <div style="text-align: center; margin: 3rem 0; padding: 3rem; background: rgba(74, 144, 226, 0.1); border-radius: 20px;">
+                <div style="font-size: 6rem; margin-bottom: 2rem;">👤</div>
+                <h3 style="font-size: 2.5rem; font-weight: 900; color: var(--lsf-blue); margin-bottom: 1rem;">
+                    날개 없는 천사
+                </h3>
+                <p style="font-size: 1.3rem; color: rgba(255, 255, 255, 0.8);">
+                    "I'm fearless, 기존 틀을 깬다"<br/>
+                    LE SSERAFIM처럼 완벽하지 않아도 두려움 없이 도전
+                </p>
+            </div>
+
+            <div class="holo-grid">
+                <div class="holo-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="card-title">🔥 EASY</div>
+                    <div class="card-desc">
+                        <strong>디지털 덕질 여권</strong><br/>
+                        QR 스캔만으로 콘서트 추억 자동 저장.
+                        "Easy"하게 팬 경험 기록.
+                    </div>
+                    <div class="card-metric">체류시간 +35%</div>
+                </div>
+
+                <div class="holo-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="card-title">🔥 ANTIFRAGILE</div>
+                    <div class="card-desc">
+                        <strong>깨지지 않는 락인</strong><br/>
+                        추억이 쌓일수록 이탈 불가.
+                        "Antifragile"한 팬 충성도 시스템.
+                    </div>
+                    <div class="card-metric">전환율 +18%</div>
+                </div>
+
+                <div class="holo-card fade-in" style="animation-delay: 0.3s;">
+                    <div class="card-title">🔥 PERFECT</div>
+                    <div class="card-desc">
+                        <strong>완벽한 통합 경험</strong><br/>
+                        위버스를 팬 라이프 베이스캠프로.
+                        "Perfect night"처럼 완결된 여정.
+                    </div>
+                    <div class="card-metric">NPS +22pt</div>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, var(--lsf-blue), #6A5ACD); padding: 3rem; border-radius: 20px; text-align: center; margin: 3rem 0;">
+                <h3 style="font-size: 2rem; font-weight: 900; color: white; margin-bottom: 2rem;">
+                    "No celeb, 기존 시스템을 뛰어넘다" 🔥
+                </h3>
+                <p style="font-size: 1.2rem; color: white;">
+                    LE SSERAFIM이 'Celeb' 대신 선택한 길처럼<br/>
+                    기존 팬 플랫폼의 한계를 넘어선 혁신 제안
+                </p>
+            </div>
+
+            <div class="weverse-link">
+                <div class="weverse-link-title">→ Weverse 미래 전략</div>
+                <div class="weverse-link-desc">
+                    • <strong>FEARLESS 도전:</strong> 기존에 없던 디지털 여권 시스템 제안<br/>
+                    • <strong>날개 없는 천사:</strong> 완벽하지 않아도 실행 가능한 MVP 전략<br/>
+                    • <strong>UNFORGIVEN 혁신:</strong> 팬 락인 효과로 위버스 생태계 강화
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <section class="section" style="min-height: 50vh; background: linear-gradient(135deg, #0A0A0A, #1A1A2E); display: flex; align-items: center; justify-content: center;">
+        <div style="text-align: center;">
+            <h2 style="font-size: 3rem; font-weight: 900; margin-bottom: 1.5rem;">
+                Let's Build <span style="color: var(--weverse-purple); text-shadow: 0 0 30px rgba(123, 104, 238, 0.8);">Weverse</span> Together
+            </h2>
+            <p style="font-size: 1.3rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 3rem;">
+                위버스 아티스트의 DNA를 이해하는 PM
+            </p>
+            <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+                <div style="font-size: 1.1rem;">
+                    📧 jiyeon.work.93@gmail.com
+                </div>
+                <div style="font-size: 1.1rem;">
+                    📱 010-7708-2417
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function downloadPDF() {
+            const element = document.body;
+            const opt = {
+                margin: 0,
+                filename: '김지연_Weverse_포트폴리오.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

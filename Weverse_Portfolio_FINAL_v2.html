@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김지연 - Weverse O2O PM 포트폴리오</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            min-height: 100vh;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        /* 1. COVER */
+        #slide-cover {
+            background: linear-gradient(135deg, #7B68EE 0%, #1a1a2e 100%);
+            text-align: center;
+        }
+
+        #slide-cover h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 900;
+            margin-bottom: 2rem;
+            line-height: 1.1;
+        }
+
+        #slide-cover .stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        #slide-cover .stat-box {
+            background: rgba(0,0,0,0.4);
+            padding: 2rem 3rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        #slide-cover .stat-number {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: #FFD700;
+            display: block;
+        }
+
+        #slide-cover .stat-label {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 0.5rem;
+        }
+
+        /* 2-4. SUWON (BTS GOLD/BLACK) */
+        .slide-suwon {
+            background: #000;
+        }
+
+        .slide-suwon .container {
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        .slide-suwon h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 900;
+            color: #FFD700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .photo-box {
+            background: #1a1a1a;
+            border-radius: 20px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            position: relative;
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.2rem;
+        }
+
+        .text-box {
+            background: rgba(26,26,26,0.9);
+            padding: 2rem;
+            border-radius: 20px;
+            border-left: 4px solid #FFD700;
+        }
+
+        .text-box h3 {
+            font-size: 1.5rem;
+            color: #FFD700;
+            margin-bottom: 1rem;
+        }
+
+        .text-box p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .data-chart {
+            background: #1a1a1a;
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 5-7. MORANG (NEWJEANS PASTEL MINT) */
+        .slide-morang {
+            background: #E8F5E9;
+            color: #000;
+        }
+
+        .slide-morang h2 {
+            color: #4CAF50;
+        }
+
+        .slide-morang .text-box {
+            background: rgba(255,255,255,0.9);
+            border-left: 4px solid #4CAF50;
+        }
+
+        .slide-morang .text-box h3 {
+            color: #4CAF50;
+        }
+
+        .slide-morang .text-box p {
+            color: #333;
+        }
+
+        .slide-morang .photo-box {
+            background: #fff;
+        }
+
+        /* 8-10. KKOJIL (SEVENTEEN ROSE PINK) */
+        .slide-kkojil {
+            background: #FFF0F5;
+            color: #000;
+        }
+
+        .slide-kkojil h2 {
+            color: #FF69B4;
+        }
+
+        .slide-kkojil .text-box {
+            background: rgba(255,255,255,0.9);
+            border-left: 4px solid #FF69B4;
+        }
+
+        .slide-kkojil .text-box h3 {
+            color: #FF69B4;
+        }
+
+        .slide-kkojil .text-box p {
+            color: #333;
+        }
+
+        .slide-kkojil .photo-box {
+            background: #fff;
+        }
+
+        /* 11. LE SSERAFIM PROPOSAL (HOLOGRAM BLUE) */
+        .slide-proposal {
+            background: linear-gradient(135deg, #00D4FF 0%, #7B68EE 100%);
+        }
+
+        .slide-proposal h2 {
+            color: #fff;
+            text-shadow: 0 0 20px rgba(0,212,255,0.5);
+        }
+
+        .slide-proposal .proposal-box {
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(20px);
+            padding: 3rem;
+            border-radius: 30px;
+            max-width: 900px;
+        }
+
+        .slide-proposal .impact-stat {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #FFD700;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* 12. CONTACT */
+        #slide-contact {
+            background: linear-gradient(135deg, #1a1a2e 0%, #7B68EE 100%);
+            text-align: center;
+        }
+
+        #slide-contact h2 {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+        }
+
+        #slide-contact a {
+            display: inline-block;
+            padding: 1.5rem 4rem;
+            background: #FFD700;
+            color: #000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 900;
+            font-size: 1.3rem;
+            transition: transform 0.3s ease;
+        }
+
+        #slide-contact a:hover {
+            transform: scale(1.05);
+        }
+
+        /* Navigation dots */
+        .nav-dots {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: #7B68EE;
+            transform: scale(1.5);
+        }
+
+        @media (max-width: 768px) {
+            .nav-dots {
+                right: 1rem;
+            }
+            
+            .photo-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Dots -->
+    <div class="nav-dots">
+        <div class="nav-dot active" onclick="scrollToSlide(0)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(1)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(2)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(3)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(4)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(5)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(6)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(7)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(8)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(9)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(10)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(11)"></div>
+    </div>
+
+    <!-- Slide 1: COVER -->
+    <section id="slide-cover" class="slide">
+        <div>
+            <h1>김지연<br/>Weverse O2O PM</h1>
+            <p style="font-size: 1.3rem; margin-bottom: 3rem;">팬덤을 데이터로, 데이터를 매출로</p>
+            
+            <div class="stats">
+                <div class="stat-box">
+                    <span class="stat-number">51만</span>
+                    <span class="stat-label">명 무사고 운영</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">재고 0원</span>
+                    <span class="stat-label">선주문 모델 검증</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">D-13</span>
+                    <span class="stat-label">위기 극복</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 2: SUWON - INTRO -->
+    <section class="slide slide-suwon">
+        <div class="container">
+            <h2>수원문화재단<br/>51만 명, 16일, 무사고</h2>
+            
+            <div class="photo-grid">
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 수원 축제 전경</div>
+                </div>
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 관람객 인파</div>
+                </div>
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 티켓 부스</div>
+                </div>
+            </div>
+            
+            <div class="text-box">
+                <h3>대규모 오프라인 행사 운영 총괄</h3>
+                <p>51만 명 방문 축제 16일 무사고. Weverse Con 대응 역량 검증.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: SUWON - DATA -->
+    <section class="slide slide-suwon">
+        <div class="container">
+            <h2>ERR_402 결제 장애<br/>1분 내 규명</h2>
+            
+            <div class="photo-grid">
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 결제 시스템 모니터</div>
+                </div>
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 Discord 커뮤니케이션</div>
+                </div>
+            </div>
+            
+            <div class="data-chart">
+                <canvas id="chart-suwon"></canvas>
+            </div>
+            
+            <div class="text-box" style="margin-top: 2rem;">
+                <h3>매출 누락 0건 달성</h3>
+                <p>시스템 장애 1분 내 원인 규명 → 48시간 매출 누락 0건. Weverse Shop 결제 오류 대응 가능.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 4: SUWON - IMPACT -->
+    <section class="slide slide-suwon">
+        <div class="container">
+            <h2>SNS 조회수 55배 증가</h2>
+            
+            <div class="photo-grid">
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 SNS 콘텐츠 예시</div>
+                </div>
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 AI 생성 마케팅 예시</div>
+                </div>
+            </div>
+            
+            <div class="data-chart">
+                <canvas id="chart-suwon-sns"></canvas>
+            </div>
+            
+            <div class="text-box" style="margin-top: 2rem;">
+                <h3>Weverse 비즈니스 연결</h3>
+                <p>BTS 콘서트 MD 판매 시 결제 오류 0건 목표. Weverse Con 대규모 행사 대응 역량 검증.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 5: MORANG - INTRO -->
+    <section class="slide slide-morang">
+        <div class="container">
+            <h2>모랑공방<br/>3회 완판, 6,000만 원</h2>
+            
+            <div class="photo-grid">
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 돌쥬·호라믹 제품</div>
+                </div>
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 Y2K 패키징</div>
+                </div>
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 팬 리뷰 스크린샷</div>
+                </div>
+            </div>
+            
+            <div class="text-box">
+                <h3>선주문 모델 검증</h3>
+                <p>K-POP 팬덤 타겟 도자 아트토이 3회 완판. Weverse Shop 선주문 모델 적용 가능.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 6: MORANG - DATA -->
+    <section class="slide slide-morang">
+        <div class="container">
+            <h2>RT 1,000 = 주문 100</h2>
+            
+            <div class="photo-grid">
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 SNS 바이럴 데이터</div>
+                </div>
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 주문 증가 그래프</div>
+                </div>
+            </div>
+            
+            <div class="data-chart">
+                <canvas id="chart-morang"></canvas>
+            </div>
+            
+            <div class="text-box" style="margin-top: 2rem;">
+                <h3>바이럴 예측 모델</h3>
+                <p>SNS 리트윗 1,000 = 주문 100건. NewJeans 'OMG' MD 선주문 수요 예측 정확도 ↑.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 7: MORANG - IMPACT -->
+    <section class="slide slide-morang">
+        <div class="container">
+            <h2>재고 0%, ROI 300%</h2>
+            
+            <div class="photo-grid">
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 완판 인증</div>
+                </div>
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 재구매 후기</div>
+                </div>
+            </div>
+            
+            <div class="data-chart">
+                <canvas id="chart-morang-roi"></canvas>
+            </div>
+            
+            <div class="text-box" style="margin-top: 2rem;">
+                <h3>Weverse 비즈니스 연결</h3>
+                <p>Weverse Shop 완판 가능성 극대화. 재구매율 67% 달성.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 8: KKOJIL - INTRO -->
+    <section class="slide slide-kkojil">
+        <div class="container">
+            <h2>꼬질랜드<br/>D-13 위기 극복</h2>
+            
+            <div class="photo-grid">
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 카지노 컨셉 포스터</div>
+                </div>
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 이벤트 현장</div>
+                </div>
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 게이미피케이션 부스</div>
+                </div>
+            </div>
+            
+            <div class="text-box">
+                <h3>긴급 프로모션 대응</h3>
+                <p>D-13 주최자 이탈 위기 → 환불 0건. SEVENTEEN 'BE THE SUN' 팬미팅 긴급 기획 가능.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 9: KKOJIL - DATA -->
+    <section class="slide slide-kkojil">
+        <div class="container">
+            <h2>환불 0건, 방문 200% 증가</h2>
+            
+            <div class="photo-grid">
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 방문객 증가 그래프</div>
+                </div>
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 만족도 조사 결과</div>
+                </div>
+            </div>
+            
+            <div class="data-chart">
+                <canvas id="chart-kkojil"></canvas>
+            </div>
+            
+            <div class="text-box" style="margin-top: 2rem;">
+                <h3>위기 → 기회 전환</h3>
+                <p>예상 환불 500건 → 실제 0건. 방문 200% 증가, 만족도 95%.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 10: KKOJIL - IMPACT -->
+    <section class="slide slide-kkojil">
+        <div class="container">
+            <h2>만족도 95%</h2>
+            
+            <div class="photo-grid">
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 팬 반응 스크린샷</div>
+                </div>
+                <div class="photo-box">
+                    <div class="photo-placeholder">📸 이벤트 성공 인증</div>
+                </div>
+            </div>
+            
+            <div class="data-chart">
+                <canvas id="chart-kkojil-satisfaction"></canvas>
+            </div>
+            
+            <div class="text-box" style="margin-top: 2rem;">
+                <h3>Weverse 비즈니스 연결</h3>
+                <p>Weverse Con 행사 D-7 위기 시 즉각 재구성 가능. 카지노 게이미피케이션 경험.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 11: PROPOSAL -->
+    <section class="slide slide-proposal">
+        <div class="proposal-box">
+            <h2>LE SSERAFIM<br/>Weverse 디지털 팬 패스포트</h2>
+            
+            <div class="photo-grid" style="margin-top: 3rem;">
+                <div class="photo-box">
+                    <div class="photo-placeholder" style="background: rgba(255,255,255,0.1);">📸 QR 스캔 UX</div>
+                </div>
+                <div class="photo-box">
+                    <div class="photo-placeholder" style="background: rgba(255,255,255,0.1);">📸 보상 스탬프</div>
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem; text-align: center;">
+                <div>
+                    <div class="impact-stat">+35%</div>
+                    <p style="color: rgba(255,255,255,0.9); margin-top: 0.5rem;">체류 시간 증가</p>
+                </div>
+                <div>
+                    <div class="impact-stat">+18%</div>
+                    <p style="color: rgba(255,255,255,0.9); margin-top: 0.5rem;">전환율 상승</p>
+                </div>
+                <div>
+                    <div class="impact-stat">+22pt</div>
+                    <p style="color: rgba(255,255,255,0.9); margin-top: 0.5rem;">NPS 개선</p>
+                </div>
+            </div>
+            
+            <div class="text-box" style="margin-top: 3rem; background: rgba(255,255,255,0.1); border-left-color: #FFD700;">
+                <h3 style="color: #FFD700;">Weverse 비즈니스 연결</h3>
+                <p style="color: rgba(255,255,255,0.9);">QR 스캔 → Weverse Shop 쿠폰 발급 → 매출 전환. 팬덤 LTV 증대.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 12: CONTACT -->
+    <section id="slide-contact" class="slide">
+        <div>
+            <h2>CONTACT</h2>
+            <p style="font-size: 1.3rem; margin-bottom: 3rem;">팬덤을 데이터로, 데이터를 Weverse 매출로.<br/>함께 만들어갈 다음 프로젝트를 기대합니다.</p>
+            <a href="mailto:jiyeon.work.93@gmail.com">EMAIL ME</a>
+            <p style="margin-top: 3rem; font-size: 1rem; color: rgba(255,255,255,0.7);">김지연 | Weverse O2O Project Manager</p>
+        </div>
+    </section>
+
+    <script>
+        // Navigation
+        function scrollToSlide(index) {
+            const slides = document.querySelectorAll('.slide');
+            slides[index].scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Update active dot on scroll
+        const slides = document.querySelectorAll('.slide');
+        const navDots = document.querySelectorAll('.nav-dot');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = Array.from(slides).indexOf(entry.target);
+                    navDots.forEach((dot, i) => {
+                        dot.classList.toggle('active', i === index);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        slides.forEach(slide => observer.observe(slide));
+
+        // Chart.js - Suwon Data
+        const ctxSuwon = document.getElementById('chart-suwon').getContext('2d');
+        new Chart(ctxSuwon, {
+            type: 'bar',
+            data: {
+                labels: ['매출 누락', '안전 사고', '시스템 장애 해결'],
+                datasets: [{
+                    label: '수원 축제 성과',
+                    data: [0, 0, 1],
+                    backgroundColor: ['#FFD700', '#FFD700', '#4CAF50'],
+                    borderColor: ['#FFD700', '#FFD700', '#4CAF50'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, max: 5 }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // Chart.js - Suwon SNS
+        const ctxSuwonSNS = document.getElementById('chart-suwon-sns').getContext('2d');
+        new Chart(ctxSuwonSNS, {
+            type: 'line',
+            data: {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                datasets: [{
+                    label: 'SNS 조회수 증가',
+                    data: [10000, 150000, 400000, 550000],
+                    borderColor: '#FFD700',
+                    backgroundColor: 'rgba(255, 215, 0, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // Chart.js - Morang Data
+        const ctxMorang = document.getElementById('chart-morang').getContext('2d');
+        new Chart(ctxMorang, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'RT vs 주문',
+                    data: [
+                        {x: 1000, y: 100},
+                        {x: 2000, y: 200},
+                        {x: 3000, y: 300},
+                        {x: 4000, y: 400}
+                    ],
+                    backgroundColor: '#4CAF50',
+                    borderColor: '#4CAF50'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { title: { display: true, text: 'RT 수' } },
+                    y: { title: { display: true, text: '주문 수' } }
+                }
+            }
+        });
+
+        // Chart.js - Morang ROI
+        const ctxMorangROI = document.getElementById('chart-morang-roi').getContext('2d');
+        new Chart(ctxMorangROI, {
+            type: 'doughnut',
+            data: {
+                labels: ['판매', '원가', '이익'],
+                datasets: [{
+                    data: [6000, 2000, 4000],
+                    backgroundColor: ['#4CAF50', '#FFC107', '#2196F3']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // Chart.js - Kkojil Data
+        const ctxKkojil = document.getElementById('chart-kkojil').getContext('2d');
+        new Chart(ctxKkojil, {
+            type: 'bar',
+            data: {
+                labels: ['예상 환불', '실제 환불', '방문 증가율'],
+                datasets: [{
+                    label: '꼬질랜드 성과',
+                    data: [500, 0, 200],
+                    backgroundColor: ['#FF69B4', '#4CAF50', '#FFD700']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // Chart.js - Kkojil Satisfaction
+        const ctxKkojilSat = document.getElementById('chart-kkojil-satisfaction').getContext('2d');
+        new Chart(ctxKkojilSat, {
+            type: 'radar',
+            data: {
+                labels: ['행사 만족도', '재방문 의향', '추천 의향', '가격 만족도', '시설 만족도'],
+                datasets: [{
+                    label: '만족도 조사',
+                    data: [95, 90, 93, 88, 92],
+                    backgroundColor: 'rgba(255, 105, 180, 0.2)',
+                    borderColor: '#FF69B4',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: { beginAtZero: true, max: 100 }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

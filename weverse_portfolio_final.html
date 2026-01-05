@@ -1,0 +1,1439 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김지연 | Weverse 오프라인 & 팬이벤트 기획/운영</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Righteous&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --weverse-green: #00D664;
+            --weverse-dark: #0A0A0A;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background: #FFFFFF;
+            color: #0A0A0A;
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+
+        /* ========== NAVIGATION ========== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-brand span {
+            color: var(--weverse-green);
+        }
+
+        .btn-download {
+            background: var(--weverse-green);
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-download:hover {
+            background: #00BB56;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 214, 100, 0.3);
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(0, 214, 100, 0.15) 0%, transparent 70%);
+            animation: pulse 6s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 1; }
+            50% { transform: scale(1.1) rotate(5deg); opacity: 0.8; }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(0, 214, 100, 0.15);
+            border: 1px solid rgba(0, 214, 100, 0.3);
+            color: var(--weverse-green);
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-title .highlight {
+            background: linear-gradient(135deg, var(--weverse-green) 0%, #00F5A0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.75);
+            margin-bottom: 4rem;
+            line-height: 1.6;
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .metric {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 2rem 1.5rem;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .metric:hover {
+            background: rgba(0, 214, 100, 0.08);
+            border-color: var(--weverse-green);
+            transform: translateY(-8px);
+        }
+
+        .metric-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--weverse-green);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .metric-label {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        /* ========== SECTION CONTAINER ========== */
+        .section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(0, 214, 100, 0.08);
+            color: var(--weverse-green);
+            padding: 0.6rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-description {
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* ========== PROJECT CARDS ========== */
+        .project {
+            margin-bottom: 8rem;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+        }
+
+        .project:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ========================================
+           PROJECT 1: 모랑공방 - KAWAII FANDOM COMMERCE
+           테마: 귀여운 파스텔, 도트 패턴, 일러스트
+        ======================================== */
+        .project.morang {
+            background: linear-gradient(135deg, #FFE5EC 0%, #FFF0F5 100%);
+            border: 3px solid #FFB6C1;
+        }
+
+        .project.morang .project-header {
+            background: linear-gradient(135deg, #FF6B9D 0%, #FEC3A6 50%, #FFE985 100%);
+            height: 450px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project.morang .project-header::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle, #FFB6C1 2px, transparent 2px),
+                radial-gradient(circle, #FFD1DC 2px, transparent 2px);
+            background-size: 40px 40px, 60px 60px;
+            background-position: 0 0, 20px 20px;
+            opacity: 0.3;
+            animation: dotMove 20s linear infinite;
+        }
+
+        @keyframes dotMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(40px, 40px); }
+        }
+
+        .project.morang .project-icon {
+            font-size: 8rem;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 10px 30px rgba(255, 107, 157, 0.4));
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        .project.morang .project-title {
+            color: #FF1493;
+            font-family: 'Righteous', cursive;
+        }
+
+        .project.morang .weverse-connection {
+            background: linear-gradient(135deg, rgba(255, 192, 203, 0.3) 0%, rgba(255, 182, 193, 0.2) 100%);
+            border-left: 4px solid #FF69B4;
+        }
+
+        .project.morang .weverse-label {
+            color: #FF1493;
+        }
+
+        .project.morang .block-title {
+            color: #FF69B4;
+        }
+
+        .project.morang .block-content li::before {
+            content: '♡';
+            color: #FF69B4;
+        }
+
+        .project.morang .tag {
+            background: #FFE5EC;
+            color: #FF1493;
+            border: 1px solid #FFB6C1;
+        }
+
+        /* ========================================
+           PROJECT 2: 수원문화재단 - CYBERPUNK TECH
+           테마: 네온, 글리치, 매트릭스
+        ======================================== */
+        .project.suwon {
+            background: #000000;
+            border: 2px solid #00FFFF;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+        }
+
+        .project.suwon .project-header {
+            background: #000000;
+            height: 450px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project.suwon .project-header::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: 
+                linear-gradient(0deg, transparent 24%, rgba(0, 255, 255, 0.05) 25%, rgba(0, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.05) 75%, rgba(0, 255, 255, 0.05) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(0, 255, 255, 0.05) 25%, rgba(0, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(0, 255, 255, 0.05) 75%, rgba(0, 255, 255, 0.05) 76%, transparent 77%, transparent);
+            background-size: 50px 50px;
+            animation: gridMove 10s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .project.suwon .project-header::after {
+            content: '510000';
+            position: absolute;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10rem;
+            color: rgba(0, 255, 255, 0.05);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: glitch 2s infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(-50%, -50%); }
+            20% { transform: translate(-48%, -50%); }
+            40% { transform: translate(-52%, -50%); }
+            60% { transform: translate(-50%, -48%); }
+            80% { transform: translate(-50%, -52%); }
+        }
+
+        .project.suwon .project-icon {
+            font-size: 8rem;
+            position: relative;
+            z-index: 1;
+            color: #00FFFF;
+            text-shadow: 
+                0 0 10px #00FFFF,
+                0 0 20px #00FFFF,
+                0 0 30px #00FFFF,
+                0 0 40px #00FFFF;
+            animation: neonPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes neonPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .project.suwon .project-content {
+            background: #0A0A0A;
+            color: #00FFFF;
+        }
+
+        .project.suwon .project-title {
+            color: #00FFFF;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1.8rem;
+            text-shadow: 0 0 10px #00FFFF;
+        }
+
+        .project.suwon .project-period {
+            color: #0099FF;
+        }
+
+        .project.suwon .weverse-connection {
+            background: rgba(0, 255, 255, 0.1);
+            border-left: 4px solid #00FFFF;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .project.suwon .weverse-label {
+            color: #00FFFF;
+        }
+
+        .project.suwon .weverse-text {
+            color: #FFFFFF;
+        }
+
+        .project.suwon .block-title {
+            color: #00FFFF;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 0.8rem;
+        }
+
+        .project.suwon .block-content {
+            color: #CCCCCC;
+        }
+
+        .project.suwon .block-content li::before {
+            content: '►';
+            color: #00FFFF;
+        }
+
+        .project.suwon .tag {
+            background: rgba(0, 255, 255, 0.1);
+            color: #00FFFF;
+            border: 1px solid #00FFFF;
+        }
+
+        /* ========================================
+           PROJECT 3: 꼬질랜드 - REAL CASINO NIGHT
+           테마: 네온사인, 골드, 벨벳, 카드
+        ======================================== */
+        .project.kkojil {
+            background: linear-gradient(135deg, #1A0033 0%, #2D0052 100%);
+            border: 3px solid #FFD700;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+        }
+
+        .project.kkojil .project-header {
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 255, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(255, 215, 0, 0.3) 0%, transparent 50%),
+                linear-gradient(135deg, #4A0080 0%, #8B00FF 50%, #FF1493 100%);
+            height: 450px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project.kkojil .project-header::before {
+            content: '♠ ♥ ♦ ♣ ♠ ♥ ♦ ♣';
+            position: absolute;
+            font-size: 3rem;
+            color: rgba(255, 215, 0, 0.1);
+            top: 50%;
+            left: 0;
+            width: 200%;
+            transform: translateY(-50%);
+            animation: casinoSlide 20s linear infinite;
+        }
+
+        @keyframes casinoSlide {
+            0% { left: 0; }
+            100% { left: -100%; }
+        }
+
+        .project.kkojil .project-header::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 215, 0, 0.03) 10px,
+                    rgba(255, 215, 0, 0.03) 20px
+                );
+        }
+
+        .project.kkojil .project-icon {
+            font-size: 8rem;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 0 30px #FFD700) drop-shadow(0 0 60px #FF1493);
+            animation: casinoSpin 4s ease-in-out infinite;
+        }
+
+        @keyframes casinoSpin {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(-10deg) scale(1.1); }
+            75% { transform: rotate(10deg) scale(1.1); }
+        }
+
+        .project.kkojil .project-badge {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #1A0033;
+            font-weight: 900;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .project.kkojil .project-content {
+            background: linear-gradient(180deg, #1A0033 0%, #0D001A 100%);
+            color: #FFFFFF;
+        }
+
+        .project.kkojil .project-title {
+            color: #FFD700;
+            font-family: 'Righteous', cursive;
+            text-shadow: 
+                0 0 10px #FFD700,
+                0 0 20px #FFD700,
+                2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .project.kkojil .project-period {
+            color: #FF1493;
+        }
+
+        .project.kkojil .weverse-connection {
+            background: rgba(255, 215, 0, 0.1);
+            border-left: 4px solid #FFD700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .project.kkojil .weverse-label {
+            color: #FFD700;
+        }
+
+        .project.kkojil .weverse-text {
+            color: #FFFFFF;
+        }
+
+        .project.kkojil .block-title {
+            color: #FFD700;
+            text-transform: uppercase;
+        }
+
+        .project.kkojil .block-content {
+            color: #E0E0E0;
+        }
+
+        .project.kkojil .block-content li::before {
+            content: '♦';
+            color: #FFD700;
+        }
+
+        .project.kkojil .tag {
+            background: rgba(255, 215, 0, 0.1);
+            color: #FFD700;
+            border: 1px solid #FFD700;
+        }
+
+        /* ========================================
+           PROJECT 4: 뉴이스트 총대 - GLOBAL MINIMAL
+           테마: 깔끔한 화이트, 지도, 심플
+        ======================================== */
+        .project.nuest {
+            background: #FFFFFF;
+            border: 1px solid #E0E0E0;
+            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.06);
+        }
+
+        .project.nuest .project-header {
+            background: 
+                linear-gradient(135deg, rgba(0, 208, 132, 0.05) 0%, rgba(0, 245, 160, 0.05) 100%),
+                #FAFAFA;
+            height: 450px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project.nuest .project-header::before {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="200" cy="200" r="3" fill="%2300D084" opacity="0.3"/><circle cx="400" cy="300" r="3" fill="%2300D084" opacity="0.3"/><circle cx="600" cy="500" r="3" fill="%2300D084" opacity="0.3"/><circle cx="800" cy="400" r="3" fill="%2300D084" opacity="0.3"/><circle cx="300" cy="600" r="3" fill="%2300D084" opacity="0.3"/><line x1="200" y1="200" x2="400" y2="300" stroke="%2300D084" stroke-width="1" opacity="0.2"/><line x1="400" y1="300" x2="600" y2="500" stroke="%2300D084" stroke-width="1" opacity="0.2"/><line x1="600" y1="500" x2="800" y2="400" stroke="%2300D084" stroke-width="1" opacity="0.2"/></svg>');
+            background-size: 500px 500px;
+            opacity: 0.4;
+            animation: mapMove 30s linear infinite;
+        }
+
+        @keyframes mapMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(-100px, -100px); }
+        }
+
+        .project.nuest .project-icon {
+            font-size: 8rem;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 10px 30px rgba(0, 208, 132, 0.2));
+            animation: globalFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes globalFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .project.nuest .project-content {
+            background: #FFFFFF;
+            color: #333333;
+        }
+
+        .project.nuest .project-title {
+            color: #00D084;
+            font-weight: 800;
+        }
+
+        .project.nuest .project-period {
+            color: #999999;
+        }
+
+        .project.nuest .weverse-connection {
+            background: rgba(0, 208, 132, 0.05);
+            border-left: 4px solid #00D084;
+        }
+
+        .project.nuest .weverse-label {
+            color: #00D084;
+        }
+
+        .project.nuest .weverse-text {
+            color: #333333;
+        }
+
+        .project.nuest .block-title {
+            color: #00D084;
+        }
+
+        .project.nuest .block-content {
+            color: #555555;
+        }
+
+        .project.nuest .block-content li::before {
+            content: '✈';
+            color: #00D084;
+        }
+
+        .project.nuest .tag {
+            background: #F5F5F5;
+            color: #00D084;
+            border: 1px solid #E0E0E0;
+        }
+
+        /* ========== COMMON PROJECT ELEMENTS ========== */
+        .project-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .project-badge {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .project-content {
+            padding: 3rem;
+        }
+
+        .project-title-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .project-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-period {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .weverse-connection {
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            flex-shrink: 0;
+            max-width: 350px;
+        }
+
+        .weverse-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .weverse-text {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .project-block {
+            margin-bottom: 2.5rem;
+        }
+
+        .block-title {
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .block-content {
+            font-size: 1.05rem;
+            line-height: 1.9;
+        }
+
+        .block-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .block-content li {
+            padding-left: 1.8rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .block-content strong {
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background: rgba(0, 214, 100, 0.05);
+            border: 2px solid rgba(0, 214, 100, 0.3);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .highlight-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--weverse-green);
+            margin-bottom: 1rem;
+            line-height: 1;
+        }
+
+        .highlight-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 2rem;
+        }
+
+        .tag {
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        /* ========== PROPOSAL & FOOTER ========== */
+        .proposal-section {
+            background: linear-gradient(135deg, var(--weverse-dark) 0%, #2A2A2A 100%);
+            color: white;
+            padding: 6rem 2rem;
+        }
+
+        .proposal-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .proposal-title {
+            font-size: 3rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 3rem;
+            line-height: 1.3;
+        }
+
+        .proposal-subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--weverse-green);
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .proposal-box {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .proposal-heading {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--weverse-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .proposal-content {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .flow-chart {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .flow-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .flow-item:hover {
+            background: rgba(0, 214, 100, 0.15);
+            border-color: var(--weverse-green);
+            transform: translateY(-5px);
+        }
+
+        .flow-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .flow-label {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: white;
+            line-height: 1.5;
+        }
+
+        .footer {
+            background: #0A0A0A;
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .footer-quote {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            line-height: 1.5;
+        }
+
+        .footer-quote .highlight {
+            color: var(--weverse-green);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+        }
+
+        .contact-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: rgba(0, 214, 100, 0.1);
+        }
+
+        .contact-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-metrics {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .flow-chart {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .hero-metrics {
+                grid-template-columns: 1fr;
+            }
+            
+            .project-title-area {
+                flex-direction: column;
+            }
+            
+            .weverse-connection {
+                max-width: 100%;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span>WEVERSE</span> PORTFOLIO
+            </div>
+            <button class="btn-download" onclick="downloadPDF()">PDF 다운로드</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-tag">Weverse Company · 오프라인 & 팬이벤트 기획/운영</div>
+            <h1 class="hero-title">
+                팬들 지갑 여는 순간,<br>
+                <span class="highlight">데이터로 읽었습니다</span>
+            </h1>
+            <p class="hero-subtitle">
+                뉴이스트 팬덤 총대 2년 → 굿즈 브랜드 3년 운영 → 51만 명 축제 총괄<br>
+                팬심을 비즈니스로, 위기를 매출로 바꾸는 현장 전문가
+            </p>
+
+            <div class="hero-metrics">
+                <div class="metric">
+                    <div class="metric-number">510K</div>
+                    <div class="metric-label">팬 접점 운영<br>무사고 완료</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-number">100%</div>
+                    <div class="metric-label">선주문 Conversion<br>재고 폐기 0원</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-number">D-13</div>
+                    <div class="metric-label">긴급 프로모션<br>"역대급" 평가</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-number">60%</div>
+                    <div class="metric-label">재구매율<br>2년 유지</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section">
+        <div class="section-header">
+            <div class="section-tag">PROVEN EXPERIENCE</div>
+            <h2 class="section-title">Weverse 매출로 연결되는 경험</h2>
+            <p class="section-description">
+                팬덤 현장에서 배운 일머리를 Weverse Shop 프로모션, 대규모 팬 이벤트, 글로벌 커머스로 연결합니다
+            </p>
+        </div>
+
+        <!-- Project 1: 모랑공방 - KAWAII FANDOM COMMERCE -->
+        <article class="project morang">
+            <div class="project-header">
+                <div class="project-icon">🎀</div>
+                <div class="project-badge">Fandom Commerce</div>
+            </div>
+            <div class="project-content">
+                <div class="project-title-area">
+                    <div>
+                        <h3 class="project-title">모랑공방 | 팬덤 D2C 굿즈 브랜드</h3>
+                        <p class="project-period">2019.10 - 2021.10 (2년) | Founder</p>
+                    </div>
+                    <div class="weverse-connection">
+                        <div class="weverse-label">→ Weverse 연결</div>
+                        <div class="weverse-text">
+                            Weverse Shop 아티스트 상품 판매 촉진 프로모션 기획 역량
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-block">
+                    <h4 class="block-title">💰 Weverse Shop 선주문 모델 검증</h4>
+                    <div class="block-content">
+                        <p>재고 없이 매출 터트리는 팬덤 비즈니스를 만들었습니다.</p>
+                    </div>
+                </div>
+
+                <div class="project-block">
+                    <h4 class="block-title">🎯 HOW: 팬심 타이밍을 숫자로</h4>
+                    <div class="block-content">
+                        <ul>
+                            <li><strong>트위터 RT 폭발 구간 분석:</strong> 아티스트 컴백 발표 후 24시간 내 RT가 평소 대비 800% 증가. 이 타이밍에 선주문 폼 오픈하면 12시간 내 완판 패턴 발견</li>
+                            <li><strong>100% 선주문 시스템:</strong> 수요 확정 후 제작 → 재고 폐기 비용 0원. Weverse Shop '한정판 프리오더' 전략과 동일한 구조</li>
+                            <li><strong>공장 직접 감리:</strong> 0.1mm 오차도 허용 안 함. 불량률 0.1% 미만 유지 → 팬들 SNS에 '품질 인증' 자발적 확산</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <div class="highlight-number">3차 연속 완판 | 2,000만원 매출</div>
+                    <div class="highlight-text">
+                        <strong>재고 폐기 비용 0원</strong> · Conversion Rate 100% · 재구매율 60%<br>
+                        "돌쥬가 세계 여행 다니는 사진" 팬들 SNS 자발적 바이럴
+                    </div>
+                </div>
+
+                <div class="project-block">
+                    <h4 class="block-title">📊 Weverse 적용 포인트</h4>
+                    <div class="block-content">
+                        <p><strong>"팬이벤트는 아티스트와 같이 간다"</strong></p>
+                        <p>아티스트 컴백/생일 같은 '감정 피크 타이밍'을 데이터로 읽고, 그 순간 프로모션을 터트리면 홍보비 0원으로 바이럴이 만들어집니다. 
+                        Weverse Shop의 '아티스트 생일 한정 굿즈' 프로모션에 이 로직을 그대로 적용 가능합니다.</p>
+                    </div>
+                </div>
+
+                <div class="tags">
+                    <span class="tag">#WeverseShop</span>
+                    <span class="tag">#선주문전략</span>
+                    <span class="tag">#재고제로</span>
+                    <span class="tag">#팬심타이밍분석</span>
+                    <span class="tag">#ConversionRate100%</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- Project 2: 수원문화재단 - CYBERPUNK TECH -->
+        <article class="project suwon">
+            <div class="project-header">
+                <div class="project-icon">⚡</div>
+                <div class="project-badge" style="background: #00FFFF; color: #000;">Mass Traffic Control</div>
+            </div>
+            <div class="project-content">
+                <div class="project-title-area">
+                    <div>
+                        <h3 class="project-title">수원문화재단 | 51만 명 미디어아트 축제</h3>
+                        <p class="project-period">2025.05 - 2025.11 (7개월) | 관광육성팀 주임</p>
+                    </div>
+                    <div class="weverse-connection">
+                        <div class="weverse-label">→ Weverse 연결</div>
+                        <div class="weverse-text">
+                            Weverse Con/팬미팅 대규모 오프라인 이벤트 현장 운영 역량
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-block">
+                    <h4 class="block-title">🚨 Weverse Con 급 대규모 팬 이벤트 운영</h4>
+                    <div class="block-content">
+                        <p>추석 연휴 16일간 510K 팬 접점. 예산 60% 삭감, 시스템 부족한 상황에서 무사고 완료.</p>
+                    </div>
+                </div>
+
+                <div class="project-block">
+                    <h4 class="block-title">🎯 HOW: Tech로 위기 방어</h4>
+                    <div class="block-content">
+                        <ul>
+                            <li><strong>ChatGPT 활용 장애 복구:</strong> 티켓 QR 스캔 시스템 뻗음(ERR_402) → ChatGPT로 원인 1분 진단 → 우회 결제망 즉시 가동 → 매출 데이터 누락 0건</li>
+                            <li><strong>트래픽 패턴 예측 배치:</strong> 시간대별 인파 밀집도 분석 → 병목 구간(입구/포토존) 사전 스태프 증원 → 팀장 개입 없이 현장 이슈 100% 해결</li>
+                            <li><strong>생성형 AI 마케팅:</strong> 예산 0원으로 Veo/Sora 활용 홍보 영상 제작 → 릴스 조회수 5.5만 회</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <div class="highlight-number">16일 무사고 운영 | 입사 6개월 표창</div>
+                    <div class="highlight-text">
+                        <strong>팀장 評:</strong> "5년 만에 현장에서 소리 안 질렀다"<br>
+                        매출 데이터 누락 0건 · 안전사고 0건 · 민원 0건
+                    </div>
+                </div>
+
+                <div class="project-block">
+                    <h4 class="block-title">📊 Weverse 적용 포인트</h4>
+                    <div class="block-content">
+                        <p><strong>"문제 터지기 전에 미리 읽고 막는다"</strong></p>
+                        <p>Weverse Con이나 팬사인회 같은 대규모 오프라인 이벤트는 '터지면 끝'입니다. 
+                        시스템 장애, 인파 사고, 민원 하나가 SNS로 퍼지면 아티스트 이미지까지 타격받습니다. 
+                        저는 데이터 기반 예측과 Tech 활용으로 리스크를 사전 차단하는 '현장 방어력'을 증명했습니다.</p>
+                    </div>
+                </div>
+
+                <div class="tags">
+                    <span class="tag">#WeverseCon</span>
+                    <span class="tag">#대규모팬이벤트</span>
+                    <span class="tag">#ChatGPT활용</span>
+                    <span class="tag">#생성형AI</span>
+                    <span class="tag">#트래픽패턴분석</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- Project 3: 꼬질랜드 - REAL CASINO NIGHT -->
+        <article class="project kkojil">
+            <div class="project-header">
+                <div class="project-icon">🎰</div>
+                <div class="project-badge">Crisis to Play</div>
+            </div>
+            <div class="project-content">
+                <div class="project-title-area">
+                    <div>
+                        <h3 class="project-title">꼬질랜드 | 버추얼 아이돌 생일카페</h3>
+                        <p class="project-period">2024.11 (2주) | 긴급 TF 주최진</p>
+                    </div>
+                    <div class="weverse-connection">
+                        <div class="weverse-label">→ Weverse 연결</div>
+                        <div class="weverse-text">
+                            긴급 프로모션 기획 및 유관 부서 커뮤니케이션 총괄 역량
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-block">
+                    <h4 class="block-title">⚠️ Weverse 생일카페 긴급 프로모션</h4>
+                    <div class="block-content">
+                        <p><strong>D-13, 주최자 잠적.</strong> 협력진 이탈, 팬들 불안, "망했다"는 분위기.</p>
+                    </div>
+                </div>
+
+                <div class="project-block">
+                    <h4 class="block-title">🎯 HOW: 위기를 놀이로</h4>
+                    <div class="block-content">
+                        <ul>
+                            <li><strong>팬덤 코드 활용:</strong> "망한 행사"를 당시 팬들이 즐기던 '도박 밈'으로 전환 → "오프라인 도박판에서 만나서 놀자" 카지노 컨셉 → 불안감이 기대감으로 반전</li>
+                            <li><strong>협력진 설득 커뮤니케이션:</strong> 떠나간 협력진들에게 손편지급 DM 발송 → 밤새 설득 → 13일 만에 굿즈 발주/대관/운영 완료</li>
+                            <li><strong>13일 실행력:</strong> 대관 → 굿즈 제작 → 현장 운영 콘텐츠 기획까지 TF 구성하여 단기 집행</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box" style="background: rgba(255, 215, 0, 0.1); border-color: #FFD700;">
+                    <div class="highlight-number" style="color: #FFD700;">"이제까지 가본 오타쿠 행사 중 역대급"</div>
+                    <div class="highlight-text" style="color: #FFFFFF;">
+                        <strong>NPS 9.2/10</strong> · 팬덤 내 신뢰 구축 · 연속 행사 기획 확정<br>
+                        위기 상황을 팬들과 함께 즐기는 '경험'으로 전환
+                    </div>
+                </div>
+
+                <div class="project-block">
+                    <h4 class="block-title">📊 Weverse 적용 포인트</h4>
+                    <div class="block-content">
+                        <p><strong>"팬덤의 언어로 말하면, 위기도 프로모션이 된다"</strong></p>
+                        <p>Weverse에서도 돌발 이슈(배송 지연, 품절 대란)는 매일 터집니다. 
+                        이때 공식 사과문으로 끝내면 팬들은 떠납니다. 
+                        하지만 팬덤의 '밈 문화'를 이해하고 그들의 언어로 소통하면, 오히려 충성도가 올라갑니다. 
+                        저는 그 감각을 현장에서 체득했습니다.</p>
+                    </div>
+                </div>
+
+                <div class="tags">
+                    <span class="tag">#긴급프로모션</span>
+                    <span class="tag">#팬덤코드</span>
+                    <span class="tag">#위기관리</span>
+                    <span class="tag">#협력진커뮤니케이션</span>
+                    <span class="tag">#D-13실행</span>
+                </div>
+            </div>
+        </article>
+
+        <!-- Project 4: 뉴이스트 총대 - GLOBAL MINIMAL -->
+        <article class="project nuest">
+            <div class="project-header">
+                <div class="project-icon">🌏</div>
+                <div class="project-badge" style="background: #00D084; color: white;">Global Fandom Ops</div>
+            </div>
+            <div class="project-content">
+                <div class="project-title-area">
+                    <div>
+                        <h3 class="project-title">뉴이스트 W 팬덤 총대 | 글로벌 공구</h3>
+                        <p class="project-period">2017 - 2019 (2년) | 공구 리더</p>
+                    </div>
+                    <div class="weverse-connection">
+                        <div class="weverse-label">→ Weverse 연결</div>
+                        <div class="weverse-text">
+                            글로벌 커머스 CS 및 해외 팬 접점 운영 역량
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-block">
+                    <h4 class="block-title">🌏 Weverse 글로벌 커머스 CS 경험</h4>
+                    <div class="block-content">
+                        <ul>
+                            <li><strong>해외 팬 대상 굿즈 공구:</strong> 일본/미국/동남아 팬들 국제 배송 직접 운영 → 관세, 통관, 배대지 이슈 실시간 해결</li>
+                            <li><strong>다국어 CS:</strong> 번역기 돌려가며 해외 팬들과 소통 → 배송 지연/분실 케이스 100% 해결</li>
+                            <li><strong>오프라인 팬 인솔:</strong> 서울-부산 콘서트 수백 명 팬 인솔 → 2년간 안전사고 0건</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <div class="highlight-number">2년 무사고 운영 | 팬덤 내 신뢰</div>
+                    <div class="highlight-text">
+                        해외 팬들 "한국 팬 중 가장 믿을 수 있는 사람" 평가<br>
+                        글로벌 커머스의 리얼 페인포인트(Pain Point)를 소비자 관점에서 체득
+                    </div>
+                </div>
+
+                <div class="project-block">
+                    <h4 class="block-title">📊 Weverse 적용 포인트</h4>
+                    <div class="block-content">
+                        <p><strong>"글로벌 팬들이 진짜 불편해하는 지점을 안다"</strong></p>
+                        <p>Weverse는 246개국 팬들이 쓰는 플랫폼입니다. 
+                        배송 지연 하나, CS 응답 늦는 것 하나가 SNS로 번져서 '한국 플랫폼은 해외 팬 무시한다'는 프레임으로 확산됩니다. 
+                        저는 그 현장을 소비자 입장에서 겪었고, 어떻게 대응해야 팬들이 만족하는지 압니다.</p>
+                    </div>
+                </div>
+
+                <div class="tags">
+                    <span class="tag">#글로벌커머스</span>
+                    <span class="tag">#해외CS</span>
+                    <span class="tag">#국제배송</span>
+                    <span class="tag">#다국어소통</span>
+                    <span class="tag">#팬접점운영</span>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <!-- Proposal Section -->
+    <section class="proposal-section">
+        <div class="proposal-container">
+            <h2 class="proposal-title">
+                입사하면 이걸 하고 싶습니다
+            </h2>
+            <p class="proposal-subtitle">
+                Weverse Archive: 온·오프라인 팬 경험을 영구 저장하는 디지털 덕질 여권
+            </p>
+
+            <div class="proposal-box">
+                <h3 class="proposal-heading">🎯 Problem: 오프라인 추억은 사라진다</h3>
+                <div class="proposal-content">
+                    <p>저는 뉴이스트 백호의 오랜 팬입니다. Weverse 쓰면서 '활동 뱃지' 쌓이는 게 재밌었는데, 
+                    한 가지 아쉬웠던 건 <strong>콘서트 티켓, 포토이즘, 팬레터 같은 오프라인 추억은 그대로 사라진다</strong>는 거였습니다.</p>
+                    <br>
+                    <p>Weverse Con 다녀와도, 팬사인회 갔다 와도, 앱에는 아무 기록이 안 남습니다. 
+                    그냥 '다녀왔다'는 기억만 머릿속에 있을 뿐이죠. 
+                    이게 너무 아깝습니다. <strong>모든 팬 경험이 Weverse에 쌓이면, 팬들은 Weverse를 절대 떠나지 않습니다.</strong></p>
+                </div>
+            </div>
+
+            <div class="proposal-box">
+                <h3 class="proposal-heading">💡 Solution: 디지털 덕질 여권</h3>
+                <div class="flow-chart">
+                    <div class="flow-item">
+                        <div class="flow-icon">🎫</div>
+                        <div class="flow-label">콘서트 티켓<br>QR 스캔</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-icon">✨</div>
+                        <div class="flow-label">메모리 티켓 변환<br>(미공개 음성)</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-icon">💾</div>
+                        <div class="flow-label">아카이브 저장<br>(타임라인)</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-icon">📊</div>
+                        <div class="flow-label">Fandom Recap<br>(연말 결산)</div>
+                    </div>
+                </div>
+                <div class="proposal-content">
+                    <p><strong>작동 방식:</strong></p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 1rem;">→ 콘서트 끝나고 Weverse 앱에서 티켓 QR 스캔하면, 그날 콘서트가 '메모리 티켓'으로 저장됩니다.</li>
+                        <li style="margin-bottom: 1rem;">→ 티켓에는 아티스트 미공개 음성 메시지나 포토카드 1장이 숨겨져 있어요. (리워드)</li>
+                        <li style="margin-bottom: 1rem;">→ 연말에 'Fandom Recap 2025' 리포트 발송 → "올해 당신은 콘서트 3회, Weverse Shop 구매 12회" 같은 통계 → SNS 자발적 공유 유도</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="proposal-box">
+                <h3 class="proposal-heading">📈 Expected Effect</h3>
+                <div class="proposal-content">
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 1rem;"><strong>→ 오프라인 → 온라인 유입 증대:</strong> 콘서트 다녀온 팬들이 리워드 받으려고 Weverse 앱 체류 시간 증가</li>
+                        <li style="margin-bottom: 1rem;"><strong>→ 팬덤 Lock-in:</strong> 추억이 Weverse에 쌓이면, 팬덤 갈아타도 Weverse는 안 지워요</li>
+                        <li style="margin-bottom: 1rem;"><strong>→ 바이럴 마케팅:</strong> 'Fandom Recap' SNS 공유 → "나도 Weverse 써야겠다" 신규 유입</li>
+                        <li><strong>→ 매출 연결:</strong> "작년 이맘때 굿즈 샀었는데" 알림 → 재구매 유도</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-quote">
+            팬심 읽는 <span class="highlight">감각</span>,<br>
+            현장 굴린 <span class="highlight">일머리</span>,<br>
+            Tech 활용하는 <span class="highlight">속도</span>.<br>
+            <br>
+            <span class="highlight">Weverse 오프라인 팀의<br>마지막 퍼즐이 되겠습니다.</span>
+        </p>
+
+        <div class="contact-grid">
+            <div class="contact-item">
+                <div class="contact-label">Email</div>
+                <div class="contact-value">jiyeon.work.93@gmail.com</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-label">Portfolio</div>
+                <div class="contact-value">github.com/K-hypecraft</div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-label">Experience</div>
+                <div class="contact-value">팬덤 5년 + 현장 3년</div>
+            </div>
+        </div>
+
+        <p style="margin-top: 3rem; font-size: 0.9rem; color: rgba(255, 255, 255, 0.4);">
+            © 2025 Kim Jiyeon. All rights reserved.
+        </p>
+    </footer>
+
+    <script>
+        // PDF Download
+        function downloadPDF() {
+            const element = document.body;
+            const opt = {
+                margin: 0,
+                filename: 'KimJiyeon_Weverse_Portfolio_Final.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Scroll Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease-out';
+            observer.observe(card);
+        });
+
+        // Nav Scroll Effect
+        const nav = document.querySelector('.nav');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                nav.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.08)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

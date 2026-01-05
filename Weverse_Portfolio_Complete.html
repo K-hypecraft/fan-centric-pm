@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김지연 포트폴리오 | Weverse O2O Planner</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        /* Weverse Brand Colors (Mint + Blue Gradient) */
+        .text-weverse { 
+            background: linear-gradient(135deg, #00D695 0%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .bg-weverse-gradient {
+            background: linear-gradient(135deg, #00D695 0%, #3B82F6 100%);
+        }
+        .border-weverse { border-color: #00D695; }
+        
+        /* Glassmorphism Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+        .glass-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 214, 149, 0.3);
+            box-shadow: 0 0 40px rgba(0, 214, 149, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Text Colors */
+        .text-secondary { color: #A1A1AA; }
+        .text-content { color: #E4E4E7; }
+
+        /* Animations */
+        .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.8s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00D695; }
+
+        /* Modal */
+        #modal { transition: opacity 0.3s ease, visibility 0.3s ease; }
+        #modal.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        #modal:not(.hidden) { opacity: 1; visibility: visible; pointer-events: auto; }
+
+        /* Image Styles */
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
+        }
+        .project-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Background: Three.js Particles -->
+    <div id="canvas-container" class="fixed top-0 left-0 w-full h-full -z-10 opacity-60"></div>
+
+    <!-- Navigation -->
+    <header class="fixed top-0 w-full px-6 py-4 flex justify-between items-center z-40 bg-[#0a0a0a]/80 backdrop-blur-md border-b border-white/5">
+        <div class="text-xl font-bold tracking-tight flex items-center gap-2 text-white">
+            <span class="w-3 h-3 rounded-full bg-weverse-gradient shadow-[0_0_10px_#00D695]"></span>
+            KIM JIYEON
+        </div>
+        <div class="flex items-center gap-4">
+            <a href="#contact" class="hidden md:flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-black hover:bg-weverse-gradient hover:text-white transition-all text-sm font-bold shadow-lg">
+                <i data-lucide="mail" width="16"></i> CONTACT
+            </a>
+        </div>
+    </header>
+
+    <main class="pt-24">
+        
+        <!-- HERO SECTION -->
+        <section class="min-h-[90vh] flex flex-col justify-center items-center text-center px-6 relative">
+            
+            <div class="inline-block px-5 py-2 rounded-full bg-white/5 border border-white/10 text-[#00D695] font-bold text-sm mb-8 fade-in">
+                ● Weverse O2O / 팬이벤트 기획 직무 지원
+            </div>
+
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-tight mb-8 tracking-tight fade-in">
+                팬심을 <span class="text-weverse">데이터</span>로 읽고<br>
+                <span class="text-weverse">매출</span>로 연결합니다
+            </h1>
+            
+            <p class="text-xl text-secondary max-w-2xl mb-12 leading-relaxed fade-in">
+                51만 명 대규모 현장 무사고 운영.<br>
+                재고 0원 커머스 전략.<br>
+                <b class="text-white">위버스의 O2O 경험을 완성할 김지연입니다.</b>
+            </p>
+
+            <!-- Key Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 w-full max-w-4xl fade-in mb-12">
+                <div class="glass-card p-6 text-center">
+                    <div class="text-4xl font-extrabold text-white mb-2">51만</div>
+                    <div class="text-xs text-[#00D695] font-bold uppercase tracking-wider">대규모 인파 무사고</div>
+                </div>
+                <div class="glass-card p-6 text-center">
+                    <div class="text-4xl font-extrabold text-white mb-2">0건</div>
+                    <div class="text-xs text-[#00D695] font-bold uppercase tracking-wider">민원/정산 오차</div>
+                </div>
+                <div class="glass-card p-6 text-center">
+                    <div class="text-4xl font-extrabold text-white mb-2">300%</div>
+                    <div class="text-xs text-[#3B82F6] font-bold uppercase tracking-wider">굿즈 판매 ROI</div>
+                </div>
+                <div class="glass-card p-6 text-center">
+                    <div class="text-4xl font-extrabold text-white mb-2">13일</div>
+                    <div class="text-xs text-[#3B82F6] font-bold uppercase tracking-wider">위기 극복 기간</div>
+                </div>
+            </div>
+
+            <div class="animate-bounce text-secondary opacity-50">
+                <i data-lucide="arrow-down" width="32"></i>
+            </div>
+        </section>
+
+        <!-- WHY WEVERSE -->
+        <section class="py-32 px-6 md:px-24 relative">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-bold mb-16 text-center fade-in">
+                    왜 <span class="text-weverse">위버스</span>인가요?
+                </h2>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div class="glass-card p-8 fade-in">
+                        <div class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mb-6 text-[#00D695] border border-white/10">
+                            <i data-lucide="users" width="28"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-white">Scale: 규모감</h3>
+                        <p class="text-secondary text-sm leading-relaxed">
+                            수원문화재단에서 <b class="text-white">51만 명</b> 축제를 운영하며 대규모 인파 통제와 안전 관리 역량을 증명했습니다. 위버스콘/페스티벌 현장에 즉시 투입 가능합니다.
+                        </p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="glass-card p-8 fade-in" style="transition-delay: 100ms;">
+                        <div class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mb-6 text-[#F472B6] border border-white/10">
+                            <i data-lucide="shopping-bag" width="28"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-white">Commerce: 감각</h3>
+                        <p class="text-secondary text-sm leading-relaxed">
+                            모랑공방 운영 시 <b class="text-white">재고율 0%</b>, 3차 완판. 팬덤의 구매 타이밍(RT)을 데이터로 분석하여 Weverse Shop 매출 극대화 전략을 짭니다.
+                        </p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="glass-card p-8 fade-in" style="transition-delay: 200ms;">
+                        <div class="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center mb-6 text-[#3B82F6] border border-white/10">
+                            <i data-lucide="heart" width="28"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-4 text-white">Insight: 팬심</h3>
+                        <p class="text-secondary text-sm leading-relaxed">
+                            12년 차 아이돌 팬이자 총대 경험. <b class="text-white">'꼬질랜드' 위기</b>를 팬덤 놀이 문화로 승화시켜 극복했습니다. 팬들이 원하는 포인트를 정확히 압니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS GALLERY (80% VISUAL) -->
+        <section class="py-32 px-6 md:px-24 bg-black/30">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex items-end justify-between mb-12 fade-in">
+                    <div>
+                        <h2 class="text-4xl font-bold mb-2 text-white">Key Projects</h2>
+                        <p class="text-secondary">카드를 클릭하여 상세 성과와 증빙 자료를 확인하세요.</p>
+                    </div>
+                </div>
+
+                <div class="grid gap-10">
+                    
+                    <!-- 1. 수원문화재단 -->
+                    <div class="glass-card group fade-in cursor-pointer" onclick="openModal('suwon')">
+                        <div class="flex flex-col md:flex-row h-full">
+                            <div class="md:w-2/5 h-64 md:h-auto overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&h=600&fit=crop" alt="수원 축제" class="project-image opacity-80 group-hover:opacity-100">
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 flex gap-2">
+                                     <span class="px-3 py-1 bg-black/60 backdrop-blur rounded-full text-xs font-bold text-[#00D695] border border-[#00D695]/30">Click Detail ↗</span>
+                                </div>
+                            </div>
+                            <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <span class="text-[#00D695] font-bold text-xs tracking-widest uppercase">Crisis Management</span>
+                                    <span class="w-1 h-1 bg-gray-600 rounded-full"></span>
+                                    <span class="text-secondary text-sm">2025.05 - 2025.11</span>
+                                </div>
+                                <h3 class="text-3xl font-bold mb-4 text-white group-hover:text-[#00D695] transition-colors">51만 명 트래픽을 지킨 위기대응</h3>
+                                <p class="text-secondary mb-6 leading-relaxed">
+                                    예상치 못한 인파로 결제 시스템 마비. ChatGPT로 1분 만에 원인 규명 후 우회 결제망 구축. 16일 무사고, 민원 0건 달성.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. 모랑공방 -->
+                    <div class="glass-card group fade-in cursor-pointer" onclick="openModal('morang')">
+                        <div class="flex flex-col md:flex-row h-full">
+                            <div class="md:w-2/5 h-64 md:h-auto overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=800&h=600&fit=crop" alt="모랑공방 굿즈" class="project-image opacity-80 group-hover:opacity-100">
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
+                            </div>
+                            <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <span class="text-[#F472B6] font-bold text-xs tracking-widest uppercase">Commerce Strategy</span>
+                                    <span class="w-1 h-1 bg-gray-600 rounded-full"></span>
+                                    <span class="text-secondary text-sm">2019.10 - 2021.10</span>
+                                </div>
+                                <h3 class="text-3xl font-bold mb-4 text-white group-hover:text-[#F472B6] transition-colors">데이터로 예측하고 재고 없이 완판</h3>
+                                <p class="text-secondary mb-6 leading-relaxed">
+                                    RT 급상승 구간을 포착해 '선주문(Pre-order)' 시스템 도입. 재고 리스크 0%, 투자 대비 수익률 300% 달성.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. 꼬질랜드 -->
+                    <div class="glass-card group fade-in cursor-pointer" onclick="openModal('kkojil')">
+                        <div class="flex flex-col md:flex-row h-full">
+                            <div class="md:w-2/5 h-64 md:h-auto overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&h=600&fit=crop" alt="꼬질랜드 현장" class="project-image opacity-80 group-hover:opacity-100">
+                                <div class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent"></div>
+                            </div>
+                            <div class="md:w-3/5 p-8 md:p-12 flex flex-col justify-center">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <span class="text-[#3B82F6] font-bold text-xs tracking-widest uppercase">Fandom Insight</span>
+                                    <span class="w-1 h-1 bg-gray-600 rounded-full"></span>
+                                    <span class="text-secondary text-sm">2024.11 (2주)</span>
+                                </div>
+                                <h3 class="text-3xl font-bold mb-4 text-white group-hover:text-[#3B82F6] transition-colors">주최자 잠적 D-13, '도박'으로 구원하다</h3>
+                                <p class="text-secondary mb-6 leading-relaxed">
+                                    최악의 위기를 '카지노 컨셉' 놀이 문화로 역이용. 13일 만에 기획/실행 완료, 팬 만족도 95% 기록.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- VISUAL GALLERY (Additional Photos) -->
+        <section class="py-32 px-6 md:px-24">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-4xl font-bold mb-12 text-center fade-in text-white">증빙 자료 & 현장</h2>
+                
+                <div class="gallery-grid fade-in">
+                    <!-- Suwon Images -->
+                    <div class="glass-card overflow-hidden group cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=600&h=400&fit=crop" alt="수원 축제 전경" class="project-image">
+                        <div class="p-4">
+                            <h4 class="text-white font-bold">수원화성 미디어아트쇼 전경</h4>
+                            <p class="text-xs text-secondary">51만 명 관람</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card overflow-hidden group cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop" alt="수원 표창장" class="project-image">
+                        <div class="p-4">
+                            <h4 class="text-white font-bold">모범직원 표창장</h4>
+                            <p class="text-xs text-secondary">신규 입사 6개월</p>
+                        </div>
+                    </div>
+
+                    <!-- Morang Images -->
+                    <div class="glass-card overflow-hidden group cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=600&h=400&fit=crop" alt="모랑공방 제품" class="project-image">
+                        <div class="p-4">
+                            <h4 class="text-white font-bold">돌쥬·호라믹 제품</h4>
+                            <p class="text-xs text-secondary">3차 완판</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card overflow-hidden group cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=600&h=400&fit=crop" alt="가마 작업" class="project-image">
+                        <div class="p-4">
+                            <h4 class="text-white font-bold">가마 소성 과정</h4>
+                            <p class="text-xs text-secondary">수공예 제작</p>
+                        </div>
+                    </div>
+
+                    <!-- Kkojil Images -->
+                    <div class="glass-card overflow-hidden group cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&h=400&fit=crop" alt="꼬질랜드 카지노" class="project-image">
+                        <div class="p-4">
+                            <h4 class="text-white font-bold">카지노 컨셉 공간</h4>
+                            <p class="text-xs text-secondary">13일 만에 완성</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card overflow-hidden group cursor-pointer">
+                        <img src="https://images.unsplash.com/photo-1496024840928-4c417adf211d?w=600&h=400&fit=crop" alt="꼬질랜드 굿즈" class="project-image">
+                        <div class="p-4">
+                            <h4 class="text-white font-bold">팬아트 기반 굿즈</h4>
+                            <p class="text-xs text-secondary">게이미피케이션</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SPECIAL PROPOSAL -->
+        <section class="py-32 px-6 md:px-24 bg-gradient-to-b from-[#0a0a0a] to-[#111] relative overflow-hidden border-t border-white/5">
+            <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-weverse-gradient rounded-full blur-[200px] opacity-10 pointer-events-none"></div>
+            
+            <div class="max-w-6xl mx-auto relative z-10 flex flex-col md:flex-row items-center gap-16 fade-in">
+                <div class="md:w-1/2">
+                    <span class="text-[#00D695] font-bold tracking-widest text-xs mb-4 block uppercase">Special Proposal</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mb-8 leading-tight text-white">
+                        Weverse by Fans 2.0:<br>
+                        <span class="text-weverse">C2C 에셋 마켓플레이스</span>
+                    </h2>
+                    <p class="text-secondary mb-10 leading-relaxed text-lg">
+                        "팬들은 이미 '그레이 마켓'에서 수천억 원을 쓰고 있습니다. 
+                        위버스가 이 트래픽과 데이터를 흡수해야 합니다."<br><br>
+                        재고 리스크 없는 디지털 에셋(POD) 모델로<br>
+                        <b class="text-white">영업이익률 25% 달성</b> 시나리오를 제안합니다.
+                    </p>
+                    <a href="#contact" class="inline-flex px-8 py-4 bg-white text-black font-bold rounded-xl hover:bg-weverse-gradient hover:text-white transition-all items-center gap-3 shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                        제안서 전체 보기 (PDF) <i data-lucide="arrow-right" width="20"></i>
+                    </a>
+                </div>
+                <div class="md:w-1/2 w-full">
+                    <div class="glass-card p-10 bg-white/5">
+                        <div class="grid grid-cols-2 gap-8 text-center">
+                            <div>
+                                <div class="text-5xl font-extrabold text-[#00D695] mb-2">150억</div>
+                                <div class="text-xs text-secondary font-bold uppercase">타겟 추가 매출</div>
+                            </div>
+                            <div>
+                                <div class="text-5xl font-extrabold text-[#3B82F6] mb-2">0원</div>
+                                <div class="text-xs text-secondary font-bold uppercase">재고 리스크 (POD)</div>
+                            </div>
+                            <div class="col-span-2 pt-8 border-t border-white/10">
+                                <div class="text-sm font-bold mb-4 text-white">핵심 전략 키워드</div>
+                                <div class="flex justify-center gap-3 flex-wrap">
+                                    <span class="px-4 py-1.5 bg-white/10 rounded-full text-xs text-white border border-white/10">IP 저작권 보호</span>
+                                    <span class="px-4 py-1.5 bg-white/10 rounded-full text-xs text-white border border-white/10">글로벌 배송 통합</span>
+                                    <span class="px-4 py-1.5 bg-white/10 rounded-full text-xs text-white border border-white/10">크리에이터 이코노미</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER / CONTACT -->
+        <footer id="contact" class="py-20 px-6 bg-[#050505] border-t border-white/5 text-center">
+            <h2 class="text-2xl font-bold mb-8 text-white">위버스의 마지막 퍼즐이 되겠습니다.</h2>
+            <div class="flex justify-center gap-4 mb-12">
+                <a href="mailto:jiyeon.work.93@gmail.com" class="text-lg font-bold text-secondary hover:text-[#00D695] transition-colors">
+                    jiyeon.work.93@gmail.com
+                </a>
+            </div>
+            <div class="text-xs text-gray-600">© 2025 Kim Jiyeon. All rights reserved.</div>
+        </footer>
+
+    </main>
+
+    <!-- MODAL POPUP -->
+    <div id="modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-black/90 backdrop-blur-md" onclick="closeModal()"></div>
+        <div class="bg-[#121212] w-full max-w-5xl max-h-[90vh] overflow-y-auto rounded-3xl relative z-10 shadow-2xl border border-white/10">
+            <button onclick="closeModal()" class="absolute top-6 right-6 p-2 bg-white/10 rounded-full hover:bg-white hover:text-black transition-colors z-20 text-white">
+                <i data-lucide="x" width="24"></i>
+            </button>
+            <div id="modal-content" class="p-8 md:p-12 text-white">
+                <!-- JS로 내용 로드 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Three.js: Weverse Gradient Particles
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 1200; 
+        const posArray = new Float32Array(particlesCount * 3);
+        const colorsArray = new Float32Array(particlesCount * 3);
+
+        for(let i = 0; i < particlesCount; i++) {
+            posArray[i * 3] = (Math.random() - 0.5) * 20;
+            posArray[i * 3 + 1] = (Math.random() - 0.5) * 20;
+            posArray[i * 3 + 2] = (Math.random() - 0.5) * 20;
+
+            const colorType = Math.random();
+            if(colorType > 0.5) {
+                // Mint (#00D695)
+                colorsArray[i * 3] = 0;
+                colorsArray[i * 3 + 1] = 0.84;
+                colorsArray[i * 3 + 2] = 0.58;
+            } else {
+                // Blue (#3B82F6)
+                colorsArray[i * 3] = 0.23;
+                colorsArray[i * 3 + 1] = 0.51;
+                colorsArray[i * 3 + 2] = 0.96;
+            }
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorsArray, 3));
+        
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.02,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.6,
+            blending: THREE.AdditiveBlending
+        });
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+        camera.position.z = 5;
+
+        let mouseX = 0, mouseY = 0;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX / window.innerWidth - 0.5;
+            mouseY = e.clientY / window.innerHeight - 0.5;
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+            particlesMesh.rotation.y += 0.0005;
+            particlesMesh.rotation.x += (mouseY * 0.05 - particlesMesh.rotation.x) * 0.05;
+            particlesMesh.rotation.y += (mouseX * 0.05 - particlesMesh.rotation.y) * 0.05;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Scroll Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Modal Data
+        const modalData = {
+            suwon: {
+                title: '수원문화재단 위기관리',
+                role: 'Ticket Manager & 축제 운영 총괄',
+                period: '2025.05 - 2025.11',
+                desc: '예상치 못한 51만 명 인파로 인한 결제 시스템 마비. 개발팀 부재 상황에서 ChatGPT를 활용해 1분 만에 에러 원인을 규명하고, 우회 결제망을 구축하여 매출 누락 0원을 달성했습니다.',
+                images: [
+                    'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=400&h=300&fit=crop',
+                    'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=300&fit=crop',
+                    'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&h=300&fit=crop'
+                ],
+                stats: [
+                    { label: '무사고 운영', value: '16일' },
+                    { label: '민원 발생', value: '0건' },
+                    { label: '매출 달성', value: '120%' }
+                ]
+            },
+            morang: {
+                title: '모랑공방 커머스 전략',
+                role: 'Founder & MD 기획',
+                period: '2019.10 - 2021.10',
+                desc: 'SNS RT 급상승 구간을 데이터로 포착하여 "선주문(Pre-order)" 시스템을 도입했습니다. 팬들의 구매 욕구가 최고조일 때 판매창을 열어 재고 폐기율 0%를 달성했습니다.',
+                images: [
+                    'https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=400&h=300&fit=crop',
+                    'https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&h=300&fit=crop'
+                ],
+                stats: [
+                    { label: '재고율', value: '0%' },
+                    { label: '투자수익률', value: '300%' },
+                    { label: '완판 기록', value: '3회 연속' }
+                ]
+            },
+            kkojil: {
+                title: '꼬질랜드 위기 극복',
+                role: '총괄 기획',
+                period: '2024.11 (2주)',
+                desc: '행사 2주 전 주최자 잠적이라는 최악의 위기를 "카지노 컨셉"의 놀이 문화로 역이용했습니다. 팬들의 불안감을 "베팅하는 재미"로 승화시켜 역대급 만족도를 기록했습니다.',
+                images: [
+                    'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=300&fit=crop',
+                    'https://images.unsplash.com/photo-1496024840928-4c417adf211d?w=400&h=300&fit=crop'
+                ],
+                stats: [
+                    { label: '준비 기간', value: '13일' },
+                    { label: '팬 만족도', value: '95%' },
+                    { label: '트렌드', value: '1위' }
+                ]
+            }
+        };
+
+        function openModal(id) {
+            const data = modalData[id];
+            const content = `
+                <div class="text-sm font-bold text-[#00D695] mb-2 uppercase tracking-wider">${data.role} | ${data.period}</div>
+                <h2 class="text-4xl font-extrabold mb-6 text-white">${data.title}</h2>
+                
+                <div class="grid grid-cols-3 gap-4 mb-8">
+                    ${data.stats.map(stat => `
+                        <div class="bg-white/5 p-4 rounded-xl text-center border border-white/10">
+                            <div class="text-2xl font-black text-white">${stat.value}</div>
+                            <div class="text-xs text-[#00D695] font-bold mt-1 uppercase">${stat.label}</div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <p class="text-lg text-secondary leading-relaxed mb-8 border-l-4 border-[#00D695] pl-6">
+                    ${data.desc}
+                </p>
+
+                <div class="space-y-4">
+                    <h3 class="font-bold text-white">증빙 자료 & 현장 사진</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        ${data.images.map(img => `
+                            <div class="aspect-video bg-white/5 rounded-xl overflow-hidden shadow-sm relative group border border-white/5">
+                                <img src="${img}" alt="증빙" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity">
+                                <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white font-bold text-sm">
+                                    확대 보기
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            document.getElementById('modal-content').innerHTML = content;
+            document.getElementById('modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'Escape') closeModal();
+        });
+    </script>
+</body>
+</html>

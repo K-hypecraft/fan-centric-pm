@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김지연 | Weverse 오프라인 & 팬이벤트 기획/운영</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Righteous&family=Press+Start+2P&family=Pacifico&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --weverse-green: #00D664;
+            --weverse-dark: #0A0A0A;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background: #FFFFFF;
+            color: #0A0A0A;
+            line-height: 1.65;
+            overflow-x: hidden;
+        }
+
+        /* ========== NAVIGATION ========== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-brand span {
+            color: var(--weverse-green);
+        }
+
+        .btn-download {
+            background: var(--weverse-green);
+            color: white;
+            padding: 0.7rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-download:hover {
+            background: #00BB56;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 214, 100, 0.3);
+        }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 2rem 4rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(0, 214, 100, 0.15) 0%, transparent 70%);
+            animation: pulse 6s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.5; }
+            50% { transform: scale(1.1) rotate(5deg); opacity: 0.8; }
+        }
+
+        .hero-content {
+            max-width: 900px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: rgba(0, 214, 100, 0.15);
+            color: var(--weverse-green);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(0, 214, 100, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+        }
+
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--weverse-green), #00FF7F);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.35rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .hero-metrics {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--weverse-green);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+        }
+
+        /* ========== PROJECT SECTIONS ========== */
+        .section {
+            min-height: 100vh;
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ========== 1. 모랑공방: NewJeans 팝업스토어 ========== */
+        .morang-popup {
+            background: linear-gradient(135deg, #FFE5F4 0%, #E0F4FF 50%, #FFF4E0 100%);
+            position: relative;
+        }
+
+        .morang-popup::before {
+            content: '🛍️';
+            position: absolute;
+            font-size: 15rem;
+            opacity: 0.05;
+            top: 10%;
+            right: 5%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        .popup-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .popup-tag {
+            display: inline-block;
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-family: 'Righteous', sans-serif;
+            font-size: 1.1rem;
+            color: #FF69B4;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 30px rgba(255, 105, 180, 0.2);
+            transform: rotate(-2deg);
+        }
+
+        .section-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .morang-popup .section-title {
+            background: linear-gradient(135deg, #FF69B4, #FFB6D9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: rgba(0, 0, 0, 0.6);
+            font-weight: 500;
+        }
+
+        /* 포토존 스타일 */
+        .photozone {
+            background: white;
+            border-radius: 30px;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        .photozone::before {
+            content: '📸 PHOTO ZONE';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #FF69B4;
+            color: white;
+            padding: 0.5rem 2rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        /* 스티커 콜라주 */
+        .sticker-wall {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .sticker-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            position: relative;
+            transition: all 0.3s ease;
+            border: 3px dashed rgba(255, 105, 180, 0.3);
+        }
+
+        .sticker-card:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.3);
+        }
+
+        .sticker-card::before {
+            content: '💕';
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            font-size: 3rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #FF69B4;
+            margin-bottom: 1rem;
+        }
+
+        .card-desc {
+            font-size: 1rem;
+            color: rgba(0, 0, 0, 0.7);
+            line-height: 1.7;
+        }
+
+        .card-metric {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFE5F4, #FFF4E0);
+            padding: 0.5rem 1.2rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #FF69B4;
+            margin-top: 1rem;
+        }
+
+        /* Weverse 연결 박스 */
+        .weverse-link {
+            background: linear-gradient(135deg, #00D664, #00FF7F);
+            color: white;
+            padding: 2.5rem;
+            border-radius: 25px;
+            margin: 3rem 0;
+            box-shadow: 0 15px 50px rgba(0, 214, 100, 0.3);
+        }
+
+        .weverse-link-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .weverse-link-title::before {
+            content: '→';
+            font-size: 2rem;
+        }
+
+        .weverse-link-desc {
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.8;
+        }
+
+        /* ========== 2. 수원문화재단: SEVENTEEN/BTS 콘서트장 ========== */
+        .concert-venue {
+            background: linear-gradient(180deg, #0A0A0A 0%, #1A1A2E 50%, #0A0A0A 100%);
+            color: white;
+            position: relative;
+        }
+
+        .concert-venue::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(0, 214, 100, 0.03) 0px,
+                    transparent 2px,
+                    transparent 4px,
+                    rgba(0, 214, 100, 0.03) 6px
+                );
+            pointer-events: none;
+        }
+
+        /* 응원봉 효과 */
+        .lightstick-wall {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .lightstick {
+            position: absolute;
+            width: 4px;
+            height: 60px;
+            background: linear-gradient(180deg, var(--weverse-green), transparent);
+            animation: wave 3s ease-in-out infinite;
+            opacity: 0.6;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateY(0) scaleY(1); }
+            50% { transform: translateY(-30px) scaleY(1.3); }
+        }
+
+        .concert-venue .section-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 2.5rem;
+            color: var(--weverse-green);
+            text-shadow: 0 0 30px rgba(0, 214, 100, 0.8);
+            margin-bottom: 2rem;
+        }
+
+        /* LED 스크린 효과 */
+        .led-screen {
+            background: rgba(0, 0, 0, 0.8);
+            border: 5px solid var(--weverse-green);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: 
+                0 0 50px rgba(0, 214, 100, 0.5),
+                inset 0 0 30px rgba(0, 214, 100, 0.1);
+            position: relative;
+        }
+
+        .led-screen::before {
+            content: '🎤 LIVE STAGE';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--weverse-green);
+            color: black;
+            padding: 0.5rem 2rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        /* 팬 응원 문구 */
+        .fanchant {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .chant-card {
+            background: rgba(0, 214, 100, 0.1);
+            border: 2px solid var(--weverse-green);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .chant-card:hover {
+            background: rgba(0, 214, 100, 0.2);
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(0, 214, 100, 0.4);
+        }
+
+        .chant-card .card-title {
+            color: var(--weverse-green);
+            font-family: 'Press Start 2P', monospace;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .chant-card .card-desc {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+        }
+
+        .chant-card .card-metric {
+            background: var(--weverse-green);
+            color: black;
+        }
+
+        /* ========== 3. 꼬질랜드: ENHYPEN 생일카페 ========== */
+        .birthday-cafe {
+            background: linear-gradient(135deg, #FFE5F8 0%, #E5F4FF 50%, #FFF9E5 100%);
+            position: relative;
+        }
+
+        .birthday-cafe::before {
+            content: '🎂';
+            position: absolute;
+            font-size: 20rem;
+            opacity: 0.03;
+            top: 15%;
+            left: -5%;
+            animation: spin 20s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 풍선 장식 */
+        .balloon-deco {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .balloon {
+            position: absolute;
+            font-size: 3rem;
+            animation: balloon-float 5s ease-in-out infinite;
+        }
+
+        @keyframes balloon-float {
+            0%, 100% { transform: translateY(0) rotate(-5deg); }
+            50% { transform: translateY(-50px) rotate(5deg); }
+        }
+
+        .birthday-cafe .section-title {
+            background: linear-gradient(135deg, #9D4EDD, #F72585);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* 포토카드 벽 */
+        .photocard-wall {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .photocard {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(157, 78, 221, 0.2);
+            border: 3px solid rgba(157, 78, 221, 0.3);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .photocard:hover {
+            transform: translateY(-10px) rotate(-2deg);
+            box-shadow: 0 20px 50px rgba(157, 78, 221, 0.4);
+        }
+
+        .photocard::before {
+            content: '🎈';
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            font-size: 2.5rem;
+        }
+
+        /* 스탬프 투어 */
+        .stamp-tour {
+            background: white;
+            border-radius: 30px;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.08);
+            border: 4px dashed rgba(157, 78, 221, 0.3);
+        }
+
+        .stamp-tour::before {
+            content: '✨ STAMP TOUR';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #9D4EDD, #F72585);
+            color: white;
+            padding: 0.5rem 2rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+        }
+
+        /* ========== 4. 뉴이스트 총대: 클래식 앨범 재킷 ========== */
+        .album-cover {
+            background: linear-gradient(135deg, #F8F9FA 0%, #E9ECEF 100%);
+            position: relative;
+        }
+
+        .album-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.02) 2px,
+                    rgba(0, 0, 0, 0.02) 4px
+                );
+            pointer-events: none;
+        }
+
+        .album-cover .section-title {
+            font-family: 'Georgia', serif;
+            color: #495057;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .album-cover .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00D664, transparent);
+        }
+
+        /* 바이닐 레코드 효과 */
+        .vinyl-record {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .vinyl-record::before {
+            content: '📀';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+        }
+
+        /* 포토북 그리드 */
+        .photobook-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .photobook-page {
+            background: white;
+            border-radius: 10px;
+            padding: 2.5rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #00D664;
+            transition: all 0.3s ease;
+        }
+
+        .photobook-page:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(0, 214, 100, 0.2);
+        }
+
+        .photobook-page .card-title {
+            color: #495057;
+            font-size: 1.3rem;
+        }
+
+        .photobook-page .card-desc {
+            color: #6C757D;
+        }
+
+        .photobook-page .card-metric {
+            background: linear-gradient(135deg, #E9ECEF, #DEE2E6);
+            color: #495057;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero-metrics {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .sticker-wall,
+            .fanchant,
+            .photocard-wall,
+            .photobook-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ========== ANIMATIONS ========== */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-brand">김지연 <span>@Weverse</span></div>
+            <button class="btn-download" onclick="downloadPDF()">📄 PDF 다운로드</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-tag">덕업일치 현장 전문가</div>
+            <h1>팬의 언어로 듣고<br/><span class="highlight">비즈니스로 답하는</span><br/>오프라인 PM</h1>
+            <p class="hero-subtitle">
+                위버스 오프라인 & 팬이벤트 기획/운영
+            </p>
+            <div class="hero-metrics">
+                <div class="metric">
+                    <div class="metric-value">510K</div>
+                    <div class="metric-label">축제 운영 (사고 제로)</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">3회</div>
+                    <div class="metric-label">완판 (재고 제로)</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">D-13</div>
+                    <div class="metric-label">긴급 실행력</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1. 모랑공방: NewJeans/IVE 팝업스토어 -->
+    <section class="section morang-popup">
+        <div class="section-container">
+            <div class="popup-header">
+                <div class="popup-tag">🛍️ POP-UP STORE</div>
+                <h2 class="section-title">모랑공방<br/>팬덤 커머스 팝업스토어</h2>
+                <p class="section-subtitle">NewJeans 스타일 Y2K 굿즈샵 운영</p>
+            </div>
+
+            <!-- 포토존: 프로젝트 개요 -->
+            <div class="photozone">
+                <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 2rem; color: #FF69B4;">
+                    🌸 "재고 0원으로 3회 완판" 선주문 모델 검증
+                </h3>
+                <p style="font-size: 1.1rem; color: rgba(0, 0, 0, 0.7); line-height: 1.8;">
+                    팬 페르소나 기반으로 굿즈 기획 → 리트윗 이벤트 → 선주문 → 제작 → 배송까지
+                    <strong style="color: #FF69B4;">100% 사전 수요 확보 후 제작</strong>하는 D2C 팬 커머스 모델을 직접 운영했습니다.
+                </p>
+            </div>
+
+            <!-- 스티커 카드: 주요 성과 -->
+            <div class="sticker-wall">
+                <div class="sticker-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="card-title">💕 100% 선주문</div>
+                    <div class="card-desc">
+                        재고 리스크 제로. 팬 니즈 확인 후 제작하는 D2C 모델로 
+                        <strong>재고 폐기 비용 0원</strong> 달성
+                    </div>
+                    <div class="card-metric">재고 처리 비용: 0원</div>
+                </div>
+
+                <div class="sticker-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="card-title">🎯 3회 연속 완판</div>
+                    <div class="card-desc">
+                        컴백 타이밍 맞춘 RT 이벤트로 유기적 확산.
+                        <strong>마케팅 비용 없이</strong> 3회 연속 전량 판매
+                    </div>
+                    <div class="card-metric">Conversion Rate: 100%</div>
+                </div>
+
+                <div class="sticker-card fade-in" style="animation-delay: 0.3s;">
+                    <div class="card-title">📊 재구매율 60%</div>
+                    <div class="card-desc">
+                        팬 피드백 기반 개선으로 1차 구매자 중 
+                        <strong>60%가 2차 재구매</strong>. 팬 충성도 데이터 확보
+                    </div>
+                    <div class="card-metric">총 매출: 2,000만원</div>
+                </div>
+            </div>
+
+            <!-- Weverse 연결 -->
+            <div class="weverse-link">
+                <div class="weverse-link-title">Weverse Shop 적용 시나리오</div>
+                <div class="weverse-link-desc">
+                    • <strong>위버스샵 선주문 모델:</strong> 아티스트 컴백 타이밍에 맞춘 한정판 굿즈 선주문 → 수요 확보 후 제작 → 재고 0 달성<br/>
+                    • <strong>팬 데이터 활용:</strong> RT 분석으로 팬 페르소나 도출 → 위버스샵 MD 기획 최적화<br/>
+                    • <strong>글로벌 확장:</strong> 한국/일본 동시 배송 경험 → 위버스 글로벌 커머스 프로모션 적용 가능
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. 수원문화재단: SEVENTEEN/BTS 콘서트장 -->
+    <section class="section concert-venue">
+        <div class="lightstick-wall">
+            <div class="lightstick" style="left: 10%; animation-delay: 0s;"></div>
+            <div class="lightstick" style="left: 25%; animation-delay: 0.5s;"></div>
+            <div class="lightstick" style="left: 40%; animation-delay: 1s;"></div>
+            <div class="lightstick" style="left: 55%; animation-delay: 1.5s;"></div>
+            <div class="lightstick" style="left: 70%; animation-delay: 2s;"></div>
+            <div class="lightstick" style="left: 85%; animation-delay: 2.5s;"></div>
+        </div>
+
+        <div class="section-container">
+            <div class="popup-header">
+                <div class="popup-tag" style="background: var(--weverse-green); color: black;">🎤 CONCERT VENUE</div>
+                <h2 class="section-title">SUWON FESTIVAL<br/>MASS TRAFFIC CONTROL</h2>
+                <p class="section-subtitle" style="color: rgba(255, 255, 255, 0.7);">51만 명 대규모 축제 무사고 운영</p>
+            </div>
+
+            <!-- LED 스크린: 프로젝트 개요 -->
+            <div class="led-screen">
+                <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 2rem; color: var(--weverse-green);">
+                    ⚡ "510,000명 접점 관리 + 결제 장애 1분 복구"
+                </h3>
+                <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.8); line-height: 1.8;">
+                    <strong style="color: var(--weverse-green);">위버스콘 급 대규모 팬 이벤트</strong>를 
+                    예산 60% 삭감 상황에서도 사고 없이 운영했습니다. 
+                    결제 시스템 장애 발생 시 <strong>ChatGPT로 1분 내 복구</strong>하며 긴급 대응 능력을 검증했습니다.
+                </p>
+            </div>
+
+            <!-- 팬 응원 문구: 주요 성과 -->
+            <div class="fanchant">
+                <div class="chant-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="card-title">510K 팬</div>
+                    <div class="card-desc">
+                        51만 명 축제 참가자 무사고 운영.
+                        대규모 팬 접점 관리 경험 (=위버스콘 규모)
+                    </div>
+                    <div class="card-metric">사고 발생률: 0%</div>
+                </div>
+
+                <div class="chant-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="card-title">1분 복구</div>
+                    <div class="card-desc">
+                        티켓 QR 결제 시스템 장애 → ChatGPT로
+                        즉시 솔루션 도출 → 1분 내 복구 완료
+                    </div>
+                    <div class="card-metric">다운타임: 60초</div>
+                </div>
+
+                <div class="chant-card fade-in" style="animation-delay: 0.3s;">
+                    <div class="card-title">AI 활용</div>
+                    <div class="card-desc">
+                        예산 60% 삭감 → 생성형 AI로 홍보 영상 제작
+                        → 5.5만 조회수 달성
+                    </div>
+                    <div class="card-metric">조회수: 55,000</div>
+                </div>
+            </div>
+
+            <!-- Weverse 연결 -->
+            <div class="weverse-link">
+                <div class="weverse-link-title">Weverse Con 적용 시나리오</div>
+                <div class="weverse-link-desc">
+                    • <strong>대규모 오프라인 이벤트:</strong> 위버스콘 같은 수만 명 규모 팬 이벤트 운영 경험 직접 보유<br/>
+                    • <strong>긴급 대응 능력:</strong> 결제/발권 시스템 장애 시 1분 내 복구 → 위버스 글로벌 프로모션 현장 리스크 관리<br/>
+                    • <strong>테크 활용:</strong> AI 도구로 예산 절감 → 위버스 Admin 효율화에 즉시 적용 가능
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 꼬질랜드: ENHYPEN 생일카페 -->
+    <section class="section birthday-cafe">
+        <div class="balloon-deco">
+            <div class="balloon" style="left: 5%; top: 10%; animation-delay: 0s;">🎈</div>
+            <div class="balloon" style="left: 15%; top: 30%; animation-delay: 1s;">🎀</div>
+            <div class="balloon" style="left: 80%; top: 20%; animation-delay: 2s;">🎂</div>
+            <div class="balloon" style="left: 90%; top: 50%; animation-delay: 3s;">🎁</div>
+        </div>
+
+        <div class="section-container">
+            <div class="popup-header">
+                <div class="popup-tag" style="background: linear-gradient(135deg, #9D4EDD, #F72585); color: white;">🎂 BIRTHDAY CAFE</div>
+                <h2 class="section-title">꼬질랜드<br/>위기를 놀이로 바꾸다</h2>
+                <p class="section-subtitle">D-13 긴급 TF로 '도박 밈' → '카지노 컨셉' 전환</p>
+            </div>
+
+            <!-- 스탬프 투어: 프로젝트 개요 -->
+            <div class="stamp-tour">
+                <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 2rem; color: #9D4EDD;">
+                    🎰 "D-13일 위기 → 역대급 덕질 이벤트로 전환"
+                </h3>
+                <p style="font-size: 1.1rem; color: rgba(0, 0, 0, 0.7); line-height: 1.8;">
+                    원래 주최자가 잠적해 <strong style="color: #9D4EDD;">13일 만에 긴급 TF 구성</strong>.
+                    '도박 밈'이라는 부정 이미지를 <strong style="color: #F72585;">진짜 카지노 컨셉 팬 이벤트</strong>로 
+                    재기획해 "역대급 덕질 행사"라는 평가를 받았습니다.
+                </p>
+            </div>
+
+            <!-- 포토카드 벽: 주요 성과 -->
+            <div class="photocard-wall">
+                <div class="photocard fade-in" style="animation-delay: 0.1s;">
+                    <div class="card-title">⏰ D-13 실행</div>
+                    <div class="card-desc">
+                        주최자 잠적 → 13일 만에 긴급 TF 구성 →
+                        장소/스태프/콘텐츠 전부 재기획 후 무사 진행
+                    </div>
+                    <div class="card-metric">실행 기간: 13일</div>
+                </div>
+
+                <div class="photocard fade-in" style="animation-delay: 0.2s;">
+                    <div class="card-title">🎭 컨셉 전환</div>
+                    <div class="card-desc">
+                        '도박 밈' 부정 이미지 → '진짜 카지노' 놀이 컨셉으로 
+                        브랜딩 전환 → 팬들이 자발적으로 확산
+                    </div>
+                    <div class="card-metric">NPS 평가: 9.2/10</div>
+                </div>
+
+                <div class="photocard fade-in" style="animation-delay: 0.3s;">
+                    <div class="card-title">💬 팬 소통</div>
+                    <div class="card-desc">
+                        불안한 팬들과 실시간 소통 → 투명하게 진행 상황 공유 →
+                        "역대급 덕질 이벤트" 평가 획득
+                    </div>
+                    <div class="card-metric">참가자 만족도: 92%</div>
+                </div>
+            </div>
+
+            <!-- Weverse 연결 -->
+            <div class="weverse-link">
+                <div class="weverse-link-title">Weverse 긴급 프로모션 대응</div>
+                <div class="weverse-link-desc">
+                    • <strong>D-Day 긴급 실행력:</strong> 아티스트 컴백/돌발 이슈 발생 시 2주 내 오프라인 프로모션 기획·실행 가능<br/>
+                    • <strong>위기 → 기회 전환:</strong> 부정 이슈를 팬 소통 강화 기회로 전환 → 위버스 커뮤니티 관리 역량<br/>
+                    • <strong>팬 코드 이해:</strong> 덕질 밈('도박')을 놀이 컨셉으로 승화 → 위버스 팬 이벤트 차별화 가능
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 뉴이스트 총대: 클래식 앨범 재킷 -->
+    <section class="section album-cover">
+        <div class="section-container">
+            <div class="popup-header">
+                <div class="popup-tag" style="background: #495057; color: white;">📀 PHOTOBOOK</div>
+                <h2 class="section-title">NU'EST W 총대<br/>글로벌 팬덤 운영</h2>
+                <p class="section-subtitle">2년간 수백 명 팬 무사고 리드</p>
+            </div>
+
+            <!-- 바이닐 레코드: 프로젝트 개요 -->
+            <div class="vinyl-record">
+                <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 2rem; color: #495057;">
+                    🌏 "한국·일본·동남아 국제 공구 + CS 2년 무사고"
+                </h3>
+                <p style="font-size: 1.1rem; color: rgba(0, 0, 0, 0.7); line-height: 1.8;">
+                    뉴이스트W 팬 리더로 <strong style="color: #00D664;">2년간 수백 명 팬 관리</strong>.
+                    국제 공동구매, 오프라인 생일카페, 콘서트 좌석 배정까지
+                    <strong style="color: #00D664;">0건 민원으로 운영</strong>한 글로벌 팬덤 경험이 있습니다.
+                </p>
+            </div>
+
+            <!-- 포토북 그리드: 주요 성과 -->
+            <div class="photobook-grid">
+                <div class="photobook-page fade-in" style="animation-delay: 0.1s;">
+                    <div class="card-title">🌐 글로벌 운영</div>
+                    <div class="card-desc">
+                        한국·일본·동남아 팬 대상 국제 공동구매 운영.
+                        환율·배송·CS 모두 직접 관리
+                    </div>
+                    <div class="card-metric">운영 기간: 2년</div>
+                </div>
+
+                <div class="photobook-page fade-in" style="animation-delay: 0.2s;">
+                    <div class="card-title">🎫 오프라인 CS</div>
+                    <div class="card-desc">
+                        콘서트 좌석 배정, 생일카페 운영 등
+                        오프라인 이벤트 현장 CS 2년간 0건 민원
+                    </div>
+                    <div class="card-metric">민원 발생: 0건</div>
+                </div>
+
+                <div class="photobook-page fade-in" style="animation-delay: 0.3s;">
+                    <div class="card-title">💰 팬 지출 이해</div>
+                    <div class="card-desc">
+                        덕질로 직접 돈 쓴 경험 → 팬 페르소나 정확히 파악 →
+                        위버스 커머스에 바로 적용 가능한 인사이트
+                    </div>
+                    <div class="card-metric">총 관리 팬: 500+</div>
+                </div>
+            </div>
+
+            <!-- Weverse 연결 -->
+            <div class="weverse-link" style="background: linear-gradient(135deg, #495057, #6C757D);">
+                <div class="weverse-link-title">Weverse 글로벌 커머스 CS</div>
+                <div class="weverse-link-desc">
+                    • <strong>글로벌 팬 경험:</strong> 한국·일본·동남아 팬 CS 경험 → 위버스 글로벌 프로모션에 즉시 투입 가능<br/>
+                    • <strong>팬 페르소나 이해:</strong> 직접 '돈 쓰는 팬' 경험 → 위버스샵 고객 여정 개선 인사이트 보유<br/>
+                    • <strong>오프라인 무사고 운영:</strong> 2년 0건 민원 → 위버스 오프라인 이벤트 리스크 관리 검증됨
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <section class="section" style="min-height: 50vh; background: var(--weverse-dark); color: white; display: flex; align-items: center; justify-content: center;">
+        <div style="text-align: center;">
+            <h2 style="font-size: 3rem; font-weight: 900; margin-bottom: 1.5rem;">
+                Let's Build <span style="color: var(--weverse-green);">Weverse</span> Together
+            </h2>
+            <p style="font-size: 1.3rem; color: rgba(255, 255, 255, 0.7); margin-bottom: 3rem;">
+                팬의 언어를 듣고, 비즈니스로 답하겠습니다.
+            </p>
+            <div style="display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap;">
+                <div>
+                    <div style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.5); margin-bottom: 0.5rem;">EMAIL</div>
+                    <div style="font-size: 1.1rem; font-weight: 600;">your.email@example.com</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.5); margin-bottom: 0.5rem;">GITHUB</div>
+                    <div style="font-size: 1.1rem; font-weight: 600;">github.com/yourname</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.5); margin-bottom: 0.5rem;">PORTFOLIO</div>
+                    <div style="font-size: 1.1rem; font-weight: 600;">portfolio-link.com</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // PDF 다운로드
+        function downloadPDF() {
+            const element = document.body;
+            const opt = {
+                margin: 0,
+                filename: '김지연_Weverse_포트폴리오.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // 스크롤 애니메이션
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // 네비게이션 스크롤 효과
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

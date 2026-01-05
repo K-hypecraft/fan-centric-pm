@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김지연 | Weverse 오프라인 & 팬이벤트 기획/운영</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Press+Start+2P&family=Righteous&family=Courier+Prime:wght@400;700&family=IM+Fell+English:ital@0;1&family=Permanent+Marker&display=swap" rel="stylesheet">
+    
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- html2pdf for PDF download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <style>
+        :root {
+            /* Weverse Brand Colors */
+            --weverse-purple: #7B68EE;
+            --weverse-dark: #1A0B2E;
+            --weverse-light: #F0EBFF;
+            
+            /* Artist Zone Colors */
+            --bts-gold: #C9B037;
+            --bts-black: #1A1A1A;
+            --bts-purple: #5D3FD3;
+            
+            --newjeans-mint: #00D9C0;
+            --newjeans-pink: #FFC0E3;
+            --newjeans-white: #FFFFFF;
+            --newjeans-cream: #FFF8E7;
+            
+            --seventeen-rose: #E83A82;
+            --seventeen-black: #1A1A1A;
+            --seventeen-rainbow: linear-gradient(90deg, #FF6B6B 0%, #FFB84D 20%, #FFE66D 40%, #A8E6CF 60%, #8BBCFF 80%, #C77DFF 100%);
+            
+            --lesserafim-blue: #4A90E2;
+            --lesserafim-dark: #1A2332;
+            --lesserafim-silver: #E8EFF7;
+            
+            /* Neutral */
+            --white: #FFFFFF;
+            --black: #000000;
+            --gray: #9CA3AF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        /* Slide Container */
+        .slide {
+            min-height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(26, 11, 46, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid var(--weverse-purple);
+        }
+
+        nav .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-family: 'Righteous', cursive;
+            font-size: 1.5rem;
+            color: var(--weverse-purple);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--weverse-purple);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* PDF Download Button */
+        .pdf-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--weverse-purple);
+            color: var(--white);
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(123, 104, 238, 0.4);
+            transition: all 0.3s ease;
+            z-index: 999;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .pdf-btn:hover {
+            background: #9583F5;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(123, 104, 238, 0.6);
+        }
+
+        /* Noise Texture Overlay */
+        .noise-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/%3E%3C/svg%3E');
+            pointer-events: none;
+            opacity: 0.3;
+            z-index: 1;
+        }
+
+        /* ============================================
+           SLIDE 1: WEVERSE ENTRANCE (Neon Purple)
+           ============================================ */
+        #slide1 {
+            background: linear-gradient(135deg, #1A0B2E 0%, #2D1B54 50%, #1A0B2E 100%);
+            position: relative;
+        }
+
+        #slide1::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(123, 104, 238, 0.3) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.5; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 900px;
+        }
+
+        .hero-title {
+            font-family: 'Righteous', cursive;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            color: var(--weverse-purple);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px rgba(123, 104, 238, 0.8),
+                         0 0 80px rgba(123, 104, 238, 0.6);
+            animation: neonGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes neonGlow {
+            from { text-shadow: 0 0 40px rgba(123, 104, 238, 0.8), 0 0 80px rgba(123, 104, 238, 0.6); }
+            to { text-shadow: 0 0 60px rgba(123, 104, 238, 1), 0 0 100px rgba(123, 104, 238, 0.8); }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 300;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--weverse-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-role {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 3rem;
+        }
+
+        /* Zone Entry Cards */
+        .zone-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 3rem;
+        }
+
+        .zone-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid transparent;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .zone-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .zone-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .zone-card:hover::before {
+            opacity: 1;
+        }
+
+        .zone-card.bts {
+            border-color: var(--bts-gold);
+        }
+
+        .zone-card.bts:hover {
+            background: linear-gradient(135deg, rgba(201, 176, 55, 0.2) 0%, rgba(93, 63, 211, 0.2) 100%);
+        }
+
+        .zone-card.newjeans {
+            border-color: var(--newjeans-mint);
+        }
+
+        .zone-card.newjeans:hover {
+            background: linear-gradient(135deg, rgba(0, 217, 192, 0.2) 0%, rgba(255, 192, 227, 0.2) 100%);
+        }
+
+        .zone-card.seventeen {
+            border-color: var(--seventeen-rose);
+        }
+
+        .zone-card.seventeen:hover {
+            background: linear-gradient(135deg, rgba(232, 58, 130, 0.2) 0%, rgba(255, 107, 107, 0.2) 100%);
+        }
+
+        .zone-card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .zone-card-title {
+            font-family: 'Righteous', cursive;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .zone-card-subtitle {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-bottom: 0.5rem;
+        }
+
+        .zone-card-project {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* ============================================
+           SLIDE 2-4: BTS 'WE ARE BULLETPROOF' ZONE
+           Gold + Black + Purple
+           ============================================ */
+        .bts-slide {
+            background: linear-gradient(135deg, var(--bts-black) 0%, #2d1f1f 50%, var(--bts-black) 100%);
+            position: relative;
+        }
+
+        .bts-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M50 0 L61 39 L100 39 L69 61 L81 100 L50 77 L19 100 L31 61 L0 39 L39 39 Z" fill="%23C9B037" opacity="0.05"/%3E%3C/svg%3E'),
+                        url('data:image/svg+xml,%3Csvg width="50" height="50" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath d="M25 0 L30 20 L50 20 L34 30 L40 50 L25 38 L10 50 L16 30 L0 20 L20 20 Z" fill="%235D3FD3" opacity="0.03"/%3E%3C/svg%3E');
+            background-size: 200px 200px, 100px 100px;
+            background-position: 0 0, 50px 50px;
+            animation: starsMove 20s linear infinite;
+        }
+
+        @keyframes starsMove {
+            0% { background-position: 0 0, 50px 50px; }
+            100% { background-position: 200px 200px, 150px 150px; }
+        }
+
+        .bts-header {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .bts-logo {
+            font-family: 'Righteous', cursive;
+            font-size: clamp(2rem, 6vw, 4rem);
+            background: linear-gradient(90deg, var(--bts-gold) 0%, var(--bts-purple) 50%, var(--bts-gold) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(201, 176, 55, 0.5);
+        }
+
+        .bts-concept {
+            font-family: 'IM Fell English', serif;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-style: italic;
+            color: var(--bts-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .bts-project {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        /* Content Container */
+        .content-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        /* BTS Sticker Elements */
+        .sticker {
+            position: absolute;
+            z-index: 3;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .sticker.army-bomb {
+            top: 10%;
+            right: 10%;
+            font-size: 4rem;
+            filter: drop-shadow(0 0 20px rgba(201, 176, 55, 0.8));
+        }
+
+        .sticker.wings {
+            top: 20%;
+            left: 5%;
+            font-size: 3rem;
+            filter: drop-shadow(0 0 20px rgba(93, 63, 211, 0.8));
+        }
+
+        .sticker.bulletproof {
+            bottom: 15%;
+            right: 8%;
+            background: var(--bts-gold);
+            color: var(--bts-black);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            transform: rotate(-5deg);
+            box-shadow: 0 8px 20px rgba(201, 176, 55, 0.6);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* Data Box */
+        .data-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .data-box.bts-box {
+            border-color: var(--bts-gold);
+        }
+
+        .data-box.newjeans-box {
+            border-color: var(--newjeans-mint);
+        }
+
+        .data-box.seventeen-box {
+            border-color: var(--seventeen-rose);
+        }
+
+        .data-box.lesserafim-box {
+            border-color: var(--lesserafim-blue);
+        }
+
+        .data-box-title {
+            font-family: 'Righteous', cursive;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .data-box.bts-box .data-box-title {
+            color: var(--bts-gold);
+        }
+
+        .data-box.newjeans-box .data-box-title {
+            color: var(--newjeans-mint);
+        }
+
+        .data-box.seventeen-box .data-box-title {
+            color: var(--seventeen-rose);
+        }
+
+        .data-box.lesserafim-box .data-box-title {
+            color: var(--lesserafim-blue);
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Righteous', cursive;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .bts-box .stat-number {
+            background: linear-gradient(90deg, var(--bts-gold) 0%, #FFE87C 50%, var(--bts-gold) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .newjeans-box .stat-number {
+            background: linear-gradient(90deg, var(--newjeans-mint) 0%, #00F5DC 50%, var(--newjeans-mint) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .seventeen-box .stat-number {
+            background: linear-gradient(90deg, var(--seventeen-rose) 0%, #FF5FA8 50%, var(--seventeen-rose) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .lesserafim-box .stat-number {
+            background: linear-gradient(90deg, var(--lesserafim-blue) 0%, #6FB3FF 50%, var(--lesserafim-blue) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+
+        /* Weverse Connection Box */
+        .weverse-connect {
+            background: linear-gradient(135deg, rgba(123, 104, 238, 0.1) 0%, rgba(123, 104, 238, 0.05) 100%);
+            border: 2px solid var(--weverse-purple);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .weverse-connect-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--weverse-purple);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .weverse-connect-content {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        /* How Process Box */
+        .how-process {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .process-step {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 1.5rem;
+            border-left: 4px solid;
+        }
+
+        .bts-box .process-step {
+            border-color: var(--bts-gold);
+        }
+
+        .newjeans-box .process-step {
+            border-color: var(--newjeans-mint);
+        }
+
+        .seventeen-box .process-step {
+            border-color: var(--seventeen-rose);
+        }
+
+        .lesserafim-box .process-step {
+            border-color: var(--lesserafim-blue);
+        }
+
+        .process-step-number {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.8rem;
+            margin-bottom: 0.75rem;
+            opacity: 0.7;
+        }
+
+        .process-step-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .process-step-desc {
+            font-size: 0.875rem;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        /* Song Quote */
+        .song-quote {
+            font-family: 'IM Fell English', serif;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-style: italic;
+            text-align: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .song-quote::before,
+        .song-quote::after {
+            content: '"';
+            font-size: 4rem;
+            opacity: 0.3;
+            position: absolute;
+        }
+
+        .song-quote::before {
+            top: 0;
+            left: 0;
+        }
+
+        .song-quote::after {
+            bottom: 0;
+            right: 0;
+        }
+
+        .bts-box .song-quote {
+            color: var(--bts-gold);
+        }
+
+        .newjeans-box .song-quote {
+            color: var(--newjeans-mint);
+        }
+
+        .seventeen-box .song-quote {
+            color: var(--seventeen-rose);
+        }
+
+        .lesserafim-box .song-quote {
+            color: var(--lesserafim-blue);
+        }
+
+        /* ============================================
+           SLIDE 5-7: NEWJEANS 'OMG' CAFE ZONE
+           Pastel Mint + Pink + White
+           ============================================ */
+        .newjeans-slide {
+            background: linear-gradient(135deg, var(--newjeans-cream) 0%, var(--newjeans-white) 50%, var(--newjeans-cream) 100%);
+            color: var(--black);
+            position: relative;
+        }
+
+        .newjeans-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 217, 192, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(255, 192, 227, 0.1) 0%, transparent 50%);
+        }
+
+        .newjeans-header {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .newjeans-logo {
+            font-family: 'Righteous', cursive;
+            font-size: clamp(2rem, 6vw, 4rem);
+            background: linear-gradient(90deg, var(--newjeans-mint) 0%, var(--newjeans-pink) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+        }
+
+        .newjeans-concept {
+            font-family: 'Courier Prime', monospace;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--newjeans-mint);
+            margin-bottom: 0.5rem;
+        }
+
+        .newjeans-project {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        /* Y2K Sticker Collage */
+        .y2k-sticker {
+            position: absolute;
+            z-index: 3;
+            animation: wiggle 2s ease-in-out infinite;
+        }
+
+        .y2k-sticker.bunny {
+            top: 15%;
+            right: 10%;
+            font-size: 4rem;
+            filter: drop-shadow(0 4px 10px rgba(0, 217, 192, 0.5));
+        }
+
+        .y2k-sticker.cookie {
+            top: 25%;
+            left: 8%;
+            font-size: 3rem;
+            filter: drop-shadow(0 4px 10px rgba(255, 192, 227, 0.5));
+        }
+
+        .y2k-sticker.tv {
+            bottom: 20%;
+            left: 10%;
+            font-size: 3.5rem;
+            filter: drop-shadow(0 4px 10px rgba(0, 217, 192, 0.5));
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        /* Retro TV Frame */
+        .retro-tv {
+            background: var(--black);
+            border: 8px solid var(--newjeans-mint);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 217, 192, 0.3);
+        }
+
+        .retro-tv::before {
+            content: '📺';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+        }
+
+        /* ============================================
+           SLIDE 8-10: SEVENTEEN 'VERY NICE' FESTIVAL
+           Rose Pink + Black + Rainbow
+           ============================================ */
+        .seventeen-slide {
+            background: linear-gradient(135deg, var(--seventeen-black) 0%, #2d1a2d 50%, var(--seventeen-black) 100%);
+            position: relative;
+        }
+
+        .seventeen-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--seventeen-rainbow);
+            opacity: 0.1;
+            animation: rainbowShift 10s linear infinite;
+        }
+
+        @keyframes rainbowShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        .seventeen-header {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .seventeen-logo {
+            font-family: 'Righteous', cursive;
+            font-size: clamp(2rem, 6vw, 4rem);
+            background: var(--seventeen-rainbow);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            animation: rainbowShift 10s linear infinite;
+        }
+
+        .seventeen-concept {
+            font-family: 'Permanent Marker', cursive;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--seventeen-rose);
+            margin-bottom: 0.5rem;
+        }
+
+        .seventeen-project {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        /* Diamond Stickers */
+        .diamond-sticker {
+            position: absolute;
+            z-index: 3;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        .diamond-sticker.diamond1 {
+            top: 12%;
+            right: 15%;
+            font-size: 4rem;
+            filter: drop-shadow(0 0 20px rgba(232, 58, 130, 0.8));
+        }
+
+        .diamond-sticker.diamond2 {
+            bottom: 15%;
+            left: 10%;
+            font-size: 3rem;
+            filter: drop-shadow(0 0 20px rgba(232, 58, 130, 0.8));
+        }
+
+        .diamond-sticker.confetti {
+            top: 20%;
+            left: 5%;
+            font-size: 3rem;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        /* Festival Ticket */
+        .festival-ticket {
+            background: linear-gradient(135deg, var(--seventeen-rose) 0%, #FF6BA8 100%);
+            color: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(232, 58, 130, 0.5);
+        }
+
+        .festival-ticket::before {
+            content: '🎟️';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+        }
+
+        /* ============================================
+           SLIDE 11: LE SSERAFIM 'FEARLESS' FUTURE
+           Hologram Blue + Dark + Silver
+           ============================================ */
+        .lesserafim-slide {
+            background: linear-gradient(135deg, var(--lesserafim-dark) 0%, #2A3A4A 50%, var(--lesserafim-dark) 100%);
+            position: relative;
+        }
+
+        .lesserafim-slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 40%, rgba(74, 144, 226, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(111, 179, 255, 0.2) 0%, transparent 50%);
+            animation: hologramPulse 5s ease-in-out infinite;
+        }
+
+        @keyframes hologramPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .lesserafim-header {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .lesserafim-logo {
+            font-family: 'Righteous', cursive;
+            font-size: clamp(2rem, 6vw, 4rem);
+            background: linear-gradient(90deg, var(--lesserafim-blue) 0%, var(--lesserafim-silver) 50%, var(--lesserafim-blue) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px rgba(74, 144, 226, 0.8);
+        }
+
+        .lesserafim-concept {
+            font-family: 'Courier Prime', monospace;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            color: var(--lesserafim-blue);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .lesserafim-project {
+            font-size: 1rem;
+            color: var(--gray);
+        }
+
+        /* Angel Stickers */
+        .angel-sticker {
+            position: absolute;
+            z-index: 3;
+            animation: floatAngel 4s ease-in-out infinite;
+        }
+
+        .angel-sticker.angel1 {
+            top: 15%;
+            right: 10%;
+            font-size: 4rem;
+            filter: drop-shadow(0 0 20px rgba(74, 144, 226, 0.8));
+        }
+
+        .angel-sticker.fire {
+            top: 25%;
+            left: 8%;
+            font-size: 3rem;
+            filter: drop-shadow(0 0 20px rgba(255, 87, 34, 0.8));
+        }
+
+        @keyframes floatAngel {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-30px); }
+        }
+
+        /* Hologram Card */
+        .hologram-card {
+            background: linear-gradient(135deg, rgba(74, 144, 226, 0.2) 0%, rgba(111, 179, 255, 0.1) 100%);
+            border: 2px solid var(--lesserafim-blue);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(74, 144, 226, 0.3);
+        }
+
+        /* ============================================
+           SLIDE 12: WEVERSE ENDING CREDIT
+           Purple Gradient
+           ============================================ */
+        #slide12 {
+            background: linear-gradient(135deg, var(--weverse-dark) 0%, var(--weverse-purple) 50%, var(--weverse-dark) 100%);
+            position: relative;
+        }
+
+        #slide12::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%" height="100%" filter="url(%23noise)" opacity="0.05"/%3E%3C/svg%3E');
+            opacity: 0.5;
+        }
+
+        .ending-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .ending-title {
+            font-family: 'Righteous', cursive;
+            font-size: clamp(2rem, 6vw, 4rem);
+            color: var(--weverse-purple);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            animation: neonGlow 2s ease-in-out infinite alternate;
+        }
+
+        .ending-tagline {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            color: var(--weverse-light);
+            margin-bottom: 3rem;
+            line-height: 1.6;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 1rem;
+            color: var(--white);
+        }
+
+        .contact-item-icon {
+            font-size: 1.5rem;
+        }
+
+        .contact-item-link {
+            color: var(--weverse-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item-link:hover {
+            color: var(--weverse-purple);
+            text-shadow: 0 0 20px rgba(123, 104, 238, 0.8);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+            }
+
+            nav a {
+                font-size: 0.75rem;
+            }
+
+            .zone-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .how-process {
+                grid-template-columns: 1fr;
+            }
+
+            .pdf-btn {
+                bottom: 1rem;
+                right: 1rem;
+                padding: 0.75rem 1rem;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-inner">
+            <div class="logo">Weverse</div>
+            <ul>
+                <li><a href="#slide1">Home</a></li>
+                <li><a href="#slide2">BTS</a></li>
+                <li><a href="#slide5">NewJeans</a></li>
+                <li><a href="#slide8">SEVENTEEN</a></li>
+                <li><a href="#slide11">LE SSERAFIM</a></li>
+                <li><a href="#slide12">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- PDF Download Button -->
+    <button class="pdf-btn" onclick="downloadPDF()">📄 Download PDF</button>
+
+    <!-- ============================================
+         SLIDE 1: WEVERSE ENTRANCE
+         ============================================ -->
+    <section id="slide1" class="slide">
+        <div class="noise-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">WEVERSE</h1>
+            <p class="hero-subtitle">Offline & Fan Event Planning / Operation</p>
+            <h2 class="hero-name">김지연</h2>
+            <p class="hero-role">O2O Project Manager | Fan Experience Designer</p>
+            
+            <div class="zone-cards">
+                <div class="zone-card bts" onclick="location.href='#slide2'">
+                    <div class="zone-card-icon">🛡️</div>
+                    <h3 class="zone-card-title">BTS ZONE</h3>
+                    <p class="zone-card-subtitle">WE ARE BULLETPROOF</p>
+                    <p class="zone-card-project">수원문화재단 51만 명</p>
+                </div>
+                
+                <div class="zone-card newjeans" onclick="location.href='#slide5'">
+                    <div class="zone-card-icon">🐰</div>
+                    <h3 class="zone-card-title">NEWJEANS ZONE</h3>
+                    <p class="zone-card-subtitle">OMG! HOW SWEET</p>
+                    <p class="zone-card-project">모랑공방 Y2K Cafe</p>
+                </div>
+                
+                <div class="zone-card seventeen" onclick="location.href='#slide8'">
+                    <div class="zone-card-icon">💎</div>
+                    <h3 class="zone-card-title">SEVENTEEN ZONE</h3>
+                    <p class="zone-card-subtitle">VERY NICE FESTIVAL</p>
+                    <p class="zone-card-project">꼬질랜드 13일 기적</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 2: BTS ZONE - PROJECT INTRO
+         ============================================ -->
+    <section id="slide2" class="slide bts-slide">
+        <div class="noise-overlay"></div>
+        
+        <!-- Stickers -->
+        <div class="sticker army-bomb">💜</div>
+        <div class="sticker wings">🪽</div>
+        <div class="sticker bulletproof">ARMY</div>
+        
+        <div class="content-container">
+            <div class="bts-header">
+                <h2 class="bts-logo">BTS ZONE</h2>
+                <p class="bts-concept">"We Are Bulletproof"</p>
+                <p class="bts-project">수원문화재단 51만 명 시스템 방어</p>
+            </div>
+            
+            <div class="data-box bts-box">
+                <h3 class="data-box-title">🛡️ 시스템이 무너지면, 매출도 무너진다</h3>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">51만</div>
+                        <div class="stat-label">연간 방문객<br/>글로벌 스케일</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">0건</div>
+                        <div class="stat-label">48시간 매출 누락<br/>완벽한 방어</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1분</div>
+                        <div class="stat-label">ERR_402 원인 규명<br/>즉각 대응</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">120%</div>
+                        <div class="stat-label">예산 효율<br/>(60% 삭감 상황)</div>
+                    </div>
+                </div>
+                
+                <div class="song-quote">
+                    "They call us Bulletproof / We bulletproof"<br/>
+                    — 시스템 방어, 바로 방탄소년단처럼
+                </div>
+                
+                <div class="weverse-connect">
+                    <div class="weverse-connect-title">🔗 Weverse 연결</div>
+                    <div class="weverse-connect-content">
+                        <strong>JD 매칭:</strong> "대규모 오프라인 행사 기획 및 운영 경험" → 51만 명 연간 운영<br/>
+                        <strong>매출 방어:</strong> ERR_402 결제 장애 1분 내 원인 규명 → 48시간 매출 누락 0건<br/>
+                        <strong>비즈니스 임팩트:</strong> Weverse Shop 결제 시스템 장애 시 즉각 대응 역량
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 3: BTS ZONE - HOW (PROCESS)
+         ============================================ -->
+    <section id="slide3" class="slide bts-slide">
+        <div class="noise-overlay"></div>
+        
+        <div class="content-container">
+            <div class="bts-header">
+                <h2 class="bts-logo">HOW?</h2>
+                <p class="bts-concept">어떻게 방어했나</p>
+            </div>
+            
+            <div class="data-box bts-box">
+                <h3 class="data-box-title">🔍 실행 프로세스</h3>
+                
+                <div class="how-process">
+                    <div class="process-step">
+                        <div class="process-step-number">STEP 01</div>
+                        <div class="process-step-title">📊 Data Detection</div>
+                        <div class="process-step-desc">
+                            예산 60% 삭감 → 즉시 결제 로그 분석<br/>
+                            ERR_402 패턴 발견 → 1분 내 원인 규명
+                        </div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-step-number">STEP 02</div>
+                        <div class="process-step-title">💬 Discord ARMY 조직</div>
+                        <div class="process-step-desc">
+                            20명 실시간 Discord 채널<br/>
+                            역할 분담 → 1시간 내 복구 완료
+                        </div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-step-number">STEP 03</div>
+                        <div class="process-step-title">🎯 Zero Loss</div>
+                        <div class="process-step-desc">
+                            48시간 매출 누락 0건<br/>
+                            120% 예산 효율 달성
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="weverse-connect">
+                    <div class="weverse-connect-title">🎤 면접관 질문 예상</div>
+                    <div class="weverse-connect-content">
+                        <strong>Q:</strong> "Weverse Shop 결제 오류 발생 시 어떻게 대응할 것인가?"<br/>
+                        <strong>A:</strong> "수원 51만 명 행사에서 ERR_402 결제 장애를 1분 내 원인 규명, Discord로 20명 조직해 1시간 내 복구. 48시간 매출 누락 0건 기록. Weverse Shop도 동일한 즉각 대응 프로세스 적용 가능."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 4: BTS ZONE - RESULT
+         ============================================ -->
+    <section id="slide4" class="slide bts-slide">
+        <div class="noise-overlay"></div>
+        
+        <div class="content-container">
+            <div class="bts-header">
+                <h2 class="bts-logo">RESULT</h2>
+                <p class="bts-concept">성과와 ARMY 조직력</p>
+            </div>
+            
+            <div class="data-box bts-box">
+                <h3 class="data-box-title">📈 핵심 지표</h3>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">0건</div>
+                        <div class="stat-label">안전사고<br/>4년간 무사고</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">93.8%</div>
+                        <div class="stat-label">재계약률<br/>신뢰 기반 운영</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">20명</div>
+                        <div class="stat-label">Discord ARMY<br/>실시간 조직</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">0건</div>
+                        <div class="stat-label">민원 발생<br/>완벽한 CS</div>
+                    </div>
+                </div>
+                
+                <div class="song-quote">
+                    "7 billion people, all my ARMY"<br/>
+                    — 조직력이 곧 경쟁력
+                </div>
+                
+                <div class="weverse-connect">
+                    <div class="weverse-connect-title">💰 Weverse 매출 임팩트</div>
+                    <div class="weverse-connect-content">
+                        <strong>시스템 방어 = 매출 방어</strong><br/>
+                        Weverse Shop 결제 장애 1분 지연 시 → 글로벌 팬덤 이탈 가능성 ↑<br/>
+                        즉각 대응 역량 = 매출 손실 방지 = 비즈니스 연속성 확보<br/>
+                        <strong>→ BTS 콘서트 MD 판매 시 결제 오류 0건 목표 달성 가능</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 5: NEWJEANS ZONE - PROJECT INTRO
+         ============================================ -->
+    <section id="slide5" class="slide newjeans-slide">
+        <div class="noise-overlay"></div>
+        
+        <!-- Y2K Stickers -->
+        <div class="y2k-sticker bunny">🐰</div>
+        <div class="y2k-sticker cookie">🍪</div>
+        <div class="y2k-sticker tv">📺</div>
+        
+        <div class="content-container">
+            <div class="newjeans-header">
+                <h2 class="newjeans-logo">NEWJEANS ZONE</h2>
+                <p class="newjeans-concept">OMG! How Sweet! 이 데이터!</p>
+                <p class="newjeans-project">모랑공방 Y2K 레트로 굿즈샵</p>
+            </div>
+            
+            <div class="data-box newjeans-box">
+                <h3 class="data-box-title">🐰 RT 1,000 = 주문 100, 데이터가 말해줘</h3>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">6,000만</div>
+                        <div class="stat-label">매출<br/>Y2K 굿즈 3회 완판</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">67%</div>
+                        <div class="stat-label">재구매율<br/>팬덤 충성도</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">선주문 모델<br/>재고 제로</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">300%</div>
+                        <div class="stat-label">ROI<br/>데이터 기반 기획</div>
+                    </div>
+                </div>
+                
+                <div class="song-quote">
+                    "How sweet! 이 데이터!"<br/>
+                    — NewJeans 'How Sweet' 패러디
+                </div>
+                
+                <div class="weverse-connect">
+                    <div class="weverse-connect-title">🔗 Weverse 연결</div>
+                    <div class="weverse-connect-content">
+                        <strong>JD 매칭:</strong> "Weverse Shop 선주문 기획" → 모랑공방 선주문 100% 모델<br/>
+                        <strong>Y2K 트렌드:</strong> NewJeans 'Ditto' 레트로 감성 = 세라믹 굿즈 컨셉 매칭<br/>
+                        <strong>비즈니스 임팩트:</strong> RT 1,000 = 주문 100 데이터 → Weverse Shop 바이럴 예측 모델 활용 가능
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 6: NEWJEANS ZONE - HOW (PROCESS)
+         ============================================ -->
+    <section id="slide6" class="slide newjeans-slide">
+        <div class="noise-overlay"></div>
+        
+        <div class="content-container">
+            <div class="newjeans-header">
+                <h2 class="newjeans-logo">HOW?</h2>
+                <p class="newjeans-concept">데이터로 바이럴 만들기</p>
+            </div>
+            
+            <div class="data-box newjeans-box">
+                <h3 class="data-box-title">📊 실행 프로세스</h3>
+                
+                <div class="how-process">
+                    <div class="process-step">
+                        <div class="process-step-number">STEP 01</div>
+                        <div class="process-step-title">📈 RT 데이터 분석</div>
+                        <div class="process-step-desc">
+                            RT 1,000 = 주문 100 패턴 발견<br/>
+                            Y2K 레트로 감성 = NewJeans 'Ditto' 컨셉
+                        </div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-step-number">STEP 02</div>
+                        <div class="process-step-title">🛍️ 선주문 모델</div>
+                        <div class="process-step-desc">
+                            재고 부담 제로<br/>
+                            3회 완판 → 재구매 67%
+                        </div>
+                    </div>
+                    
+                    <div class="process-step">
+                        <div class="process-step-number">STEP 03</div>
+                        <div class="process-step-title">💰 ROI 300%</div>
+                        <div class="process-step-desc">
+                            6,000만 원 매출<br/>
+                            데이터 기반 의사결정
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="weverse-connect">
+                    <div class="weverse-connect-title">🎤 면접관 질문 예상</div>
+                    <div class="weverse-connect-content">
+                        <strong>Q:</strong> "Weverse Shop에서 어떻게 재고 리스크를 줄일 것인가?"<br/>
+                        <strong>A:</strong> "모랑공방에서 선주문 100% 모델로 재고 0%, 3회 완판 달성. RT 1,000 = 주문 100 데이터로 수요 예측. Weverse Shop도 아티스트별 SNS 바이럴 데이터 분석해 선주문 물량 최적화 가능."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 7: NEWJEANS ZONE - RESULT
+         ============================================ -->
+    <section id="slide7" class="slide newjeans-slide">
+        <div class="noise-overlay"></div>
+        
+        <div class="content-container">
+            <div class="newjeans-header">
+                <h2 class="newjeans-logo">RESULT</h2>
+                <p class="newjeans-concept">버니들의 바이럴 파워</p>
+            </div>
+            
+            <div class="retro-tv">
+                <div class="data-box newjeans-box">
+                    <h3 class="data-box-title">📺 핵심 지표 (Y2K TV Style)</h3>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">3회</div>
+                            <div class="stat-label">완판 기록<br/>Y2K 굿즈</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">0%</div>
+                            <div class="stat-label">재고율<br/>선주문 모델</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">67%</div>
+                            <div class="stat-label">재구매율<br/>팬덤 충성도</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">6,000만</div>
+                            <div class="stat-label">매출<br/>ROI 300%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="song-quote">
+                        "Attention, I got what you need!"<br/>
+                        — 팬이 원하는 걸 데이터로 안다
+                    </div>
+                    
+                    <div class="weverse-connect">
+                        <div class="weverse-connect-title">💰 Weverse 매출 임팩트</div>
+                        <div class="weverse-connect-content">
+                            <strong>선주문 모델 = 재고 리스크 제로</strong><br/>
+                            Weverse Shop 아티스트 MD 기획 시 → SNS 바이럴 데이터 분석 → 수요 예측 정확도 ↑<br/>
+                            <strong>→ NewJeans 'OMG' 앨범 MD 선주문 시 완판 가능성 극대화</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 8: SEVENTEEN ZONE - PROJECT INTRO
+         ============================================ -->
+    <section id="slide8" class="slide seventeen-slide">
+        <div class="noise-overlay"></div>
+        
+        <!-- Diamond Stickers -->
+        <div class="diamond-sticker diamond1">💎</div>
+        <div class="diamond-sticker diamond2">💎</div>
+        <div class="diamond-sticker confetti">🎊</div>
+        
+        <div class="content-container">
+            <div class="seventeen-header">
+                <h2 class="seventeen-logo">SEVENTEEN ZONE</h2>
+                <p class="seventeen-concept">VERY NICE! 13일 기적!</p>
+                <p class="seventeen-project">꼬질랜드 D-13 위기 → 대박 페스티벌</p>
+            </div>
+            
+            <div class="data-box seventeen-box">
+                <h3 class="data-box-title">💎 자체제작, 13명처럼 13일 만에!</h3>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">D-13</div>
+                        <div class="stat-label">주최자 이탈<br/>긴급 투입</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">0건</div>
+                        <div class="stat-label">환불 요청<br/>(예상 500건)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">200%</div>
+                        <div class="stat-label">방문 증가<br/>SNS 트렌드 1위</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1,200건</div>
+                        <div class="stat-label">"역대급 행사"<br/>리뷰 폭발</div>
+                    </div>
+                </div>
+                
+                <div class="song-quote">
+                    "13명이 하나되어 만세!"<br/>
+                    — SEVENTEEN처럼 혼자서도 13명의 힘
+                </div>
+                
+                <div class="weverse-connect">
+                    <div class="weverse-connect-title">🔗 Weverse 연결</div>
+                    <div class="weverse-connect-content">
+                        <strong>JD 매칭:</strong> "긴급 프로모션 대응" → D-13 위기 상황 즉각 투입<br/>
+                        <strong>자체제작:</strong> SEVENTEEN 자체 프로듀싱 DNA = 주최자 없이 혼자 기획<br/>
+                        <strong>비즈니스 임팩트:</strong> 환불 500건 예상 → 0건 달성 = Weverse Con 긴급 대응 가능
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 9: SEVENTEEN ZONE - HOW (PROCESS)
+         ============================================ -->
+    <section id="slide9" class="slide seventeen-slide">
+        <div class="noise-overlay"></div>
+        
+        <div class="content-container">
+            <div class="seventeen-header">
+                <h2 class="seventeen-logo">HOW?</h2>
+                <p class="seventeen-concept">13일 만에 페스티벌 만들기</p>
+            </div>
+            
+            <div class="festival-ticket">
+                <div class="data-box seventeen-box">
+                    <h3 class="data-box-title">🎟️ 실행 프로세스</h3>
+                    
+                    <div class="how-process">
+                        <div class="process-step">
+                            <div class="process-step-number">STEP 01</div>
+                            <div class="process-step-title">🚨 D-13 위기 인식</div>
+                            <div class="process-step-desc">
+                                주최자 이탈 → 환불 500건 예상<br/>
+                                즉각 투입 → 혼자서 전체 기획
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="process-step-number">STEP 02</div>
+                            <div class="process-step-title">🎨 페스티벌 재설계</div>
+                            <div class="process-step-desc">
+                                13개 부스 → SEVENTEEN 13멤버처럼<br/>
+                                SNS 바이럴 → 트렌드 1위 달성
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="process-step-number">STEP 03</div>
+                            <div class="process-step-title">🎊 VERY NICE!</div>
+                            <div class="process-step-desc">
+                                환불 0건 → 방문 200% 증가<br/>
+                                1,200건 "역대급" 리뷰
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="weverse-connect">
+                        <div class="weverse-connect-title">🎤 면접관 질문 예상</div>
+                        <div class="weverse-connect-content">
+                            <strong>Q:</strong> "Weverse Con 행사 D-7 위기 상황, 어떻게 대응할 것인가?"<br/>
+                            <strong>A:</strong> "꼬질랜드 D-13 위기 경험. 주최자 이탈 → 혼자서 13개 부스 재설계, 환불 0건 달성. Weverse Con도 동일한 긴급 대응 프로세스 적용 → 아티스트 팬미팅 콘텐츠 즉각 재구성 가능."
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 10: SEVENTEEN ZONE - RESULT
+         ============================================ -->
+    <section id="slide10" class="slide seventeen-slide">
+        <div class="noise-overlay"></div>
+        
+        <div class="content-container">
+            <div class="seventeen-header">
+                <h2 class="seventeen-logo">RESULT</h2>
+                <p class="seventeen-concept">캐럿들의 만세 외침</p>
+            </div>
+            
+            <div class="data-box seventeen-box">
+                <h3 class="data-box-title">🎊 핵심 지표</h3>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">0건</div>
+                        <div class="stat-label">환불 요청<br/>(예상 500건)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">200%</div>
+                        <div class="stat-label">방문 증가<br/>SNS 바이럴</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1위</div>
+                        <div class="stat-label">SNS 트렌드<br/>실시간 화제</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1,200건</div>
+                        <div class="stat-label">"역대급 행사"<br/>입소문 폭발</div>
+                    </div>
+                </div>
+                
+                <div class="song-quote">
+                    "VERY NICE! 오늘 밤은 VERY NICE!"<br/>
+                    — 위기를 기회로 바꾼 13일
+                </div>
+                
+                <div class="weverse-connect">
+                    <div class="weverse-connect-title">💰 Weverse 매출 임팩트</div>
+                    <div class="weverse-connect-content">
+                        <strong>위기 대응 = 매출 손실 방지</strong><br/>
+                        Weverse Con 행사 취소 위기 시 → 즉각 재설계 역량 = 환불 방지 = 매출 보존<br/>
+                        <strong>→ SEVENTEEN 'BE THE SUN' 팬미팅 긴급 기획 가능</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 11: LE SSERAFIM ZONE - FUTURE PROPOSAL
+         ============================================ -->
+    <section id="slide11" class="slide lesserafim-slide">
+        <div class="noise-overlay"></div>
+        
+        <!-- Angel Stickers -->
+        <div class="angel-sticker angel1">👤</div>
+        <div class="angel-sticker fire">🔥</div>
+        
+        <div class="content-container">
+            <div class="lesserafim-header">
+                <h2 class="lesserafim-logo">LE SSERAFIM ZONE</h2>
+                <p class="lesserafim-concept">FEARLESS - 기존 틀을 깬다</p>
+                <p class="lesserafim-project">Weverse 디지털 팬 여권 제안</p>
+            </div>
+            
+            <div class="hologram-card">
+                <div class="data-box lesserafim-box">
+                    <h3 class="data-box-title">👤 I'm Fearless, 날개 없는 천사</h3>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-number">+35%</div>
+                            <div class="stat-label">체류시간 증가<br/>QR 스캔 유도</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">+18%</div>
+                            <div class="stat-label">전환율 상승<br/>디지털 여권</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">+22pt</div>
+                            <div class="stat-label">NPS 상승<br/>팬 경험 혁신</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">∞</div>
+                            <div class="stat-label">확장 가능성<br/>메타버스 연결</div>
+                        </div>
+                    </div>
+                    
+                    <div class="song-quote">
+                        "I'm fearless, 날개 없어도 난다"<br/>
+                        — 기존 틀을 깨는 제안
+                    </div>
+                    
+                    <div class="weverse-connect">
+                        <div class="weverse-connect-title">🔗 Weverse 연결</div>
+                        <div class="weverse-connect-content">
+                            <strong>JD 매칭:</strong> "혁신적인 팬 경험 기획" → 디지털 팬 여권 제안<br/>
+                            <strong>기존 틀 깨기:</strong> LE SSERAFIM '날개 없는 천사' = Weverse 기존 굿즈 틀 깨기<br/>
+                            <strong>비즈니스 임팩트:</strong> QR 스캔 → 체류 +35%, 전환 +18% = Weverse Shop 매출 직결
+                        </div>
+                    </div>
+                    
+                    <div class="how-process">
+                        <div class="process-step">
+                            <div class="process-step-number">IDEA 01</div>
+                            <div class="process-step-title">🎫 디지털 팬 여권</div>
+                            <div class="process-step-desc">
+                                QR 스캔 → 아티스트별 도장 수집<br/>
+                                Weverse 앱 연동 → 굿즈 할인 쿠폰
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="process-step-number">IDEA 02</div>
+                            <div class="process-step-title">📍 AR 포토존</div>
+                            <div class="process-step-desc">
+                                아티스트 홀로그램과 사진<br/>
+                                SNS 공유 → Weverse 바이럴
+                            </div>
+                        </div>
+                        
+                        <div class="process-step">
+                            <div class="process-step-number">IDEA 03</div>
+                            <div class="process-step-title">🌐 메타버스 연결</div>
+                            <div class="process-step-desc">
+                                오프라인 팬 여권 → 메타버스 NFT 전환<br/>
+                                Weverse 생태계 확장
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SLIDE 12: WEVERSE ENDING CREDIT
+         ============================================ -->
+    <section id="slide12" class="slide">
+        <div class="noise-overlay"></div>
+        <div class="ending-content">
+            <h2 class="ending-title">THANK YOU</h2>
+            <p class="ending-tagline">
+                팬이 원하는 걸 알고, 데이터로 증명하고, 위기를 기회로 바꾸는<br/>
+                <strong>Weverse O2O PM 김지연</strong>
+            </p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span class="contact-item-icon">📧</span>
+                    <a href="mailto:your.email@example.com" class="contact-item-link">your.email@example.com</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-item-icon">💼</span>
+                    <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-item-link">linkedin.com/in/yourprofile</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-item-icon">🌐</span>
+                    <a href="https://github.com/yourprofile" target="_blank" class="contact-item-link">github.com/yourprofile</a>
+                </div>
+            </div>
+            
+            <p style="margin-top: 3rem; font-size: 0.875rem; color: var(--gray);">
+                🎵 Inspired by BTS, NewJeans, SEVENTEEN, LE SSERAFIM<br/>
+                💜 Powered by Weverse Universe
+            </p>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script>
+        // GSAP ScrollTrigger for animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Animate elements on scroll
+        gsap.utils.toArray('.data-box').forEach((box) => {
+            gsap.from(box, {
+                scrollTrigger: {
+                    trigger: box,
+                    start: 'top 80%',
+                    end: 'bottom 20%',
+                    toggleActions: 'play none none reverse'
+                },
+                opacity: 0,
+                y: 50,
+                duration: 1
+            });
+        });
+
+        // Sticker animations
+        gsap.utils.toArray('.sticker, .y2k-sticker, .diamond-sticker, .angel-sticker').forEach((sticker) => {
+            gsap.from(sticker, {
+                scrollTrigger: {
+                    trigger: sticker,
+                    start: 'top 80%',
+                    toggleActions: 'play none none reverse'
+                },
+                scale: 0,
+                rotation: 360,
+                duration: 1,
+                ease: 'elastic.out(1, 0.3)'
+            });
+        });
+
+        // PDF Download Function
+        function downloadPDF() {
+            const element = document.body;
+            const opt = {
+                margin: 0,
+                filename: 'Weverse_Portfolio_김지연.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            
+            // Hide PDF button before generating PDF
+            const pdfBtn = document.querySelector('.pdf-btn');
+            pdfBtn.style.display = 'none';
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                pdfBtn.style.display = 'block';
+            });
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Active nav link on scroll
+        const sections = document.querySelectorAll('.slide');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

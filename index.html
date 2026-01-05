@@ -3,752 +3,516 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>이력서 | 김지연</title>
-    <!-- 폰트 및 아이콘 로드 -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>김지연의 팬덤 일기장 📓 | Weverse O2O Planner</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300;400;700&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
     
     <style>
-        /* [스타일 시트 통합] 
-           이 코드가 있어야 디자인이 예쁘게 나옵니다. 
-           수정하지 마시고 그대로 두시면 됩니다.
-        */
-        :root {
-            --primary-bg: #FFFFFF;
-            --secondary-bg: #F9FAFB;
-            --text-main: #1F2937;
-            --text-sub: #6B7280;
-            --accent-blue: #3B82F6;
-            --border-color: #E5E7EB;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+        
         body {
-            font-family: 'Noto Sans KR', sans-serif;
-            line-height: 1.6;
-            color: var(--text-main);
-            background-color: var(--primary-bg);
-            -webkit-font-smoothing: antialiased;
-        }
-
-        a { text-decoration: none; color: inherit; }
-
-        /* 노션 스타일 컨테이너 */
-        .notion-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-            background: #FFFFFF;
-        }
-
-        /* 헤더 영역 */
-        .notion-header {
-            margin-bottom: 3rem;
-            padding-bottom: 2rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .notion-title {
-            font-size: 3rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            letter-spacing: -0.04em;
-            line-height: 1.2;
-        }
-
-        .notion-subtitle {
-            font-size: 1.25rem;
-            color: var(--text-sub);
-            font-weight: 600;
-        }
-
-        /* 연락처 아이콘 */
-        .notion-contact {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.25rem;
-            margin-top: 1.5rem;
-        }
-
-        .notion-contact-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 600;
-            color: #4B5563;
-            font-size: 0.95rem;
-        }
-
-        .notion-contact-item i { color: var(--accent-blue); }
-        .notion-contact-item a:hover { color: var(--accent-blue); text-decoration: underline; }
-
-        /* 섹션 공통 */
-        .notion-section { margin-bottom: 3rem; }
-
-        .notion-section-title {
-            font-size: 1.75rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            color: var(--text-main);
-        }
-
-        /* 카드 스타일 */
-        .notion-card {
-            background: var(--secondary-bg);
-            border: 1px solid var(--border-color);
-            padding: 1.75rem;
-            margin-bottom: 1.25rem;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .notion-card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            border-color: #D1D5DB;
-            transform: translateY(-2px);
-        }
-
-        .notion-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 1rem;
-        }
-
-        .notion-card-title {
-            font-size: 1.25rem;
-            font-weight: 800;
-            color: var(--text-main);
-            letter-spacing: -0.02em;
-        }
-
-        .notion-card-period {
-            font-size: 0.875rem;
-            color: var(--text-sub);
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .notion-card-subtitle {
-            font-size: 1rem;
-            color: #4B5563;
-            font-weight: 600;
-            margin-bottom: 0.75rem;
-        }
-
-        .notion-card-description {
-            font-size: 0.95rem;
-            color: var(--text-sub);
-            line-height: 1.7;
-            font-weight: 500;
-        }
-
-        /* 배지(버튼) 스타일 */
-        .notion-badge {
-            display: inline-block;
-            background: #EFF6FF;
-            color: var(--accent-blue);
-            padding: 0.35rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            margin-right: 0.4rem;
-            margin-bottom: 0.4rem;
-        }
-        .notion-badge.pink { background: #FDF2F8; color: #EC4899; }
-        .notion-badge.purple { background: #F5F3FF; color: #8B5CF6; }
-        .notion-badge.green { background: #F0FDFA; color: #14B8A6; }
-        .notion-badge.orange { background: #FFF7ED; color: #EA580C; }
-        .notion-badge.gray { background: #F3F4F6; color: #4B5563; }
-        .notion-badge.red { background: #FEF2F2; color: #DC2626; }
-
-        /* 리스트 스타일 */
-        .notion-list {
-            list-style: none;
-            padding-left: 0;
-            margin-top: 0.5rem;
-        }
-
-        .notion-list-item {
-            padding: 0.4rem 0;
-            padding-left: 1.25rem;
+            font-family: 'Gowun Batang', serif;
+            background: linear-gradient(135deg, #F5F1E8 0%, #E6D5E8 50%, #C8E6C9 100%);
+            background-attachment: fixed;
+            color: #3a3a3a;
+            overflow-x: hidden;
             position: relative;
-            font-weight: 500;
-            color: #4B5563;
-            font-size: 0.95rem;
-            line-height: 1.6;
         }
 
-        .notion-list-item::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: var(--accent-blue);
-            font-weight: 900;
-            font-size: 1.2rem;
-            line-height: 1.5;
-        }
-
-        /* 타임라인 (경력) */
-        .notion-timeline {
-            position: relative;
-            padding-left: 2rem;
-            border-left: 2px solid var(--border-color);
-            margin-left: 0.5rem;
-        }
-
-        .notion-timeline-item {
-            position: relative;
-            margin-bottom: 2rem;
-        }
-
-        .notion-timeline-item::before {
+        /* 노트 페이지 효과 */
+        body::before {
             content: '';
-            position: absolute;
-            left: -2.4rem; /* 선 위로 점 위치 조정 */
-            top: 1.5rem;
-            width: 12px;
-            height: 12px;
-            background: var(--accent-blue);
-            border-radius: 50%;
-            border: 3px solid #FFFFFF;
-            box-shadow: 0 0 0 2px var(--accent-blue);
+            position: fixed;
+            top: 0;
+            left: 60px;
+            width: 2px;
+            height: 100%;
+            background: #ff9999;
+            opacity: 0.3;
             z-index: 1;
         }
 
-        /* 구분선 */
-        .notion-divider {
-            height: 1px;
-            background: var(--border-color);
-            margin: 3rem 0;
+        /* 노트 구멍 효과 */
+        .notebook-holes {
+            position: fixed;
+            left: 40px;
+            top: 0;
+            height: 100%;
+            z-index: 2;
+        }
+        .notebook-holes::before,
+        .notebook-holes::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 50%;
+            left: 0;
+        }
+        .notebook-holes::before { top: 50px; }
+        .notebook-holes::after { bottom: 50px; }
+
+        /* 손글씨 폰트 */
+        .handwriting {
+            font-family: 'Nanum Pen Script', cursive;
+            font-size: 1.3em;
+            line-height: 1.6;
         }
 
-        /* Skills 그리드 */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .skill-category {
-            margin-bottom: 0.75rem;
-            font-size: 0.9rem;
-            color: var(--text-sub);
+        .handwriting-title {
+            font-family: 'Gaegu', cursive;
             font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        /* 폴라로이드 사진 */
+        .polaroid {
+            background: white;
+            padding: 15px 15px 50px 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            transform: rotate(-2deg);
+            transition: all 0.3s ease;
+            position: relative;
+            border-radius: 3px;
+        }
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            z-index: 10;
+        }
+        .polaroid::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 25px;
+            background: rgba(255, 230, 179, 0.6);
+            border-radius: 2px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .polaroid:nth-child(2n) {
+            transform: rotate(2deg);
+        }
+        .polaroid img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+        .polaroid-caption {
+            font-family: 'Nanum Pen Script', cursive;
+            font-size: 1.1em;
+            margin-top: 10px;
+            text-align: center;
+            color: #555;
+        }
+
+        /* 마스킹 테이프 스티커 */
+        .masking-tape {
+            display: inline-block;
+            background: linear-gradient(135deg, #FFE5B4 0%, #FFD700 100%);
+            padding: 8px 20px;
+            border-radius: 3px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            transform: rotate(-1deg);
+            border: 2px dashed rgba(255,255,255,0.5);
+            font-family: 'Gaegu', cursive;
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #8B4513;
+        }
+
+        /* 뉴진스 스타일 스티커 */
+        .sticker-badge {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            transform: rotate(-3deg);
+            transition: all 0.3s ease;
+            border: 3px solid #FFB6C1;
+            min-width: 120px;
+            text-align: center;
+        }
+        .sticker-badge:hover {
+            transform: rotate(0deg) translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+        .sticker-badge .number {
+            font-family: 'Gaegu', cursive;
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #FF69B4;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+        .sticker-badge .label {
+            font-family: 'Gowun Batang', serif;
+            font-size: 0.75em;
+            color: #666;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
+        /* 가계부 손글씨 */
+        .ledger-text {
+            font-family: 'Nanum Pen Script', cursive;
+            font-size: 2em;
+            color: #D2691E;
+            text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+            transform: rotate(-1deg);
         }
 
-        .skill-tag {
-            background: #FFFFFF;
-            color: #374151;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        /* TXT 스타일 프로젝트 카드 */
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #FFB6C1, #B0E0E6, #98FB98);
         }
 
-        .skill-tag.highlight {
-            background: #EFF6FF;
-            color: #2563EB;
-            border-color: #BFDBFE;
+        /* 노트 줄무늬 */
+        .notebook-lines {
+            background-image: repeating-linear-gradient(
+                transparent,
+                transparent 31px,
+                rgba(255,182,193,0.3) 31px,
+                rgba(255,182,193,0.3) 32px
+            );
+            padding: 40px;
         }
 
-        /* 모바일 반응형 */
-        @media (max-width: 768px) {
-            .notion-container { padding: 2rem 1.25rem; }
-            .notion-title { font-size: 2.25rem; }
-            .notion-card-header { flex-direction: column; gap: 0.25rem; }
-            .notion-timeline { padding-left: 1.5rem; margin-left: 0; }
-            .notion-timeline-item::before { left: -1.95rem; top: 1.2rem;}
+        /* 스크롤바 꾸미기 */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.3);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #FFB6C1, #B0E0E6);
+            border-radius: 10px;
         }
 
-        /* 푸터 */
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            color: var(--text-sub);
-            font-size: 0.85rem;
-            border-top: 1px solid var(--border-color);
-            margin-top: 4rem;
+        /* 애니메이션 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 스티커 카운터 (Instagram 스타일) */
+        .counter-sticker {
+            display: inline-block;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border: 3px solid #FFB6C1;
+            font-family: 'Gaegu', cursive;
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #FF69B4;
+            transform: rotate(-2deg);
         }
     </style>
 </head>
 <body>
-    
-    <div class="notion-container">
-        <!-- 헤더 -->
-        <div class="notion-header">
-            <h1 class="notion-title">김지연</h1>
-            <p class="notion-subtitle">도자작가 · AI 작가 · 문화마케터 · 연구자</p>
-            
-            <div class="notion-contact">
-                <div class="notion-contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span>이메일 주소 입력</span>
-                </div>
-                <div class="notion-contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span>010-0000-0000</span>
-                </div>
-                <div class="notion-contact-item">
-                    <i class="fab fa-instagram"></i>
-                    <a href="https://instagram.com/soji_721" target="_blank">@soji_721</a>
-                </div>
+    <div class="notebook-holes"></div>
+
+    <!-- Header -->
+    <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b-4 border-pink-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="handwriting-title text-3xl" style="color: #FF69B4;">
+                💕 지연이의 팬덤 일기장
             </div>
+            <a href="#contact" class="counter-sticker">
+                📧 연락하기
+            </a>
         </div>
+    </header>
 
-        <!-- 학력 -->
-        <div class="notion-section">
-            <h2 class="notion-section-title">
-                <span class="notion-section-icon">🎓</span>
-                학력
-            </h2>
-            
-            <div class="notion-card">
-                <div class="notion-card-header">
-                    <div>
-                        <div class="notion-card-title">성신여자대학교</div>
-                        <div class="notion-card-subtitle">미술대학 공예학부 도자전공</div>
-                    </div>
-                    <div class="notion-card-period">2013 - 2017</div>
-                </div>
-                <div class="notion-card-description">
-                    <b>졸업 작품 [조선 판타지아 : 흙으로 빚은 동화]</b><br>
-                    이적(異跡) 공간의 토템과 신상 시리즈 제작 (전통 조선 백자의 판타지적 재해석)
-                </div>
-            </div>
-
-            <div class="notion-card">
-                <div class="notion-card-header">
-                    <div>
-                        <div class="notion-card-title">문화예술행정경영 석박사과정 (진행 중)</div>
-                        <div class="notion-card-subtitle">팬덤경제학 연구 (Fandom Economics)</div>
-                    </div>
-                    <div class="notion-card-period">2023 - 현재</div>
-                </div>
-                <div class="notion-card-description">
-                    <p style="margin-bottom:0.5rem; font-weight:700; color:#4B5563;">[주요 연구 분야]</p>
-                    <ul class="notion-list" style="font-size: 0.95em;">
-                        <li class="notion-list-item">가상 페르소나의 진화와 공공·민간 영역의 구조적 융합</li>
-                        <li class="notion-list-item">관전 경제(Observer Economy)와 UA의 새로운 법칙</li>
-                        <li class="notion-list-item">지속가능한 엔터테인먼트 및 팬덤 소비행동분석</li>
-                        <li class="notion-list-item">버추얼 휴먼 및 AI 인플루언서의 공공기관 협업 영향력 분석</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="notion-divider"></div>
-
-        <!-- 경력 -->
-        <div class="notion-section">
-            <h2 class="notion-section-title">
-                <span class="notion-section-icon">💼</span>
-                주요 경력
-            </h2>
-
-            <div class="notion-timeline">
-                
-                <div class="notion-timeline-item">
-                    <div class="notion-card">
-                        <div class="notion-card-header">
-                            <div>
-                                <div class="notion-card-title">수원문화재단 / 관광육성팀</div>
-                                <div class="notion-card-subtitle">주임 (미디어아트 사업 운영)</div>
-                            </div>
-                            <div class="notion-card-period">2025.05.26 ~ 2025.11.30</div>
-                        </div>
-                        <ul class="notion-list">
-                            <li class="notion-list-item">수원화성 미디어아트 축제 온오프라인 홍보 마케팅 담당</li>
-                            <li class="notion-list-item">지역상권 활성화사업 '요새요즘행궁가게' 미디어아트 연계 특화마켓 프로젝트 전담</li>
-                        </ul>
-                        <div style="margin-top: 1rem;">
-                            <span class="notion-badge">미디어아트</span>
-                            <span class="notion-badge">지역활성화</span>
-                            <span class="notion-badge gray">계약만료</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="notion-timeline-item">
-                    <div class="notion-card">
-                        <div class="notion-card-header">
-                            <div>
-                                <div class="notion-card-title">성남시청 / 아동복지과</div>
-                                <div class="notion-card-subtitle">청년인턴</div>
-                            </div>
-                            <div class="notion-card-period">2024.04.01 ~ 2024.12.31</div>
-                        </div>
-                        <ul class="notion-list">
-                            <li class="notion-list-item">아동 발달 단계별 맞춤형 예술·공예 프로그램 개발 및 운영</li>
-                            <li class="notion-list-item">아동 안전·문화예술프로그램 현장 교육 관리 및 행정 업무</li>
-                        </ul>
-                        <div style="margin-top: 1rem;">
-                            <span class="notion-badge">문화예술교육</span>
-                            <span class="notion-badge">행정</span>
-                            <span class="notion-badge gray">계약만료</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="notion-timeline-item">
-                    <div class="notion-card">
-                        <div class="notion-card-header">
-                            <div>
-                                <div class="notion-card-title">오픈갤러리 (Open Gallery)</div>
-                                <div class="notion-card-subtitle">AI 작품 계약 작가</div>
-                            </div>
-                            <div class="notion-card-period">2024</div>
-                        </div>
-                        <div class="notion-card-description">
-                             오픈갤러리 소속 AI 아트 작가 및 아티스트 그룹 '얼룩(UL.LOOK)' 활동
-                        </div>
-                        <ul class="notion-list">
-                            <li class="notion-list-item">AI 생성형 아트 프로젝트 기획 및 NFT 발행</li>
-                            <li class="notion-list-item">K-POP 팬덤 AI 아트워크 프로젝트 &lt;가수 백호(BAEKHO) 시리즈&gt; 팬아트 작업</li>
-                        </ul>
-                        <div style="margin-top: 1rem;">
-                            <span class="notion-badge pink">AI아트</span>
-                            <span class="notion-badge pink">NFT</span>
-                            <span class="notion-badge pink">팬덤아트</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="notion-timeline-item">
-                    <div class="notion-card">
-                        <div class="notion-card-header">
-                            <div>
-                                <div class="notion-card-title">예술대학교 / 국제교류원</div>
-                                <div class="notion-card-subtitle">조교</div>
-                            </div>
-                            <div class="notion-card-period">2022.03.01 ~ 2024.03.01</div>
-                        </div>
-                        <ul class="notion-list">
-                            <li class="notion-list-item"><b>홍보팀 업무:</b> 학교 홈페이지·SNS 콘텐츠 제작, 카드뉴스·포스터·PPT 디자인</li>
-                            <li class="notion-list-item">지역산학 협력 프로젝트 수업 조교 및 기획·운영 업무</li>
-                            <li class="notion-list-item">외국인 유학생 대상 체험 프로그램 기획 및 유학생 관리·운영</li>
-                        </ul>
-                        <div style="margin-top: 1rem;">
-                            <span class="notion-badge">대학행정</span>
-                            <span class="notion-badge">홍보디자인</span>
-                            <span class="notion-badge gray">계약만료</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="notion-timeline-item">
-                    <div class="notion-card">
-                        <div class="notion-card-header">
-                            <div>
-                                <div class="notion-card-title">미술관이야기</div>
-                                <div class="notion-card-subtitle">아트스토리텔러</div>
-                            </div>
-                            <div class="notion-card-period">2021.01.23 ~ 2021.08.31</div>
-                        </div>
-                        <ul class="notion-list">
-                            <li class="notion-list-item">전시 체험 콘텐츠, 교육자료 기획 및 스토리텔링 해설 진행</li>
-                            <li class="notion-list-item">DDP 팀랩 미디어아트, 더현대서울 앤디워홀전, 세종문화회관 필립콜버트전 아동 프로그램 도슨트</li>
-                            <li class="notion-list-item">관람객 대상 문화예술 전달 및 온라인 체험 프로그램 운영</li>
-                        </ul>
-                        <div style="margin-top: 1rem;">
-                            <span class="notion-badge">도슨트</span>
-                            <span class="notion-badge">에듀케이터</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="notion-timeline-item">
-                    <div class="notion-card">
-                        <div class="notion-card-header">
-                            <div>
-                                <div class="notion-card-title">모랑공방 (Studio Morang)</div>
-                                <div class="notion-card-subtitle">대표 (Founder)</div>
-                            </div>
-                            <div class="notion-card-period">2019.10.16 ~ 2021.10.14</div>
-                        </div>
-                        <div class="notion-card-description">
-                             청년창업지원사업 선정 업사이클링 도예·금속 공방
-                        </div>
-                        <ul class="notion-list">
-                            <li class="notion-list-item"><b>청년창업지원사업 수행:</b> 관련 행정업무 처리 및 지원금 운용</li>
-                            <li class="notion-list-item"><b>교육 프로그램 개발:</b> 사금파리, 씨글래스 활용 업사이클링 공예 교육과정 개발 및 운영</li>
-                            <li class="notion-list-item"><b>출강 및 교육:</b> 평생학습원, 방과후학교 등 공공기관 성인/아동 대상 도예 교육</li>
-                            <li class="notion-list-item"><b>마케팅 및 판매:</b> 인스타그램/블로그 활용 홍보, 온라인 공동구매 기획·운영</li>
-                        </ul>
-                        <div style="margin-top: 1rem;">
-                            <span class="notion-badge green">청년창업</span>
-                            <span class="notion-badge green">교육개발</span>
-                            <span class="notion-badge green">운영관리</span>
-                            <span class="notion-badge gray">팬데믹 종료</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="notion-timeline-item">
-                    <div class="notion-card">
-                        <div class="notion-card-header">
-                            <div>
-                                <div class="notion-card-title">꾸우니공방 (Kku-uni)</div>
-                                <div class="notion-card-subtitle">대표 (Founder)</div>
-                            </div>
-                            <div class="notion-card-period">2018.06.01 ~ 2019.07.22</div>
-                        </div>
-                        <div class="notion-card-description">
-                            도자 소품 편집샵 및 온라인 스토어 운영
-                        </div>
-                        <ul class="notion-list">
-                            <li class="notion-list-item"><b>편집샵 운영 및 매출 증대:</b> 도자 소품 전문 온/오프라인 채널 구축</li>
-                            <li class="notion-list-item"><b>자체 상품(Goods) 개발:</b> 일러스트 기반 문구류(메모지/스티커 등) 디자인 및 판매</li>
-                            <li class="notion-list-item"><b>주문 제작(Custom Order):</b> 고객 맞춤형 도자기/굿즈 납품 및 관리</li>
-                            <li class="notion-list-item"><b>해외 소싱:</b> 일본 현지 출장을 통한 상품 직구 및 큐레이션</li>
-                        </ul>
-                        <div style="margin-top: 1rem;">
-                            <span class="notion-badge orange">1인창업</span>
-                            <span class="notion-badge orange">자체제작</span>
-                            <span class="notion-badge gray">이전/확장</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="notion-timeline-item">
-                    <div class="notion-card">
-                        <div class="notion-card-header">
-                            <div>
-                                <div class="notion-card-title">한국도자재단 레지던시</div>
-                                <div class="notion-card-subtitle">입주작가</div>
-                            </div>
-                            <div class="notion-card-period">2018.04.28 ~ 2019.05.31</div>
-                        </div>
-                        <ul class="notion-list">
-                            <li class="notion-list-item">제9회 경기세계도자비엔날레 국제도자워크숍 '메이킹네러티브' 참여작가</li>
-                            <li class="notion-list-item">창작 스튜디오 입주 및 작품 제작 지원 선정</li>
-                            <li class="notion-list-item">창조공방 입주작가 협력전시 및 프로젝트 기획·운영</li>
-                        </ul>
-                        <div style="margin-top: 1rem;">
-                            <span class="notion-badge purple">레지던시</span>
-                            <span class="notion-badge purple">전시</span>
-                            <span class="notion-badge purple">워크숍</span>
-                            <span class="notion-badge gray">계약만료</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="notion-divider"></div>
-
-        <!-- 보유 기술 (Skills) -->
-        <div class="notion-section">
-            <h2 class="notion-section-title">
-                <span class="notion-section-icon">🛠️</span>
-                보유 기술 (Skills)
-            </h2>
-            <div class="notion-card">
-                <div class="skills-grid">
-                    <div>
-                        <div class="skill-category">Design & AI Tools</div>
-                        <div class="skill-tags">
-                            <span class="skill-tag">Rhino 3D</span>
-                            <span class="skill-tag">Clip Studio</span>
-                            <span class="skill-tag">LLM 활용 (Prompting)</span>
-                            <span class="skill-tag">Midjourney</span>
-                            <span class="skill-tag">Photoshop</span>
-                            <span class="skill-tag">Illustrator</span>
-                            <span class="skill-tag">CapCut</span>
-                            <span class="skill-tag">Notion</span>
-                            <span class="skill-tag">Discord</span>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="skill-category">Office & Admin</div>
-                        <div class="skill-tags">
-                            <span class="skill-tag">e나라도움</span>
-                            <span class="skill-tag">MS Office (Excel/PPT)</span>
-                            <span class="skill-tag">한글 (HWP)</span>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="skill-category">Craft & Education</div>
-                        <div class="skill-tags">
-                            <span class="skill-tag">도자 공예 전문 (물레/캐스팅/장식)</span>
-                            <span class="skill-tag">생활·응용 공예 (업사이클링/자개 등)</span>
-                            <span class="skill-tag">클레이아트</span>
-                            <span class="skill-tag">핸드드로잉</span>
-                            <span class="skill-tag highlight">전 연령 예술 교육 지도 (아동/성인)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="notion-divider"></div>
-
-        <!-- 자격증 -->
-        <div class="notion-section">
-            <h2 class="notion-section-title">
-                <span class="notion-section-icon">📜</span>
-                자격증
-            </h2>
-            <div class="notion-card">
-                <ul class="notion-list" style="margin-top: 0;">
-                    <li class="notion-list-item">
-                        <span style="font-weight: 700; color: #1F2937;">문화예술교육사 2급</span>
-                        <span style="color: #6B7280; font-size: 0.9em; margin-left: 0.5rem;">| 문화체육관광부 (2022.10.24)</span>
-                    </li>
-                    <li class="notion-list-item">
-                        <span style="font-weight: 700; color: #1F2937;">미술심리상담사</span>
-                        <span style="color: #6B7280; font-size: 0.9em; margin-left: 0.5rem;">| 한국심리교육협회 (2019.10.05)</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="notion-divider"></div>
-
-        <!-- 전시 경력 -->
-        <div class="notion-section">
-            <h2 class="notion-section-title">
-                <span class="notion-section-icon">🖼️</span>
-                전시 경력
-            </h2>
-            <div class="notion-card">
-                <div class="notion-card-title">2021 한국미술진흥원 특별기획전</div>
-                <div class="notion-card-description">특별상 수상 · 기획 전시 참여</div>
-            </div>
-
-            <div class="notion-card">
-                <div class="notion-card-title">2020 gamma young artist 국제공모전</div>
-                <div class="notion-card-description">온라인 전시 참여 및 입선</div>
-            </div>
-
-            <div class="notion-card">
-                <div class="notion-card-title">2018 한국도자재단 입주작가전 &lt;토유&gt;</div>
-                <div class="notion-card-description">이천 세라믹 창작센터 기획전</div>
-            </div>
-
-            <div class="notion-card">
-                <div class="notion-card-title">2017-2018 세라피아 창조공방 오픈스튜디오</div>
-                <div class="notion-card-description">작업 과정 공개 및 관객 참여형 전시</div>
-            </div>
-
-            <div class="notion-card">
-                <div class="notion-card-title">2017 한국도자재단 &lt;손의 언어&gt;</div>
-                <div class="notion-card-description">경인미술관 단체전</div>
-            </div>
-
-            <div class="notion-card">
-                <div class="notion-card-title">2016 한국여류도예가협회 공모전 수상작 전시</div>
-                <div class="notion-card-description">장려상 수상작 전시</div>
-            </div>
-        </div>
-
-        <div class="notion-divider"></div>
-
-        <!-- 강의 및 프로젝트 -->
-        <div class="notion-section">
-            <h2 class="notion-section-title">
-                <span class="notion-section-icon">🎤</span>
-                강의 및 프로젝트
-            </h2>
-
-            <div class="notion-card">
-                <div class="notion-card-header">
-                    <div class="notion-card-title">성남평생교육원 도자기공예 강사</div>
-                    <div class="notion-card-period">2019</div>
-                </div>
-                <div class="notion-card-description">
-                    일반 성인 대상 도자 성형 및 핸드페인팅 정규 과정
-                </div>
-            </div>
-
-            <div class="notion-card">
-                <div class="notion-card-header">
-                    <div class="notion-card-title">계원예술대학교 핸드페인팅 특강</div>
-                    <div class="notion-card-period">2018</div>
-                </div>
-                <div class="notion-card-description">
-                     고급도자장식의 역사와 기법 강의 (4주 과정)
-                </div>
+    <main class="relative z-10 py-12">
+        
+        <!-- HERO -->
+        <section class="max-w-5xl mx-auto px-6 py-16 text-center">
+            <div class="masking-tape mb-8">
+                🎤 Weverse O2O 기획자 지원
             </div>
             
-            <div class="notion-card">
-                <div class="notion-card-header">
-                    <div class="notion-card-title">이천쌀축제 핸드페인팅 부스 운영</div>
-                    <div class="notion-card-period">2018</div>
-                </div>
-                <div class="notion-card-description">
-                    이천시청 주관 행사 체험 부스 기획 및 운영 (1개월)
-                </div>
+            <h1 class="handwriting-title text-6xl md:text-8xl mb-8 leading-tight" style="color: #8B4513;">
+                팬심 💖을<br>
+                데이터로 읽고<br>
+                매출 💰로 연결해요
+            </h1>
+
+            <div class="handwriting text-2xl mb-12" style="color: #666;">
+                12년 차 아이돌 덕후의 진짜 팬덤 마케팅 일기 📖
             </div>
 
-            <div class="notion-card">
-                <div class="notion-card-header">
-                    <div class="notion-card-title">서울 면일초/청량초 방과후 강사</div>
-                    <div class="notion-card-period">2018</div>
+            <!-- 스티커 배지 그리드 (NewJeans 스타일) -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto fade-in">
+                <div class="sticker-badge" style="border-color: #FFB6C1; transform: rotate(2deg);">
+                    <div class="number">51만</div>
+                    <div class="label">🔍 Attention</div>
+                    <div class="text-xs mt-2" style="color: #999;">대규모 인파</div>
                 </div>
-                <div class="notion-card-description">
-                    초등학생 대상 창의 도자공예 교육 출강
+                <div class="sticker-badge" style="border-color: #B0E0E6; transform: rotate(-2deg);">
+                    <div class="number">100%</div>
+                    <div class="label">💰 OMG!</div>
+                    <div class="text-xs mt-2" style="color: #999;">완판 기록</div>
+                </div>
+                <div class="sticker-badge" style="border-color: #98FB98; transform: rotate(3deg);">
+                    <div class="number">95%</div>
+                    <div class="label">💕 Ditto</div>
+                    <div class="text-xs mt-2" style="color: #999;">팬 만족도</div>
+                </div>
+                <div class="sticker-badge" style="border-color: #FFDAB9; transform: rotate(-3deg);">
+                    <div class="number">13일</div>
+                    <div class="label">⚡ Hype Boy</div>
+                    <div class="text-xs mt-2" style="color: #999;">위기 극복</div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="notion-divider"></div>
-
-        <!-- 수상 -->
-        <div class="notion-section">
-            <h2 class="notion-section-title">
-                <span class="notion-section-icon">🏆</span>
-                수상 내역
+        <!-- WHY ME (폴라로이드 스타일) -->
+        <section class="max-w-6xl mx-auto px-6 py-16">
+            <h2 class="text-center mb-12 fade-in">
+                <span class="masking-tape text-3xl">✨ Why 위버스가 나를 필요로 할까?</span>
             </h2>
 
-            <div class="notion-card">
-                <div class="notion-card-header">
-                    <div class="notion-card-title">한국미술진흥원 특별기획전 특별상</div>
-                    <div class="notion-card-period">2021</div>
+            <div class="grid md:grid-cols-3 gap-12 fade-in">
+                <div class="polaroid">
+                    <img src="https://k-hypecraft.github.io/ready-for-fandom-to-profit/images/suwon-festival-01.jpg" alt="수원 축제">
+                    <div class="polaroid-caption">
+                        <div class="text-2xl mb-2">🎪 Scale</div>
+                        수원문화재단 51만 명 축제 운영<br>
+                        <span class="ledger-text text-lg">무사고 16일 달성!</span>
+                    </div>
+                </div>
+                <div class="polaroid">
+                    <img src="https://k-hypecraft.github.io/ready-for-fandom-to-profit/images/morang-01.png" alt="모랑공방">
+                    <div class="polaroid-caption">
+                        <div class="text-2xl mb-2">💰 Commerce</div>
+                        재고 0원으로 3회 완판<br>
+                        <span class="ledger-text text-lg">ROI 300%</span>
+                    </div>
+                </div>
+                <div class="polaroid">
+                    <img src="https://k-hypecraft.github.io/ready-for-fandom-to-profit/images/kkojilland-01.jpg" alt="꼬질랜드">
+                    <div class="polaroid-caption">
+                        <div class="text-2xl mb-2">💡 Insight</div>
+                        12년 차 팬덤 네이티브<br>
+                        <span class="ledger-text text-lg">D-13 위기 구원</span>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="notion-card">
-                <div class="notion-card-header">
-                    <div class="notion-card-title">gamma young artist 국제공모전 입선</div>
-                    <div class="notion-card-period">2020</div>
+        <!-- PROJECTS (TXT 게임존 스타일) -->
+        <section class="notebook-lines py-16">
+            <div class="max-w-5xl mx-auto px-6">
+                <h2 class="text-center mb-12 fade-in">
+                    <span class="masking-tape text-3xl">🎮 Selected Projects</span>
+                </h2>
+
+                <div class="space-y-8">
+                    <!-- Project 1 -->
+                    <div class="project-card fade-in">
+                        <div class="flex flex-col md:flex-row gap-6 items-center">
+                            <div class="md:w-1/3">
+                                <img src="https://k-hypecraft.github.io/ready-for-fandom-to-profit/images/suwon-award.jpg" class="w-full rounded-lg shadow-lg" alt="수원 표창">
+                            </div>
+                            <div class="md:w-2/3">
+                                <div class="counter-sticker mb-4">🚨 Crisis Management</div>
+                                <h3 class="handwriting-title text-3xl mb-4" style="color: #FF69B4;">
+                                    ERR_402, 1분 규명 → 매출 누락 0원
+                                </h3>
+                                <p class="handwriting text-lg mb-4" style="color: #666;">
+                                    결제 시스템 마비 상황! 개발팀 없이 ChatGPT로 1분 만에 원인 찾아서 우회망 구축했어요 💪
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-4 py-2 bg-pink-100 rounded-full text-sm font-bold" style="color: #FF69B4;">51만 명</span>
+                                    <span class="px-4 py-2 bg-blue-100 rounded-full text-sm font-bold" style="color: #4682B4;">무사고 16일</span>
+                                    <span class="px-4 py-2 bg-green-100 rounded-full text-sm font-bold" style="color: #32CD32;">SNS 55배↑</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="project-card fade-in">
+                        <div class="flex flex-col md:flex-row-reverse gap-6 items-center">
+                            <div class="md:w-1/3">
+                                <img src="https://k-hypecraft.github.io/ready-for-fandom-to-profit/images/morang-kiln.jpg" class="w-full rounded-lg shadow-lg" alt="모랑 가마">
+                            </div>
+                            <div class="md:w-2/3">
+                                <div class="counter-sticker mb-4" style="border-color: #B0E0E6; color: #4682B4;">💰 Commerce Strategy</div>
+                                <h3 class="handwriting-title text-3xl mb-4" style="color: #4682B4;">
+                                    RT 1,000 = 주문 100, 재고 0% → ROI 300%
+                                </h3>
+                                <p class="handwriting text-lg mb-4" style="color: #666;">
+                                    "굿즈는 타이밍!" RT 급상승 48시간을 골든타임으로 잡아서 선주문으로 완판 달성 🎯
+                                </p>
+                                <div class="ledger-text text-2xl mb-4" style="color: #D2691E;">
+                                    총 매출: ₩6,000만 원 (재고 0원!)
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-4 py-2 bg-pink-100 rounded-full text-sm font-bold" style="color: #FF69B4;">3회 완판</span>
+                                    <span class="px-4 py-2 bg-blue-100 rounded-full text-sm font-bold" style="color: #4682B4;">재고 0%</span>
+                                    <span class="px-4 py-2 bg-green-100 rounded-full text-sm font-bold" style="color: #32CD32;">광고비 0원</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="project-card fade-in">
+                        <div class="flex flex-col md:flex-row gap-6 items-center">
+                            <div class="md:w-1/3">
+                                <img src="https://k-hypecraft.github.io/ready-for-fandom-to-profit/images/kkojilland-02.jpg" class="w-full rounded-lg shadow-lg" alt="꼬질랜드">
+                            </div>
+                            <div class="md:w-2/3">
+                                <div class="counter-sticker mb-4" style="border-color: #98FB98; color: #32CD32;">💡 Fandom Insight</div>
+                                <h3 class="handwriting-title text-3xl mb-4" style="color: #32CD32;">
+                                    주최자 잠적 D-13, '도박'으로 구원하다
+                                </h3>
+                                <p class="handwriting text-lg mb-4" style="color: #666;">
+                                    최악의 위기를 '카지노 놀이터'로 바꿨어요! 팬들이 베팅하듯 즐기면서 불안감 → 재미로 전환 🎰
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-4 py-2 bg-pink-100 rounded-full text-sm font-bold" style="color: #FF69B4;">D-13 완성</span>
+                                    <span class="px-4 py-2 bg-blue-100 rounded-full text-sm font-bold" style="color: #4682B4;">환불 0건</span>
+                                    <span class="px-4 py-2 bg-green-100 rounded-full text-sm font-bold" style="color: #32CD32;">만족도 95%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="notion-card">
-                <div class="notion-card-header">
-                    <div class="notion-card-title">한국여류도예가협회 공모전 장려상</div>
-                    <div class="notion-card-period">2016</div>
+        <!-- 증빙 자료 (스크랩북 스타일) -->
+        <section class="max-w-6xl mx-auto px-6 py-16">
+            <h2 class="text-center mb-12 fade-in">
+                <span class="masking-tape text-3xl">📸 현장 증빙 스크랩북</span>
+            </h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 fade-in">
+                <div class="polaroid"><img src="https://k-hypecraft.github.io/ready-for-fandom-to-profit/images/suwon-festival-02.jpg" alt="수원 2"><div class="polaroid-caption">수원 축제 현장</div></div>
+                <div class="polaroid"><img src="https://k-hypecraft.github.io/ready-for-fandom-to-profit/images/suwon-festival-03.jpg" alt="수원 3"><div class="polaroid-caption">인파 통제</div></div>
+                <div class="polaroid"><img src="https://k-hypecraft.github.io/ready-for-fandom-to-profit/images/morang-dreampotter.jpg" alt="모랑"><div class="polaroid-caption">모랑 굿즈</div></div>
+                <div class="polaroid"><img src="https://k-hypecraft.github.io/ready-for-fandom-to-profit/images/kkojilland-03.jpg" alt="꼬질"><div class="polaroid-caption">꼬질랜드</div></div>
+                <div class="polaroid"><img src="https://k-hypecraft.github.io/ready-for-fandom-to-profit/images/baekho-elevator-01.png" alt="백호 1"><div class="polaroid-caption">백호 AI 아트</div></div>
+                <div class="polaroid"><img src="https://k-hypecraft.github.io/ready-for-fandom-to-profit/images/baekho-loveburn-01.png" alt="백호 2"><div class="polaroid-caption">Love Burn</div></div>
+                <div class="polaroid"><img src="https://k-hypecraft.github.io/ready-for-fandom-to-profit/images/university-artcafe-01.jpg" alt="대학"><div class="polaroid-caption">대학 아트카페</div></div>
+                <div class="polaroid"><img src="https://k-hypecraft.github.io/ready-for-fandom-to-profit/images/university-concert.jpg" alt="콘서트"><div class="polaroid-caption">대학 축제</div></div>
+            </div>
+        </section>
+
+        <!-- PROPOSAL (가계부 스타일) -->
+        <section class="notebook-lines py-16 border-t-4 border-pink-200">
+            <div class="max-w-4xl mx-auto px-6">
+                <h2 class="text-center mb-12 fade-in">
+                    <span class="masking-tape text-3xl">💡 Special Proposal</span>
+                </h2>
+
+                <div class="project-card fade-in">
+                    <h3 class="handwriting-title text-4xl mb-6 text-center" style="color: #FF69B4;">
+                        Weverse by Fans 2.0:<br>
+                        C2C 에셋 마켓플레이스 📦
+                    </h3>
+                    
+                    <div class="handwriting text-xl mb-8 text-center" style="color: #666;">
+                        "팬들은 이미 '그레이 마켓'에서 수천억 원을 쓰고 있어요.<br>
+                        위버스가 이 트래픽과 데이터를 흡수해야 해요!"
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-8 mb-8">
+                        <div class="text-center">
+                            <div class="ledger-text text-5xl mb-2" style="color: #FF69B4;">₩150억+</div>
+                            <div class="text-sm" style="color: #999;">추가 매출 목표</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="ledger-text text-5xl mb-2" style="color: #4682B4;">₩0원</div>
+                            <div class="text-sm" style="color: #999;">재고 리스크</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="ledger-text text-5xl mb-2" style="color: #32CD32;">25%</div>
+                            <div class="text-sm" style="color: #999;">영업이익률</div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <p class="handwriting text-lg mb-6" style="color: #666;">
+                            재고 리스크 없는 디지털 에셋(POD) 모델로<br>
+                            영업이익률 25% 달성 시나리오를 제안합니다 📊
+                        </p>
+                        <a href="#" class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-pink-200 to-blue-200 rounded-full font-bold text-lg shadow-lg hover:shadow-xl transition-all" style="color: #8B4513;">
+                            📄 제안서 전체 보기 (PDF)
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- 푸터 -->
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 KIM JIYEON. All Rights Reserved.</p>
-        </div>
-    </footer>
-    
+        <!-- FOOTER -->
+        <footer id="contact" class="py-16 px-6 bg-white/80 backdrop-blur-md border-t-4 border-pink-200 text-center">
+            <h2 class="handwriting-title text-4xl mb-8" style="color: #FF69B4;">
+                💌 위버스의 마지막 퍼즐이 되고 싶어요
+            </h2>
+            <div class="handwriting text-2xl mb-8" style="color: #666;">
+                📧 jiyeon.work.93@gmail.com<br>
+                📱 010-7708-2417
+            </div>
+            <div class="masking-tape">
+                ✨ 2025 김지연의 팬덤 일기장 ✨
+            </div>
+        </footer>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        // Fade-in animation
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>

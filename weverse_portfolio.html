@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김지연 | Weverse O2O PM Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --weverse-green: #00D664;
+            --weverse-dark: #121212;
+            --weverse-gray: #1A1A1A;
+            --weverse-light: #F5F5F5;
+            --weverse-white: #FFFFFF;
+            --text-primary: #121212;
+            --text-secondary: #666666;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background: var(--weverse-white);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .nav-logo span {
+            color: var(--weverse-green);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--weverse-green);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: #00BB56;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 214, 100, 0.3);
+        }
+
+        /* Page Container */
+        .page-container {
+            padding-top: 80px;
+        }
+
+        .page {
+            min-height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Page 1: Cover / One-Pager */
+        .cover-page {
+            background: linear-gradient(135deg, var(--weverse-dark) 0%, #2A2A2A 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cover-page::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 214, 100, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .cover-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cover-headline {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .cover-headline .highlight {
+            color: var(--weverse-green);
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        .cover-subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem auto;
+            max-width: 900px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            background: rgba(0, 214, 100, 0.1);
+            border-color: var(--weverse-green);
+            transform: translateY(-5px);
+        }
+
+        .metric-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--weverse-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 500;
+        }
+
+        .cover-description {
+            max-width: 800px;
+            margin: 3rem auto 2rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Section Header */
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: rgba(0, 214, 100, 0.1);
+            color: var(--weverse-green);
+            padding: 0.5rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+        }
+
+        /* Project Card */
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 214, 100, 0.15);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image.morang {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .project-image.suwon {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .project-image.kkojil {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .project-image.proposal {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+
+        .project-image-overlay {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .project-content {
+            padding: 2.5rem;
+        }
+
+        .project-title {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .project-period {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .project-section {
+            margin-bottom: 2rem;
+        }
+
+        .project-section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--weverse-green);
+            margin-bottom: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-section-content {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+        }
+
+        .project-section-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .project-section-content li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+
+        .project-section-content li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--weverse-green);
+            font-weight: bold;
+        }
+
+        .highlight-box {
+            background: rgba(0, 214, 100, 0.05);
+            border-left: 4px solid var(--weverse-green);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+        }
+
+        .highlight-number {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--weverse-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .tag {
+            background: #f5f5f5;
+            color: var(--text-secondary);
+            padding: 0.4rem 1rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Proposal Section */
+        .proposal-box {
+            background: linear-gradient(135deg, rgba(0, 214, 100, 0.05) 0%, rgba(0, 214, 100, 0.02) 100%);
+            border: 2px solid var(--weverse-green);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+        }
+
+        .proposal-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .proposal-subtitle {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--weverse-green);
+            margin-bottom: 1rem;
+        }
+
+        .proposal-content {
+            font-size: 1.05rem;
+            line-height: 1.9;
+            color: var(--text-primary);
+        }
+
+        .flow-chart {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: white;
+            border-radius: 15px;
+        }
+
+        .flow-item {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .flow-item:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: var(--weverse-green);
+        }
+
+        .flow-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .flow-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Conclusion Page */
+        .conclusion-page {
+            background: var(--weverse-dark);
+            color: white;
+            text-align: center;
+        }
+
+        .conclusion-quote {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 3rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .conclusion-quote .highlight {
+            color: var(--weverse-green);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cover-headline {
+                font-size: 2rem;
+            }
+
+            .cover-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .metric-number {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .project-image {
+                height: 250px;
+                font-size: 2.5rem;
+            }
+
+            .flow-chart {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .flow-item:not(:last-child)::after {
+                content: '↓';
+                right: auto;
+                bottom: -30px;
+                top: auto;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .conclusion-quote {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            nav {
+                display: none;
+            }
+
+            .page {
+                page-break-after: always;
+                min-height: auto;
+            }
+
+            .btn-primary {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span>WEVERSE</span> PORTFOLIO
+            </div>
+            <div class="nav-buttons">
+                <button class="btn-primary" onclick="downloadPDF()">PDF 다운로드</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="page-container">
+        
+        <!-- Page 1: Cover / One-Pager -->
+        <section class="page cover-page">
+            <div class="cover-content">
+                <h1 class="cover-headline">
+                    팬덤의 마음을 읽고,
+                    <span class="highlight">Tech로 문제를 해결하는 O2O PM</span>
+                </h1>
+                <p class="cover-subtitle">Fan-Centric Product Manager</p>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-number">510K</div>
+                        <div class="metric-label">축제 방문객 운영<br>(16일, 무사고)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">ZERO</div>
+                        <div class="metric-label">재고 폐기율<br>(3차 연속 완판)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-number">D-13</div>
+                        <div class="metric-label">긴급 행사 기획<br>("역대급" 평가)</div>
+                    </div>
+                </div>
+
+                <p class="cover-description">
+                    51만 명이 몰린 축제를 무사고로 끝냈습니다. 굿즈 브랜드를 3년 운영하며 팬들이 지갑 여는 순간을 데이터로 읽었습니다. 
+                    재고는 0원으로 관리했고, 위기 상황에서도 13일 만에 행사를 성공시켰습니다. 
+                    <br><br>
+                    <strong style="color: var(--weverse-green);">현장에서 배운 실행력으로, 위버스 O2O 경험을 완성하겠습니다.</strong>
+                </p>
+            </div>
+        </section>
+
+        <!-- Page 2-3: Morang Gongbang (Personal Work) -->
+        <section class="page">
+            <div class="section-header">
+                <span class="section-tag">PERSONAL WORK · Design Lead</span>
+                <h2 class="section-title">모랑공방</h2>
+                <p class="section-description">
+                    덕질을 비즈니스로 증명하다: 감(Feeling)이 아닌 데이터(Data)로 만든 재고 0원
+                </p>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image morang">
+                    🎨
+                    <div class="project-image-overlay">팬덤 D2C 굿즈</div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">팬덤 타겟 굿즈 브랜드 런칭 및 D2C 판매</h3>
+                    <p class="project-period">2019.10 - 2021.10 | Founder</p>
+
+                    <div class="project-section">
+                        <h4 class="project-section-title">📊 Challenge</h4>
+                        <div class="project-section-content">
+                            <p>재고 없이 수익 내는 팬덤 비즈니스를 만들어야 했습니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="project-section">
+                        <h4 class="project-section-title">💡 Solution</h4>
+                        <div class="project-section-content">
+                            <ul>
+                                <li><strong>팬심 타이밍 분석:</strong> 트위터에서 RT 폭발 타이밍을 찾았습니다. 아티스트 컴백할 때마다 스밍 돌리면서 팬들 마음이 가장 뜨거울 때를 체득했습니다.</li>
+                                <li><strong>선주문 시스템:</strong> 100% 선주문으로만 받았습니다. 수요가 확실할 때만 제작해서 재고 폐기율 0%를 만들었습니다.</li>
+                                <li><strong>품질 관리:</strong> 공예 전공 살려 공장을 직접 감리했습니다. 0.1mm 오차도 안 넘겼고, 불량률은 0.1% 미만으로 관리했습니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <div class="highlight-number">3차 연속 완판</div>
+                        <p>총 매출 2,000만원 · 재고 비용 0원 · 순수익률 극대화</p>
+                        <p style="margin-top: 1rem; font-style: italic;">돌쥬가 세계 여행 다니는 사진이 SNS에 올라왔습니다.</p>
+                    </div>
+
+                    <div class="project-section">
+                        <h4 class="project-section-title">🎯 Key Insight</h4>
+                        <div class="project-section-content">
+                            <p><strong>"팬이벤트는 아티스트와 같이 간다"</strong></p>
+                            <p>아티스트 컴백 기간에 맞춰 Pre-order를 열면 완판됐고, 타팬덤까지 자연스럽게 확산됐습니다. 
+                            홍보비 0원으로 바이럴을 만든 비결은 <strong>팬들의 감정 곡선</strong>을 읽는 것이었습니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">#D2C</span>
+                        <span class="tag">#재고제로</span>
+                        <span class="tag">#팬덤분석</span>
+                        <span class="tag">#데이터기반기획</span>
+                        <span class="tag">#100%선주문</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 4-5: Suwon Cultural Foundation (Collaborative Work) -->
+        <section class="page">
+            <div class="section-header">
+                <span class="section-tag">COLLABORATIVE WORK · Crisis Management</span>
+                <h2 class="section-title">수원문화재단</h2>
+                <p class="section-description">
+                    Crisis Management: 51만 명의 트래픽을 Tech로 방어하다
+                </p>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image suwon">
+                    🎪
+                    <div class="project-image-overlay">51만 명 축제</div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">2025 수원화성 미디어아트 축제 운영 총괄</h3>
+                    <p class="project-period">2025.05 - 2025.11 | 관광육성팀 주임</p>
+
+                    <div class="project-section">
+                        <h4 class="project-section-title">🚨 Situation</h4>
+                        <div class="project-section-content">
+                            <p>추석 연휴 16일간 51만 명이 몰렸습니다. <strong>예산은 60% 삭감</strong>되었고, 인력과 시스템은 부족했습니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="project-section">
+                        <h4 class="project-section-title">💡 Solution</h4>
+                        <div class="project-section-content">
+                            <ul>
+                                <li><strong>AI 활용 위기 대응:</strong> 결제 시스템이 뻗었을 때, ChatGPT로 원인(ERR_402)을 1분 만에 찾아내고 우회 결제망을 즉시 가동했습니다.</li>
+                                <li><strong>데이터 기반 운영:</strong> 시간대별 인파 패턴을 예측해 병목 구간에 스태프를 미리 배치했습니다. 팀장 개입 없이 현장 이슈를 100% 해결했습니다.</li>
+                                <li><strong>생성형 AI 마케팅:</strong> 예산이 없어서 생성형 AI(Veo, Sora)로 홍보 영상을 직접 만들었습니다. 비용 0원으로 5.5만 회 조회수를 찍었습니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <div class="highlight-number">16일 무사고 운영</div>
+                        <p>매출 데이터 누락 0건 · 입사 6개월 만에 '모범직원 표창' 수상</p>
+                        <p style="margin-top: 1rem; font-weight: 600;">팀장님 評: "5년 만에 현장에서 소리 안 질렀다"</p>
+                    </div>
+
+                    <div class="project-section">
+                        <h4 class="project-section-title">🎯 Key Takeaway</h4>
+                        <div class="project-section-content">
+                            <p>개발팀 부재 상황에서도 <strong>AI를 활용해 기술적 문제를 해결</strong>하고, 
+                            예산 삭감을 <strong>생성형 AI 툴로 극복</strong>했습니다. 
+                            문제가 터지기 전에 미리 읽고 막는 것이 진짜 기획자의 일임을 체득했습니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">#위기관리</span>
+                        <span class="tag">#ChatGPT활용</span>
+                        <span class="tag">#생성형AI</span>
+                        <span class="tag">#대규모운영</span>
+                        <span class="tag">#데이터분석</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 6-7: Kkojilland (Problem Solving) -->
+        <section class="page">
+            <div class="section-header">
+                <span class="section-tag">PROBLEM SOLVING · Execution</span>
+                <h2 class="section-title">꼬질랜드</h2>
+                <p class="section-description">
+                    Execution: 주최자 잠적 D-13, 위기를 '놀이판'으로 바꾼 기획
+                </p>
+            </div>
+
+            <div class="project-card">
+                <div class="project-image kkojil">
+                    🎰
+                    <div class="project-image-overlay">위기 극복</div>
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">버추얼 아이돌 생일카페 '꼬질랜드'</h3>
+                    <p class="project-period">2024.11 (2주) | 주최진</p>
+
+                    <div class="project-section">
+                        <h4 class="project-section-title">⚠️ Crisis</h4>
+                        <div class="project-section-content">
+                            <p><strong>행사 13일 전, 주최자가 잠적했습니다.</strong></p>
+                            <p>팬들은 불안해했고, 협력진들은 상처를 입었고, 누군가는 "망했다"며 포기했습니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="project-section">
+                        <h4 class="project-section-title">💡 Solution</h4>
+                        <div class="project-section-content">
+                            <ul>
+                                <li><strong>팬덤 코드 활용:</strong> 당시 팬들이 재미로 즐기던 '도박 밈'을 붙잡았습니다. "망한 행사"라는 프레임을 "도박판 오프라인에서 진짜 만나서 같이 즐기자"는 카지노 컨셉으로 뒤집었습니다.</li>
+                                <li><strong>긴급 TF 구성:</strong> 밤새워 굿즈 발주하고 떠나간 협력진들께 손편지에 가까운 DM을 보내서 설득했습니다.</li>
+                                <li><strong>13일 실행:</strong> 대관, 굿즈 제작, 콘텐츠 기획을 13일 만에 완료했습니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <div class="highlight-number">"역대급 행사"</div>
+                        <p>"이제까지 가본 모든 오타쿠 행사 중 역대급" 평가</p>
+                        <p style="margin-top: 1rem; font-weight: 600;">연속 행사 기획 확정 · 팬덤 내 신뢰 구축</p>
+                    </div>
+
+                    <div class="project-section">
+                        <h4 class="project-section-title">🎯 Core Insight</h4>
+                        <div class="project-section-content">
+                            <p><strong>"팬덤의 불안을 '놀이 문화'로 승화"</strong></p>
+                            <p>위기 상황에서 팬들의 불안감을 해소하려면, 그들의 언어와 문화를 이해해야 합니다. 
+                            '도박 밈'이라는 팬덤 내부 코드를 활용해 위기를 즐거운 경험으로 전환했습니다.</p>
+                            <br>
+                            <p style="font-style: italic;">"이게 제가 진짜 잘하는 일이고, 계속하고 싶은 일입니다. 
+                            모든 팬이 집에 돌아갈 때 '오늘 오길 진짜 잘했다'고 느끼게 만드는 일. 
+                            그게 바로 위버스에서 제가 하고 싶은 일입니다."</p>
+                        </div>
+                    </div>
+
+                    <div class="tags">
+                        <span class="tag">#위기관리</span>
+                        <span class="tag">#긴급실행</span>
+                        <span class="tag">#팬덤코드</span>
+                        <span class="tag">#커뮤니케이션</span>
+                        <span class="tag">#D-13</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 8: Admin & Additional Experience -->
+        <section class="page">
+            <div class="section-header">
+                <span class="section-tag">ADDITIONAL EXPERIENCE</span>
+                <h2 class="section-title">Accuracy & Global</h2>
+                <p class="section-description">
+                    10원 단위의 정산과 국경 없는 소통
+                </p>
+            </div>
+
+            <div class="project-card">
+                <div class="project-content" style="padding: 3rem;">
+                    <div class="project-section">
+                        <h4 class="project-section-title">🏛️ 추계예술대학교 산학협력단</h4>
+                        <p class="project-period" style="margin-bottom: 1rem;">2022.03 - 2024.04 | 국제교류원 조교</p>
+                        <div class="project-section-content">
+                            <ul>
+                                <li>구청-대학-상인, 3자 간 니즈를 조율해서 아트카페 프로젝트 성사</li>
+                                <li><strong>국고 보조금 500만원</strong>을 집행하고 <strong>'e나라도움' 시스템</strong>으로 10원 단위까지 맞춰 정산</li>
+                                <li>이해관계 충돌 없이 프로젝트 종료, 행정 감사 무결점 통과</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="project-section" style="margin-top: 2.5rem;">
+                        <h4 class="project-section-title">🎨 미술관이야기 & 째깍섬</h4>
+                        <p class="project-period" style="margin-bottom: 1rem;">2021.01 - 2022.03 | 아트 에듀케이터</p>
+                        <div class="project-section-content">
+                            <ul>
+                                <li>더현대 서울/DDP 대형 유통시설 현장 운영</li>
+                                <li>고밀도 인파 속에서 아동 타겟 안전 동선 설계</li>
+                                <li>백화점 VIP 고객 응대 매너 체화</li>
+                                <li><strong>운영 기간 내 안전사고 0건</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="project-section" style="margin-top: 2.5rem;">
+                        <h4 class="project-section-title">🌏 K-POP 팬덤 총대 (뉴이스트 W)</h4>
+                        <p class="project-period" style="margin-bottom: 1rem;">2017 - 2019 | 공구 리더</p>
+                        <div class="project-section-content">
+                            <ul>
+                                <li>서울-부산 오가며 수백 명 팬 인솔 및 현장 통제</li>
+                                <li><strong>해외 팬덤 대상 굿즈 공구</strong>, 국제 배송/CS 직접 해결</li>
+                                <li>2년간 무사고 운영, 팬덤 내 신뢰 확보</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="tags" style="margin-top: 2rem;">
+                        <span class="tag">#행정정산</span>
+                        <span class="tag">#e나라도움</span>
+                        <span class="tag">#글로벌CS</span>
+                        <span class="tag">#현장운영</span>
+                        <span class="tag">#안전관리</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Page 9-11: Weverse Proposal -->
+        <section class="page">
+            <div class="section-header">
+                <span class="section-tag">PROPOSAL · Weverse O2O</span>
+                <h2 class="section-title">위버스 제안</h2>
+                <p class="section-description">
+                    온-오프라인 경험을 영구 소장하는 '디지털 덕질 여권'
+                </p>
+            </div>
+
+            <div class="proposal-box">
+                <h3 class="proposal-title">💚 Weverse Archive System</h3>
+                <p class="proposal-subtitle">온·오프라인 팬 활동을 타임라인으로 저장하는 기획</p>
+
+                <div class="project-section-content">
+                    <p style="margin-bottom: 2rem;">
+                        저는 뉴이스트 백호의 오랜 팬입니다. 위버스를 트위터만큼 자주 들어가면서, 
+                        활동할수록 게임 레벨업하듯 쌓이는 뱃지가 정말 재밌었습니다. 
+                        <br><br>
+                        근데 한 가지 아쉬웠던 건, <strong>콘서트 티켓이나 포토이즘, 팬레터 같은 오프라인 추억들은 
+                        그대로 사라지거나 찾아보기 힘들다</strong>는 것이었습니다.
+                    </p>
+
+                    <h4 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--weverse-green);">
+                        📱 Core Concept: 디지털 덕질 여권
+                    </h4>
+
+                    <div class="flow-chart">
+                        <div class="flow-item">
+                            <div class="flow-icon">🎫</div>
+                            <div class="flow-label">티켓 QR 스캔<br>(오프라인)</div>
+                        </div>
+                        <div class="flow-item">
+                            <div class="flow-icon">✨</div>
+                            <div class="flow-label">메모리 티켓 변환<br>(미공개 음성)</div>
+                        </div>
+                        <div class="flow-item">
+                            <div class="flow-icon">💾</div>
+                            <div class="flow-label">아카이브 저장<br>(타임라인)</div>
+                        </div>
+                        <div class="flow-item">
+                            <div class="flow-icon">📊</div>
+                            <div class="flow-label">Fandom Recap<br>(연말 결산)</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 2.5rem;">
+                        <h4 style="font-size: 1.2rem; font-weight: 700; margin-bottom: 1rem;">🎯 Expected Effect</h4>
+                        <ul style="line-height: 2;">
+                            <li><strong>오프라인 유입 → 앱 체류 시간 증대:</strong> 콘서트 끝나고 티켓 스캔하면 특별한 리워드를 받습니다.</li>
+                            <li><strong>팬덤 Lock-in 효과:</strong> 모든 팬 경험이 위버스에 쌓이면, 팬들은 팬덤을 갈아타도 위버스를 떠나지 않습니다.</li>
+                            <li><strong>바이럴 마케팅:</strong> 연말 'Fandom Recap' 리포트를 SNS에 자발적으로 공유하게 만듭니다.</li>
+                            <li><strong>위버스 = 팬 라이프 베이스캠프:</strong> 트위터처럼 매일 드나드는 필수 플랫폼으로 자리잡습니다.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 2rem;">
+                <p style="font-size: 1.1rem; line-height: 1.9; font-style: italic;">
+                    "저는 51만 명 축제 현장에서 팬들의 동선을 읽었고, 
+                    굿즈 브랜드를 운영하며 팬들이 지갑 여는 순간을 데이터로 파악했습니다. 
+                    <br><br>
+                    <strong style="color: var(--weverse-green); font-size: 1.2rem;">
+                    이제 위버스에서 전 세계 팬들의 온·오프라인 경험을 설계하고 싶습니다."
+                    </strong>
+                </p>
+            </div>
+        </section>
+
+        <!-- Page 12: Conclusion -->
+        <section class="page conclusion-page">
+            <div class="conclusion-quote">
+                만드는 사람의 <span class="highlight">집요함</span>,<br>
+                파는 사람의 <span class="highlight">감각</span>,<br>
+                운영하는 사람의 <span class="highlight">책임감</span>.<br>
+                <br>
+                <span class="highlight">위버스의 O2O를 완성하는<br>마지막 퍼즐이 되겠습니다.</span>
+            </div>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-label">Email</div>
+                    <div class="contact-value">jiyeon.work.93@gmail.com</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Phone</div>
+                    <div class="contact-value">010-XXXX-XXXX</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-label">Portfolio</div>
+                    <div class="contact-value">notion.com/jiyeon-portfolio</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 5rem; font-size: 0.9rem; color: rgba(255, 255, 255, 0.5);">
+                <p>© 2025 Kim Jiyeon. All rights reserved.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // PDF Download Function
+        function downloadPDF() {
+            const element = document.querySelector('.page-container');
+            const opt = {
+                margin: 0,
+                filename: 'KimJiyeon_Weverse_Portfolio.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, useCORS: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
+            };
+
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer for Animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease-out';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

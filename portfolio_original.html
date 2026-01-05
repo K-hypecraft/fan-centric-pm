@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김지연 - NHN LINK 공연 MD 포트폴리오</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* NHN Brand Colors */
+            --nhn-red: #FF0000;
+            --nhn-black: #000000;
+            --nhn-dark: #1a1a1a;
+            --nhn-gray: #2d2d2d;
+            
+            /* Concert/Entertainment Colors */
+            --accent-gold: #FFD700;
+            --accent-purple: #8B5CF6;
+            --accent-cyan: #06B6D4;
+            
+            /* Neutral Colors */
+            --white: #FFFFFF;
+            --light-gray: #F5F5F5;
+            --medium-gray: #9CA3AF;
+            --dark-gray: #4B5563;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+            background: var(--nhn-black);
+            color: var(--white);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1.2rem 0;
+            border-bottom: 2px solid var(--nhn-red);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--nhn-red);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--nhn-red);
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--nhn-black) 0%, var(--nhn-dark) 50%, var(--nhn-black) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 50%);
+            animation: pulse 20s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            animation: fadeInUp 1.2s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--white) 0%, var(--nhn-red) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+        }
+
+        .hero .subtitle {
+            font-size: 1.5rem;
+            color: var(--light-gray);
+            margin-bottom: 2.5rem;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+        }
+
+        .hero .keywords {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2.5rem;
+        }
+
+        .keyword {
+            background: transparent;
+            border: 2px solid var(--nhn-red);
+            color: var(--white);
+            padding: 0.6rem 1.8rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+
+        .keyword:hover {
+            background: var(--nhn-red);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 0, 0, 0.3);
+        }
+
+        /* Section Styling */
+        section {
+            padding: 8rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            color: var(--white);
+            position: relative;
+            display: inline-block;
+            letter-spacing: -0.02em;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100px;
+            height: 4px;
+            background: var(--nhn-red);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--medium-gray);
+            margin-bottom: 4rem;
+            font-weight: 400;
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--nhn-gray) 0%, var(--nhn-dark) 100%);
+            border-radius: 20px;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--nhn-red) 0%, var(--accent-gold) 100%);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--nhn-red);
+            box-shadow: 0 20px 40px rgba(255, 0, 0, 0.2);
+        }
+
+        .stat-number {
+            font-size: 4.5rem;
+            font-weight: 900;
+            color: var(--nhn-red);
+            font-family: 'Montserrat', sans-serif;
+            display: block;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--light-gray);
+            font-weight: 500;
+        }
+
+        /* Project Cards */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--nhn-gray);
+            border: 2px solid var(--nhn-dark);
+            border-radius: 20px;
+            padding: 3rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255, 0, 0, 0.05) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--nhn-red);
+            box-shadow: 0 25px 50px rgba(255, 0, 0, 0.15);
+        }
+
+        .project-label {
+            display: inline-block;
+            background: var(--nhn-red);
+            color: var(--white);
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .project-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .project-card .metric {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--nhn-red);
+            margin: 1.5rem 0;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        .project-card ul {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .project-card li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            color: var(--light-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .project-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--nhn-red);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Social Proof Section */
+        .social-proof {
+            background: var(--nhn-gray);
+            padding: 4rem;
+            border-radius: 20px;
+            border: 2px solid var(--nhn-dark);
+            margin: 3rem 0;
+        }
+
+        .embed-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .embed-wrapper {
+            background: var(--nhn-dark);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            max-height: 650px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .embed-wrapper:hover {
+            border-color: var(--nhn-red);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(255, 0, 0, 0.15);
+        }
+
+        .embed-wrapper blockquote {
+            margin: 0 !important;
+            width: 100%;
+        }
+
+        .embed-wrapper::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .embed-wrapper::-webkit-scrollbar-track {
+            background: rgba(255, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+
+        .embed-wrapper::-webkit-scrollbar-thumb {
+            background: var(--nhn-red);
+            border-radius: 10px;
+        }
+
+        .embed-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #CC0000;
+        }
+
+        .embed-note {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            background: rgba(255, 0, 0, 0.9);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .embed-wrapper:hover .embed-note {
+            opacity: 1;
+        }
+
+        .embed-instruction {
+            background: rgba(255, 0, 0, 0.05);
+            border-left: 4px solid var(--nhn-red);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+        }
+
+        .embed-instruction h4 {
+            color: var(--nhn-red);
+            margin-bottom: 1rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .embed-instruction code {
+            background: var(--nhn-dark);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+        }
+
+        /* Gallery */
+        .gallery {
+            background: var(--nhn-gray);
+            padding: 4rem;
+            border-radius: 20px;
+            border: 2px solid var(--nhn-dark);
+            margin: 3rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            background: var(--nhn-dark);
+            border: 2px solid rgba(255, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            border-color: var(--nhn-red);
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.3);
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0) !important;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .gallery-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .gallery-placeholder svg {
+            width: 60px;
+            height: 60px;
+            margin-bottom: 1rem;
+            opacity: 0.4;
+        }
+
+        .gallery-placeholder h4 {
+            color: var(--nhn-red);
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .gallery-placeholder p {
+            color: var(--medium-gray);
+            font-size: 0.85rem;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--nhn-red), var(--accent-gold));
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 3rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--nhn-gray);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 2px solid var(--nhn-dark);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            border-color: var(--nhn-red);
+            transform: translateY(-5px);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 24px;
+            background: var(--nhn-red);
+            border-radius: 50%;
+            border: 4px solid var(--nhn-black);
+            z-index: 10;
+        }
+
+        .timeline-content h3 {
+            color: var(--nhn-red);
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+        }
+
+        .timeline-content h4 {
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Vision Section */
+        .vision {
+            background: linear-gradient(135deg, var(--nhn-black) 0%, var(--nhn-dark) 50%, var(--nhn-black) 100%);
+            padding: 8rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vision::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 0, 0, 0.08) 0%, transparent 70%);
+        }
+
+        .vision-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .vision h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            line-height: 1.4;
+            font-weight: 800;
+        }
+
+        .vision-highlight {
+            color: var(--nhn-red);
+        }
+
+        /* CTA */
+        .cta {
+            text-align: center;
+            padding: 8rem 5%;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--nhn-red);
+            color: var(--white);
+            padding: 1.5rem 4rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: 2px solid var(--nhn-red);
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 0, 0, 0.4);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.98);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: var(--white);
+            font-size: 3rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--nhn-red);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            
+            .hero .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
+
+            .project-grid,
+            .embed-container,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 1rem;
+                flex-wrap: wrap;
+                padding: 0 1rem;
+            }
+
+            nav a {
+                font-size: 0.75rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                padding-left: 50px;
+            }
+
+            .timeline-item:nth-child(even) {
+                flex-direction: column;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            section {
+                padding: 4rem 5%;
+            }
+
+            .social-proof,
+            .gallery {
+                padding: 2rem;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading Animations */
+        .fade-in {
+            animation: fadeIn 0.8s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">HOME</a></li>
+            <li><a href="#stats">STATS</a></li>
+            <li><a href="#projects">PROJECTS</a></li>
+            <li><a href="#gallery">GALLERY</a></li>
+            <li><a href="#social">SOCIAL PROOF</a></li>
+            <li><a href="#timeline">TIMELINE</a></li>
+            <li><a href="#vision">VISION</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>PLATFORM-TO-REVENUE<br>CATALYST</h1>
+            <p class="subtitle">시스템의 트래픽을 현장의 매출로 전환하는 전략가</p>
+            <div class="keywords">
+                <span class="keyword">DATA DRIVEN MD</span>
+                <span class="keyword">RISK MANAGEMENT</span>
+                <span class="keyword">VIRTUAL FANDOM</span>
+                <span class="keyword">ZERO INCIDENT</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Performance Summary -->
+    <section id="stats">
+        <h2 class="section-title">PERFORMANCE SUMMARY</h2>
+        <p class="section-subtitle">데이터와 현장 경험으로 증명된 핵심 성과</p>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <span class="stat-number">53만</span>
+                <span class="stat-label">연간 축제 방문객 운영<br>안전사고 Zero</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">5.5만</span>
+                <span class="stat-label">SNS 단일 콘텐츠<br>최고 조회수</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">3차</span>
+                <span class="stat-label">자체 IP 굿즈<br>완판 달성</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">50%</span>
+                <span class="stat-label">Gen-AI 도입<br>예산 절감</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+        <h2 class="section-title">KEY PROJECTS</h2>
+        <p class="section-subtitle">데이터 기반 전략과 현장 실행력의 증명</p>
+
+        <div class="project-grid">
+            <div class="project-card">
+                <span class="project-label">ZERO-BUDGET MARKETING</span>
+                <h3>생성형 AI 전략으로 마케팅 ROI 극대화</h3>
+                <p><strong>Project:</strong> 2025 수원화성 미디어아트 축제</p>
+                
+                <div class="metric">5.5만</div>
+                <p style="color: var(--light-gray); margin-bottom: 1rem;">재단 SNS 역대 최고 조회수</p>
+
+                <ul>
+                    <li>국비 지원 종료로 홍보 예산 50% 삭감 상황</li>
+                    <li>Midjourney 기반 시각 콘텐츠 자체 제작</li>
+                    <li>숏폼 콘텐츠 전략으로 Instagram 알고리즘 최적화</li>
+                    <li>팔로워 36% 증가, 제작 비용 0원</li>
+                </ul>
+            </div>
+
+            <div class="project-card">
+                <span class="project-label">RISK HEDGING</span>
+                <h3>53만 인파 현장 통제 및 무사고 운영</h3>
+                <p><strong>Role:</strong> 티켓 매니저 & 현장 운영 총괄</p>
+                
+                <div class="metric">0건</div>
+                <p style="color: var(--light-gray); margin-bottom: 1rem;">안전사고 Zero 달성</p>
+
+                <ul>
+                    <li>인터파크 티켓 어드민 시스템 직접 운영</li>
+                    <li>실시간 재고 관리 및 일일 매출 정산</li>
+                    <li>결제 오류 대응 프로토콜 구축</li>
+                    <li>폭우 취소 위기에서 재계약률 93.8% 달성</li>
+                </ul>
+            </div>
+
+            <div class="project-card">
+                <span class="project-label">VIRTUAL FANDOM</span>
+                <h3>하이브리드 수익화 모델 제안</h3>
+                <p><strong>Research:</strong> 관전 경제 & O2O 전환 메커니즘</p>
+                
+                <div class="metric">10배</div>
+                <p style="color: var(--light-gray); margin-bottom: 1rem;">수익 범위 확장 가능성</p>
+
+                <ul>
+                    <li>버추얼 공연 스트리밍 몰입도와 굿즈 구매 상관관계 실증</li>
+                    <li>오프라인 500석 + 온라인 5,000석 하이브리드 모델</li>
+                    <li>Link-ON 플랫폼 활용 전략 수립</li>
+                    <li>학술 연구 기반 데이터 검증</li>
+                </ul>
+            </div>
+
+            <div class="project-card">
+                <span class="project-label">MERCHANDISING</span>
+                <h3>IP 굿즈 기획 및 3차 완판</h3>
+                <p><strong>Experience:</strong> 자체 캐릭터 IP 팬덤 비즈니스 (10년)</p>
+                
+                <div class="metric">200%</div>
+                <p style="color: var(--light-gray); margin-bottom: 1rem;">객단가 증대</p>
+
+                <ul>
+                    <li>프리미엄 도자 아트토이 라인 기획</li>
+                    <li>Pre-order 방식으로 재고 리스크 제로화</li>
+                    <li>SNS 공동구매로 펀딩 100% 초과</li>
+                    <li>팬덤 커뮤니티 활성화 및 바이럴 마케팅</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Gallery -->
+    <section id="gallery">
+        <h2 class="section-title">VISUAL EVIDENCE</h2>
+        <p class="section-subtitle">프로젝트 실제 현장과 성과 증거</p>
+
+        <div class="gallery">
+            <div class="gallery-grid">
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="socialblade_sep29.png" alt="Social Blade 9월 29일 데이터">
+                    <div class="gallery-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 2rem 1.5rem 1.5rem; transform: translateY(100%); transition: transform 0.3s ease;">
+                        <h4 style="color: var(--nhn-red); margin-bottom: 0.5rem; font-size: 1.1rem;">Social Blade: 9월 29일</h4>
+                        <p style="color: var(--light-gray); font-size: 0.9rem; margin: 0;">하루 332명 팔로워 증가 달성</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="socialblade_oct13.png" alt="Social Blade 10월 13일 데이터">
+                    <div class="gallery-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 2rem 1.5rem 1.5rem; transform: translateY(100%); transition: transform 0.3s ease;">
+                        <h4 style="color: var(--nhn-red); margin-bottom: 0.5rem; font-size: 1.1rem;">Social Blade: 10월 13일</h4>
+                        <p style="color: var(--light-gray); font-size: 0.9rem; margin: 0;">최고점 453명 증가 기록</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="instagram_reels_1.png" alt="Instagram 릴스 조회수 5만대">
+                    <div class="gallery-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 2rem 1.5rem 1.5rem; transform: translateY(100%); transition: transform 0.3s ease;">
+                        <h4 style="color: var(--nhn-red); margin-bottom: 0.5rem; font-size: 1.1rem;">Instagram Reels 성과</h4>
+                        <p style="color: var(--light-gray); font-size: 0.9rem; margin: 0;">5천~5만대 조회수 달성 콘텐츠</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <img src="instagram_reels_2.png" alt="Instagram 릴스 조회수 추가">
+                    <div class="gallery-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); padding: 2rem 1.5rem 1.5rem; transform: translateY(100%); transition: transform 0.3s ease;">
+                        <h4 style="color: var(--nhn-red); margin-bottom: 0.5rem; font-size: 1.1rem;">지속적 콘텐츠 생산</h4>
+                        <p style="color: var(--light-gray); font-size: 0.9rem; margin: 0;">일관된 퀄리티의 다양한 콘텐츠</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <div class="gallery-placeholder">
+                        <svg fill="var(--nhn-red)" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
+                        </svg>
+                        <h4>도자 굿즈 제품</h4>
+                        <p>프리미엄 아트토이 3차 완판</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openModal(this)">
+                    <div class="gallery-placeholder">
+                        <svg fill="var(--nhn-red)" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                        </svg>
+                        <h4>AI 생성 비주얼</h4>
+                        <p>Midjourney 제작 홍보물</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; padding: 2rem; background: var(--nhn-dark); border-radius: 10px;">
+                <h4 style="color: var(--nhn-red); margin-bottom: 1rem; font-family: 'Montserrat', sans-serif; font-weight: 700;">💡 추가 가능한 시각 자료</h4>
+                <ul style="list-style: none;">
+                    <li style="padding: 0.5rem 0; color: var(--light-gray);">✓ 수원화성 축제 현장 인파 사진 (53만 명 규모 강조)</li>
+                    <li style="padding: 0.5rem 0; color: var(--light-gray);">✓ Instagram Reels 5.5만 조회수 스크린샷</li>
+                    <li style="padding: 0.5rem 0; color: var(--light-gray);">✓ Social Blade 팔로워 증가 그래프 (36% 상승)</li>
+                    <li style="padding: 0.5rem 0; color: var(--light-gray);">✓ 도자 굿즈 제품 사진 및 완판 인증</li>
+                    <li style="padding: 0.5rem 0; color: var(--light-gray);">✓ 티켓링크/인터파크 시스템 화면 (개인정보 가림)</li>
+                    <li style="padding: 0.5rem 0; color: var(--light-gray);">✓ Midjourney로 생성한 AI 콘텐츠 예시</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section id="social">
+        <h2 class="section-title">SOCIAL MEDIA PROOF</h2>
+        <p class="section-subtitle">실시간 소셜 미디어 성과 검증</p>
+
+        <div class="social-proof">
+            <div class="embed-instruction">
+                <h4>🎯 실제 성과 증거</h4>
+                <p style="color: var(--light-gray); line-height: 1.8;">
+                    아래는 수원문화재단의 실제 Instagram 게시물과 모랑공방의 팬덤 비즈니스 증거입니다. 
+                    소셜 미디어 임베드를 통해 5.5만 조회수 달성과 팬덤 완판 성과를 직접 확인하실 수 있습니다.
+                </p>
+            </div>
+
+            <div class="embed-container">
+                <!-- 수원문화재단 Instagram Reel 1 -->
+                <div class="embed-wrapper">
+                    <span class="embed-note">↓ 스크롤</span>
+                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DPKuXoTDNEn/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DPKuXoTDNEn/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">Instagram에서 이 게시물 보기</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DPKuXoTDNEn/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">수원문화재단(@swcf_official)님의 공유 게시물</a></p></div></blockquote>
+                </div>
+
+                <!-- 수원문화재단 Instagram Reel 2 -->
+                <div class="embed-wrapper">
+                    <span class="embed-note">↓ 스크롤</span>
+                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/reel/DReNIWak1mP/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/reel/DReNIWak1mP/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">Instagram에서 이 게시물 보기</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/reel/DReNIWak1mP/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">수원문화재단(@swcf_official)님의 공유 게시물</a></p></div></blockquote>
+                </div>
+
+                <!-- 모랑공방 Instagram Post -->
+                <div class="embed-wrapper">
+                    <span class="embed-note">↓ 스크롤</span>
+                    <blockquote class="instagram-media" data-instgrm-captioned data-instgrm-permalink="https://www.instagram.com/p/BZuZZTBgzie/?utm_source=ig_embed&amp;utm_campaign=loading" data-instgrm-version="14" style=" background:#FFF; border:0; border-radius:3px; box-shadow:0 0 1px 0 rgba(0,0,0,0.5),0 1px 10px 0 rgba(0,0,0,0.15); margin: 1px; max-width:540px; min-width:326px; padding:0; width:99.375%; width:-webkit-calc(100% - 2px); width:calc(100% - 2px);"><div style="padding:16px;"> <a href="https://www.instagram.com/p/BZuZZTBgzie/?utm_source=ig_embed&amp;utm_campaign=loading" style=" background:#FFFFFF; line-height:0; padding:0 0; text-align:center; text-decoration:none; width:100%;" target="_blank"> <div style=" display: flex; flex-direction: row; align-items: center;"> <div style="background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 40px; margin-right: 14px; width: 40px;"></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 100px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 60px;"></div></div></div><div style="padding: 19% 0;"></div> <div style="display:block; height:50px; margin:0 auto 12px; width:50px;"><svg width="50px" height="50px" viewBox="0 0 60 60" version="1.1" xmlns="https://www.w3.org/2000/svg" xmlns:xlink="https://www.w3.org/1999/xlink"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-511.000000, -20.000000)" fill="#000000"><g><path d="M556.869,30.41 C554.814,30.41 553.148,32.076 553.148,34.131 C553.148,36.186 554.814,37.852 556.869,37.852 C558.924,37.852 560.59,36.186 560.59,34.131 C560.59,32.076 558.924,30.41 556.869,30.41 M541,60.657 C535.114,60.657 530.342,55.887 530.342,50 C530.342,44.114 535.114,39.342 541,39.342 C546.887,39.342 551.658,44.114 551.658,50 C551.658,55.887 546.887,60.657 541,60.657 M541,33.886 C532.1,33.886 524.886,41.1 524.886,50 C524.886,58.899 532.1,66.113 541,66.113 C549.9,66.113 557.115,58.899 557.115,50 C557.115,41.1 549.9,33.886 541,33.886 M565.378,62.101 C565.244,65.022 564.756,66.606 564.346,67.663 C563.803,69.06 563.154,70.057 562.106,71.106 C561.058,72.155 560.06,72.803 558.662,73.347 C557.607,73.757 556.021,74.244 553.102,74.378 C549.944,74.521 548.997,74.552 541,74.552 C533.003,74.552 532.056,74.521 528.898,74.378 C525.979,74.244 524.393,73.757 523.338,73.347 C521.94,72.803 520.942,72.155 519.894,71.106 C518.846,70.057 518.197,69.06 517.654,67.663 C517.244,66.606 516.755,65.022 516.623,62.101 C516.479,58.943 516.448,57.996 516.448,50 C516.448,42.003 516.479,41.056 516.623,37.899 C516.755,34.978 517.244,33.391 517.654,32.338 C518.197,30.938 518.846,29.942 519.894,28.894 C520.942,27.846 521.94,27.196 523.338,26.654 C524.393,26.244 525.979,25.756 528.898,25.623 C532.057,25.479 533.004,25.448 541,25.448 C548.997,25.448 549.943,25.479 553.102,25.623 C556.021,25.756 557.607,26.244 558.662,26.654 C560.06,27.196 561.058,27.846 562.106,28.894 C563.154,29.942 563.803,30.938 564.346,32.338 C564.756,33.391 565.244,34.978 565.378,37.899 C565.522,41.056 565.552,42.003 565.552,50 C565.552,57.996 565.522,58.943 565.378,62.101 M570.82,37.631 C570.674,34.438 570.167,32.258 569.425,30.349 C568.659,28.377 567.633,26.702 565.965,25.035 C564.297,23.368 562.623,22.342 560.652,21.575 C558.743,20.834 556.562,20.326 553.369,20.18 C550.169,20.033 549.148,20 541,20 C532.853,20 531.831,20.033 528.631,20.18 C525.438,20.326 523.257,20.834 521.349,21.575 C519.376,22.342 517.703,23.368 516.035,25.035 C514.368,26.702 513.342,28.377 512.574,30.349 C511.834,32.258 511.326,34.438 511.181,37.631 C511.035,40.831 511,41.851 511,50 C511,58.147 511.035,59.17 511.181,62.369 C511.326,65.562 511.834,67.743 512.574,69.651 C513.342,71.625 514.368,73.296 516.035,74.965 C517.703,76.634 519.376,77.658 521.349,78.425 C523.257,79.167 525.438,79.673 528.631,79.82 C531.831,79.965 532.853,80.001 541,80.001 C549.148,80.001 550.169,79.965 553.369,79.82 C556.562,79.673 558.743,79.167 560.652,78.425 C562.623,77.658 564.297,76.634 565.965,74.965 C567.633,73.296 568.659,71.625 569.425,69.651 C570.167,67.743 570.674,65.562 570.82,62.369 C570.966,59.17 571,58.147 571,50 C571,41.851 570.966,40.831 570.82,37.631"></path></g></g></g></svg></div><div style="padding-top: 8px;"> <div style=" color:#3897f0; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:550; line-height:18px;">Instagram에서 이 게시물 보기</div></div><div style="padding: 12.5% 0;"></div> <div style="display: flex; flex-direction: row; margin-bottom: 14px; align-items: center;"><div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(0px) translateY(7px);"></div> <div style="background-color: #F4F4F4; height: 12.5px; transform: rotate(-45deg) translateX(3px) translateY(1px); width: 12.5px; flex-grow: 0; margin-right: 14px; margin-left: 2px;"></div> <div style="background-color: #F4F4F4; border-radius: 50%; height: 12.5px; width: 12.5px; transform: translateX(9px) translateY(-18px);"></div></div><div style="margin-left: 8px;"> <div style=" background-color: #F4F4F4; border-radius: 50%; flex-grow: 0; height: 20px; width: 20px;"></div> <div style=" width: 0; height: 0; border-top: 2px solid transparent; border-left: 6px solid #f4f4f4; border-bottom: 2px solid transparent; transform: translateX(16px) translateY(-4px) rotate(30deg)"></div></div><div style="margin-left: auto;"> <div style=" width: 0px; border-top: 8px solid #F4F4F4; border-right: 8px solid transparent; transform: translateY(16px);"></div> <div style=" background-color: #F4F4F4; flex-grow: 0; height: 12px; width: 16px; transform: translateY(-4px);"></div> <div style=" width: 0; height: 0; border-top: 8px solid #F4F4F4; border-left: 8px solid transparent; transform: translateY(-4px) translateX(8px);"></div></div></div> <div style="display: flex; flex-direction: column; flex-grow: 1; justify-content: center; margin-bottom: 24px;"> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; margin-bottom: 6px; width: 224px;"></div> <div style=" background-color: #F4F4F4; border-radius: 4px; flex-grow: 0; height: 14px; width: 144px;"></div></div></a><p style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; line-height:17px; margin-bottom:0; margin-top:8px; overflow:hidden; padding:8px 0 7px; text-align:center; text-overflow:ellipsis; white-space:nowrap;"><a href="https://www.instagram.com/p/BZuZZTBgzie/?utm_source=ig_embed&amp;utm_campaign=loading" style=" color:#c9c8cd; font-family:Arial,sans-serif; font-size:14px; font-style:normal; font-weight:normal; line-height:17px; text-decoration:none;" target="_blank">Jiyun Kim•모랑공방(@soji_721)님의 공유 게시물</a></p></div></blockquote>
+                </div>
+            </div>
+
+            <!-- Twitter/X Embeds Section -->
+            <div style="margin-top: 4rem;">
+                <h3 style="color: var(--nhn-red); margin-bottom: 2rem; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.5rem;">Twitter/X 팬덤 마케팅 증거</h3>
+                
+                <div class="embed-container">
+                    <!-- Twitter Embed 1: 초기 제품 제작 -->
+                    <div class="embed-wrapper">
+                        <span class="embed-note">↓ 스크롤</span>
+                        <blockquote class="twitter-tweet"><p lang="ko" dir="ltr"><a href="https://twitter.com/hashtag/%EB%B0%B1%ED%98%B8?src=hash&amp;ref_src=twsrc%5Etfw">#백호</a> <a href="https://twitter.com/hashtag/%EA%B0%95%EB%8F%99%ED%98%B8?src=hash&amp;ref_src=twsrc%5Etfw">#강동호</a> <a href="https://twitter.com/hashtag/%EB%8F%84%EC%9E%90%EA%B8%B0?src=hash&amp;ref_src=twsrc%5Etfw">#도자기</a> <a href="https://twitter.com/hashtag/%EC%9D%B8%ED%98%95?src=hash&amp;ref_src=twsrc%5Etfw">#인형</a> <a href="https://twitter.com/hashtag/%EB%89%B4%EC%9D%B4%EC%8A%A4%ED%8A%B8?src=hash&amp;ref_src=twsrc%5Etfw">#뉴이스트</a> <a href="https://twitter.com/hashtag/%EB%89%B4%EC%9D%B4%EC%8A%A4%ED%8A%B8W?src=hash&amp;ref_src=twsrc%5Etfw">#뉴이스트W</a> <a href="https://twitter.com/hashtag/%EB%8F%99%ED%98%B8%EC%9D%B8%ED%98%95?src=hash&amp;ref_src=twsrc%5Etfw">#동호인형</a><br><br>완성작을 못 찍고 보내서 아숩...<br>동호 생일 선물로 만들었던<br>동호 도자기 인형 <a href="https://t.co/OE6XuMNIl6">pic.twitter.com/OE6XuMNIl6</a></p>&mdash; 🐯호라믹🐯 (@donghoramic) <a href="https://twitter.com/donghoramic/status/900514378713243648?ref_src=twsrc%5Etfw">August 24, 2017</a></blockquote>
+                    </div>
+
+                    <!-- Twitter Embed 2: Pre-order 시스템 -->
+                    <div class="embed-wrapper">
+                        <span class="embed-note">↓ 스크롤</span>
+                        <blockquote class="twitter-tweet"><p lang="ko" dir="ltr">RT 이벤트🔮돌쥬네 선입금폼🔮<br>본 게시글을 RT해주시는 <br>3분께 돌쥬를 보내드려요<br><br>작은 동호 도자기 돌쥬와 마테 선입금이 진행중입니다.<br>마테 제작이 2-3주 소요되어 진행하는 선입금 폼입니다.<br>선입금 기간~1월19일 금요일 자정<a href="https://twitter.com/hashtag/%EB%89%B4%EC%9D%B4%EC%8A%A4%ED%8A%B8?src=hash&amp;ref_src=twsrc%5Etfw">#뉴이스트</a> <a href="https://twitter.com/hashtag/%EB%89%B4%EC%9D%B4%EC%8A%A4%ED%8A%B8W?src=hash&amp;ref_src=twsrc%5Etfw">#뉴이스트W</a> <a href="https://twitter.com/hashtag/%EB%8F%99%ED%98%B8?src=hash&amp;ref_src=twsrc%5Etfw">#동호</a> <a href="https://twitter.com/hashtag/%EB%B0%B1%ED%98%B8?src=hash&amp;ref_src=twsrc%5Etfw">#백호</a> <a href="https://twitter.com/hashtag/%EB%8F%8C%EC%A5%AC?src=hash&amp;ref_src=twsrc%5Etfw">#돌쥬</a><a href="https://t.co/Y8Tna79uN4">https://t.co/Y8Tna79uN4</a> <a href="https://t.co/MqVRRdNGb5">pic.twitter.com/MqVRRdNGb5</a></p>&mdash; 🐯호라믹🐯 (@donghoramic) <a href="https://twitter.com/donghoramic/status/953777199324184576?ref_src=twsrc%5Etfw">January 17, 2018</a></blockquote>
+                    </div>
+
+                    <!-- Twitter Embed 3: 커뮤니티 활성화 -->
+                    <div class="embed-wrapper">
+                        <span class="embed-note">↓ 스크롤</span>
+                        <blockquote class="twitter-tweet"><p lang="ko" dir="ltr">🍁해시태그 이벤트 안내🍁<br><br>많은 분들이 도와주시고 응원해주신 덕분에 잘 마무리할 수 있었습니다. <br>정말 감사합니다🫶<br><br>다음 해시태그를 달아 후기를 남겨주신 분께 추천으로 소정의 상품을 드릴 예정입니다.<a href="https://twitter.com/hashtag/%EA%BC%AC%EC%A7%88%EB%9E%9C%EB%93%9C_%EC%BD%94%EC%9A%94%EB%A5%BC_%EB%A7%8C%EB%82%9C%EA%B2%8C_%EC%9E%AD%ED%8C%9F%EC%9D%B4%EC%A7%80?src=hash&amp;ref_src=twsrc%5Etfw">#꼬질랜드_코요를_만난게_잭팟이지</a><a href="https://twitter.com/hashtag/%EA%BC%AC%EC%A7%88%EC%9D%B4%EB%8A%94_%EC%BD%94%EC%9A%94%EA%B0%80_%EC%A2%8B%EC%95%84_%EC%96%B8%EC%A0%9C%EA%B9%8C%EC%A7%80%EB%82%98?src=hash&amp;ref_src=twsrc%5Etfw">#꼬질이는_코요가_좋아_언제까지나</a> <a href="https://t.co/uDlFiCw1EO">pic.twitter.com/uDlFiCw1EO</a></p>&mdash; 꼬질랜드 정상영업중 : 2025 코요 템페스트 생일 파티 (@kkojilland_open) <a href="https://twitter.com/kkojilland_open/status/1989723821054763388?ref_src=twsrc%5Etfw">November 15, 2025</a></blockquote>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 3rem; padding: 2rem; background: rgba(255, 0, 0, 0.05); border-radius: 10px; border-left: 4px solid var(--nhn-red);">
+                <h4 style="color: var(--nhn-red); margin-bottom: 1rem; font-family: 'Montserrat', sans-serif; font-weight: 700;">📊 소셜 미디어 성과 분석</h4>
+                <ul style="list-style: none;">
+                    <li style="padding: 0.8rem 0; color: var(--light-gray); line-height: 1.7;"><strong style="color: var(--nhn-red);">수원문화재단 Reel #1:</strong> 수원화성 미디어아트 축제의 핵심 홍보 콘텐츠. Midjourney 생성 AI로 제작한 비주얼과 CapCut 편집을 통한 숏폼 전략의 실제 결과물입니다.</li>
+                    <li style="padding: 0.8rem 0; color: var(--light-gray); line-height: 1.7;"><strong style="color: var(--nhn-red);">수원문화재단 Reel #2:</strong> 동일 캠페인의 추가 콘텐츠. 일관된 브랜드 메시징과 연속적 게시 전략을 통해 팔로워 36% 증가를 달성했습니다.</li>
+                    <li style="padding: 0.8rem 0; color: var(--light-gray); line-height: 1.7;"><strong style="color: var(--nhn-red);">모랑공방 Instagram:</strong> 10년 운영 자체 IP 브랜드의 프리미엄 도자 아트토이 제품 비주얼. 팬덤 '물성 욕구'를 충족시키는 상품 디자인 사례입니다.</li>
+                    <li style="padding: 0.8rem 0; color: var(--light-gray); line-height: 1.7;"><strong style="color: var(--nhn-red);">Twitter 초기 제품 (2017):</strong> 모랑공방 도자 굿즈 개발 초기 사례. 아티스트 생일 선물 컨셉으로 팬덤 니즈를 정확히 타겟팅한 제품 기획을 보여줍니다.</li>
+                    <li style="padding: 0.8rem 0; color: var(--light-gray); line-height: 1.7;"><strong style="color: var(--nhn-red);">Twitter Pre-order 이벤트:</strong> 선입금 방식 RT 이벤트. 재고 리스크를 제거하는 Pre-order 시스템의 실제 운영 증거이며, 소셜 미디어 바이럴 마케팅 활용 사례입니다.</li>
+                    <li style="padding: 0.8rem 0; color: var(--light-gray); line-height: 1.7;"><strong style="color: var(--nhn-red);">Twitter 커뮤니티 해시태그:</strong> 꼬질랜드 팬덤 커뮤니티 활성화 전략. 자발적 UGC(User Generated Content) 생성을 유도하여 브랜드 충성도를 구축한 사례입니다.</li>
+                </ul>
+                <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,0,0,0.2);">
+                    <h5 style="color: var(--nhn-red); margin-bottom: 1rem; font-weight: 700;">NHN LINK 적용 가능성</h5>
+                    <p style="color: var(--light-gray); line-height: 1.8;">
+                        이러한 팬덤 마케팅 전략은 NHN LINK의 버추얼 아이돌 및 게임 IP 공연에 직접 적용 가능합니다. 
+                        Pre-order 시스템을 통한 재고 최적화, SNS 이벤트를 통한 바이럴 확산, 커뮤니티 기반 자발적 마케팅은 
+                        공연 티켓 판매와 프리미엄 굿즈 판매에서 동일하게 효과를 발휘할 수 있는 검증된 전략입니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section id="timeline">
+        <h2 class="section-title">CAREER TIMELINE</h2>
+        <p class="section-subtitle">데이터와 현장을 연결하는 여정</p>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>2023-2025</h3>
+                    <h4>수원문화재단 주임</h4>
+                    <p>53만 명 방문 축제 티켓 매니저 및 현장 운영 총괄. 생성형 AI 도입으로 예산 50% 절감하며 역대 최고 SNS 성과 달성.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>2024-현재</h3>
+                    <h4>한국예술종합학교 대학원</h4>
+                    <p>문화예술경영 석사 과정. 버추얼 팬덤 경제 연구로 하이브리드 수익화 모델 제안. 지도교수: 안성아</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>2014-현재</h3>
+                    <h4>모랑공방 브랜드 총괄</h4>
+                    <p>자체 IP 굿즈 기획 및 팬덤 비즈니스 운영 (10년). Pre-order 시스템으로 3차 완판, 객단가 200% 증대.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <h3>2021-2023</h3>
+                    <h4>한국예술종합학교 국제교류원</h4>
+                    <p>영화/음악/제작 분야 현업 전문가 네트워크 구축. 산학협력 및 국고 정산 실무 경험.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision -->
+    <section id="vision" class="vision">
+        <div class="vision-content">
+            <h2>
+                게임과 공연의 경계를 허무는<br>
+                <span class="vision-highlight">'서브컬처 라이브 플랫폼'</span>의<br>
+                표준을 만들겠습니다
+            </h2>
+            <p style="font-size: 1.2rem; margin-top: 2rem; color: var(--light-gray); line-height: 1.8;">
+                NHN LINK가 보유한 e스포츠·야구 팬덤 데이터는 서브컬처 핵심 소비층과 일치합니다. 
+                이 데이터를 무기로 버추얼·게임 IP 공연 시장을 신규 매출원으로 전환하고, 
+                Link-ON 하이브리드 모델로 수익 범위를 무한 확장하겠습니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <h2 style="font-size: 2.5rem; margin-bottom: 2rem; color: var(--white); font-family: 'Montserrat', sans-serif; font-weight: 800;">
+            플랫폼의 트래픽을<br>
+            기획사의 매출로 전환하겠습니다
+        </h2>
+        <a href="/cdn-cgi/l/email-protection#472d2e3e222829692c2e2a07222a262e2b6924282a" class="cta-button">CONTACT ME</a>
+        <p style="margin-top: 2rem; color: var(--medium-gray);">
+            <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f49e9d8d919b9ada9f9d99b49199959d98da979b99">[email&#160;protected]</a> | 010-1234-5678
+        </p>
+    </section>
+
+    <!-- Modal -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <!-- Scripts -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script async src="//www.instagram.com/embed.js"></script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    
+    <script>
+        // Smooth scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.project-card, .stat-card, .timeline-item, .gallery-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease';
+            observer.observe(el);
+        });
+
+        // Active nav on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').slice(1) === current) {
+                    a.classList.add('active');
+                }
+            });
+        });
+
+        // Image Modal Functions
+        function openModal(element) {
+            const img = element.querySelector('img');
+            if (img) {
+                const modal = document.getElementById('imageModal');
+                const modalImg = document.getElementById('modalImage');
+                modal.style.display = 'flex';
+                modalImg.src = img.src;
+            }
+        }
+
+        function closeModal() {
+            document.ge

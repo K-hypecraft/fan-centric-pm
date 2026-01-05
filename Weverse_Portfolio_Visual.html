@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김지연 | 위버스 오프라인 & 팬이벤트 기획/운영</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --weverse-purple: #7B68EE;
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-100: #F5F5F5;
+            --gray-200: #E5E5E5;
+            --gray-400: #9CA3AF;
+            --gray-800: #1F2937;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background: var(--white);
+            color: var(--black);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Slide Container */
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hero Slide */
+        .hero-slide {
+            background: linear-gradient(135deg, rgba(0,0,0,0.7), rgba(123,104,238,0.3)), 
+                        url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="%23000"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            padding: 2rem;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.25rem, 4vw, 2rem);
+            font-weight: 300;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-weight: 700;
+        }
+
+        .hero-stats span {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            border: 2px solid rgba(255,255,255,0.2);
+        }
+
+        /* Project Slide */
+        .project-slide {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .project-number {
+            font-size: 0.875rem;
+            color: var(--weverse-purple);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .project-desc {
+            font-size: 1.125rem;
+            color: var(--gray-800);
+            margin-bottom: 3rem;
+            max-width: 800px;
+        }
+
+        /* Full Width Image */
+        .full-image {
+            width: 100%;
+            height: 70vh;
+            object-fit: cover;
+            margin: 3rem 0;
+            border-radius: 20px;
+        }
+
+        /* Image Grid */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        /* Stats Display - 큰 숫자 중심 */
+        .stats-display {
+            background: var(--gray-100);
+            border-radius: 20px;
+            padding: 4rem 2rem;
+            margin: 4rem 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            color: var(--weverse-purple);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--gray-800);
+            font-weight: 600;
+        }
+
+        /* Weverse Connection Box */
+        .weverse-box {
+            background: linear-gradient(135deg, rgba(123,104,238,0.1), rgba(123,104,238,0.05));
+            border: 3px solid var(--weverse-purple);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 3rem 0;
+        }
+
+        .weverse-box-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--weverse-purple);
+            margin-bottom: 1rem;
+        }
+
+        .weverse-box-content {
+            font-size: 1.125rem;
+            color: var(--gray-800);
+            line-height: 1.8;
+        }
+
+        /* Evidence Screenshots */
+        .evidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .evidence-item {
+            background: var(--gray-100);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .evidence-item img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .evidence-caption {
+            padding: 1rem;
+            font-size: 0.875rem;
+            color: var(--gray-800);
+            text-align: center;
+        }
+
+        /* Contact */
+        .contact-slide {
+            background: var(--gray-100);
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+
+        .contact-title {
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .contact-link {
+            font-size: 1.25rem;
+            color: var(--gray-800);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: var(--weverse-purple);
+        }
+
+        /* Placeholder Image Generator */
+        .placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .stats-display {
+                padding: 2rem 1rem;
+                gap: 2rem;
+            }
+
+            .image-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SLIDE 1: HERO -->
+    <section class="slide hero-slide">
+        <div class="hero-content">
+            <h1 class="hero-title">김지연 포트폴리오</h1>
+            <p class="hero-subtitle">위버스 오프라인 & 팬이벤트 기획/운영</p>
+            <div class="hero-stats">
+                <span>51만 명</span>
+                <span>재고 0원</span>
+                <span>D-13 위기</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 2: 수원문화재단 - 메인 이미지 -->
+    <section class="slide project-slide" style="background: #F0EBFF;">
+        <div class="project-number">Project 01 — 대규모 오프라인 운영</div>
+        <h2 class="project-title">수원문화재단<br/>51만 명 무사고 운영</h2>
+        <p class="project-desc">
+            연간 51만 명 방문 대규모 축제 16일 무사고 운영 달성.<br/>
+            ERR_402 결제 장애 1분 내 원인 규명, 매출 누락 0건.
+        </p>
+        
+        <!-- 메인 이미지 (플레이스홀더) -->
+        <div class="full-image">
+            <div class="placeholder">
+                수원화성 야간 개장 인파 사진<br/>
+                (51만 명 현장 전경)
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: 수원문화재단 - 데이터 -->
+    <section class="slide project-slide">
+        <div class="stats-display">
+            <div class="stat-item">
+                <div class="stat-number">51만</div>
+                <div class="stat-label">연간 방문객</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">0건</div>
+                <div class="stat-label">안전사고</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1분</div>
+                <div class="stat-label">ERR_402 규명</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">0건</div>
+                <div class="stat-label">매출 누락</div>
+            </div>
+        </div>
+
+        <!-- 증거 자료 -->
+        <div class="evidence-grid">
+            <div class="evidence-item">
+                <div class="placeholder" style="height: 250px;">표창장 사진</div>
+                <div class="evidence-caption">신규 입사 6개월 만에 모범직원 표창</div>
+            </div>
+            <div class="evidence-item">
+                <div class="placeholder" style="height: 250px;">시스템 스크린샷</div>
+                <div class="evidence-caption">ERR_402 에러 로그 분석</div>
+            </div>
+            <div class="evidence-item">
+                <div class="placeholder" style="height: 250px;">현장 운영 사진</div>
+                <div class="evidence-caption">Discord 20명 실시간 대응</div>
+            </div>
+        </div>
+
+        <!-- Weverse 연결 -->
+        <div class="weverse-box">
+            <div class="weverse-box-title">🔗 Weverse 비즈니스 연결</div>
+            <div class="weverse-box-content">
+                <strong>Weverse Con 대규모 행사 대응 가능</strong><br/>
+                BTS 콘서트 MD 판매 시 결제 장애 즉각 해결. 51만 명 규모 현장 운영 경험으로 Weverse 팬 이벤트 무사고 운영 보장.
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: 수원문화재단 - SNS 성과 -->
+    <section class="slide project-slide" style="background: #F0EBFF;">
+        <h2 class="project-title">SNS 마케팅<br/>조회수 55배 증가</h2>
+        
+        <div class="stats-display">
+            <div class="stat-item">
+                <div class="stat-number">55배</div>
+                <div class="stat-label">조회수 증가</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">+36%</div>
+                <div class="stat-label">팔로워 증가</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">0원</div>
+                <div class="stat-label">마케팅 비용</div>
+            </div>
+        </div>
+
+        <!-- SNS 캡처 -->
+        <div class="evidence-grid">
+            <div class="evidence-item">
+                <div class="placeholder" style="height: 250px;">Instagram 릴스 5.5만 조회수</div>
+                <div class="evidence-caption">AI 콘텐츠 제작 (비용 0원)</div>
+            </div>
+            <div class="evidence-item">
+                <div class="placeholder" style="height: 250px;">Social Blade 분석</div>
+                <div class="evidence-caption">팔로워 36% 증가 데이터</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 5: 모랑공방 - 메인 이미지 -->
+    <section class="slide project-slide">
+        <div class="project-number">Project 02 — Weverse Shop 선주문 모델</div>
+        <h2 class="project-title">모랑공방<br/>재고 0원, 3회 완판</h2>
+        <p class="project-desc">
+            K-POP 팬덤 타겟 도자 브랜드 운영. 선주문 100% 모델로 재고 리스크 제로.<br/>
+            RT 1,000 = 주문 100 바이럴 데이터 분석. ROI 300%.
+        </p>
+        
+        <!-- 제품 이미지 -->
+        <div class="image-grid">
+            <div class="placeholder" style="height: 300px;">돌쥬 굿즈 사진 1</div>
+            <div class="placeholder" style="height: 300px;">돌쥬 굿즈 사진 2</div>
+            <div class="placeholder" style="height: 300px;">제작 과정</div>
+        </div>
+    </section>
+
+    <!-- SLIDE 6: 모랑공방 - 데이터 -->
+    <section class="slide project-slide" style="background: #FFF8E7;">
+        <div class="stats-display">
+            <div class="stat-item">
+                <div class="stat-number">6,000만</div>
+                <div class="stat-label">누적 매출</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">0%</div>
+                <div class="stat-label">재고율</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">67%</div>
+                <div class="stat-label">재구매율</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">300%</div>
+                <div class="stat-label">ROI</div>
+            </div>
+        </div>
+
+        <!-- 데이터 그래프 플레이스홀더 -->
+        <div class="full-image" style="height: 50vh;">
+            <div class="placeholder">
+                RT vs 주문량 상관관계 그래프<br/>
+                RT 1,000 = 주문 100
+            </div>
+        </div>
+
+        <!-- Weverse 연결 -->
+        <div class="weverse-box">
+            <div class="weverse-box-title">🔗 Weverse 비즈니스 연결</div>
+            <div class="weverse-box-content">
+                <strong>Weverse Shop 선주문 기획 역량</strong><br/>
+                NewJeans 'OMG' 앨범 MD 선주문 시 SNS 바이럴 데이터 분석으로 수요 예측. 재고 리스크 0%, 완판 가능성 극대화.
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 7: 모랑공방 - 팬 반응 -->
+    <section class="slide project-slide">
+        <h2 class="project-title">팬 반응<br/>자발적 바이럴</h2>
+        
+        <!-- SNS 후기 캡처 -->
+        <div class="evidence-grid">
+            <div class="evidence-item">
+                <div class="placeholder" style="height: 250px;">트위터 후기 1</div>
+                <div class="evidence-caption">"완전 귀여워요!"</div>
+            </div>
+            <div class="evidence-item">
+                <div class="placeholder" style="height: 250px;">트위터 후기 2</div>
+                <div class="evidence-caption">"배송 진짜 빨라요"</div>
+            </div>
+            <div class="evidence-item">
+                <div class="placeholder" style="height: 250px;">Instagram 포스트</div>
+                <div class="evidence-caption">"여행 필수템"</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 8: 꼬질랜드 - 메인 이미지 -->
+    <section class="slide project-slide" style="background: #E8F4FF;">
+        <div class="project-number">Project 03 — 긴급 위기 대응</div>
+        <h2 class="project-title">꼬질랜드<br/>D-13 위기 극복</h2>
+        <p class="project-desc">
+            버추얼 아이돌 생일 이벤트 D-13 주최자 이탈 위기.<br/>
+            환불 0건, 방문 200% 증가, 만족도 95% 달성.
+        </p>
+        
+        <!-- 포스터 -->
+        <div class="full-image">
+            <div class="placeholder">
+                꼬질랜드 카지노 컨셉 포스터<br/>
+                (메인 비주얼)
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 9: 꼬질랜드 - 데이터 -->
+    <section class="slide project-slide">
+        <div class="stats-display">
+            <div class="stat-item">
+                <div class="stat-number">D-13</div>
+                <div class="stat-label">위기 투입</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">0건</div>
+                <div class="stat-label">환불</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">200%</div>
+                <div class="stat-label">방문 증가</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">만족도</div>
+            </div>
+        </div>
+
+        <!-- 현장 사진 -->
+        <div class="image-grid">
+            <div class="placeholder" style="height: 300px;">카지노 부스 1</div>
+            <div class="placeholder" style="height: 300px;">카지노 부스 2</div>
+            <div class="placeholder" style="height: 300px;">현장 풍경</div>
+        </div>
+
+        <!-- Weverse 연결 -->
+        <div class="weverse-box">
+            <div class="weverse-box-title">🔗 Weverse 비즈니스 연결</div>
+            <div class="weverse-box-content">
+                <strong>Weverse Con 긴급 프로모션 대응</strong><br/>
+                SEVENTEEN 'BE THE SUN' 팬미팅 D-7 위기 시 즉각 재구성 가능. 환불 방지, 팬 만족도 극대화 경험 보유.
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 10: 꼬질랜드 - 팬 반응 -->
+    <section class="slide project-slide" style="background: #E8F4FF;">
+        <h2 class="project-title">팬 평가<br/>"역대급 행사"</h2>
+        
+        <!-- 트위터 후기 -->
+        <div class="evidence-grid">
+            <div class="evidence-item">
+                <div class="placeholder" style="height: 250px;">트위터 "역대급"</div>
+                <div class="evidence-caption">1,200건 멘션</div>
+            </div>
+            <div class="evidence-item">
+                <div class="placeholder" style="height: 250px;">트위터 "주최진 감사"</div>
+                <div class="evidence-caption">자발적 감사 후기</div>
+            </div>
+            <div class="evidence-item">
+                <div class="placeholder" style="height: 250px;">트렌드 1위</div>
+                <div class="evidence-caption">SNS 실시간 트렌드</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 11: 위버스 제안 -->
+    <section class="slide project-slide">
+        <div class="project-number">Proposal — 위버스 혁신 제안</div>
+        <h2 class="project-title">디지털 팬 여권<br/>체류 +35%, 전환 +18%</h2>
+        
+        <div class="stats-display">
+            <div class="stat-item">
+                <div class="stat-number">+35%</div>
+                <div class="stat-label">체류시간 증가</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">+18%</div>
+                <div class="stat-label">전환율 상승</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">+22pt</div>
+                <div class="stat-label">NPS 상승</div>
+            </div>
+        </div>
+
+        <!-- 목업 -->
+        <div class="full-image" style="height: 60vh;">
+            <div class="placeholder">
+                Figma 목업<br/>
+                디지털 팬 여권 UI
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 12: 연락처 -->
+    <section class="slide contact-slide">
+        <h2 class="contact-title">연락 주세요</h2>
+        <div class="contact-links">
+            <a href="mailto:jiyeon.work.93@gmail.com" class="contact-link">📧 jiyeon.work.93@gmail.com</a>
+            <a href="tel:01077082417" class="contact-link">📱 010-7708-2417</a>
+        </div>
+    </section>
+
+</body>
+</html>
